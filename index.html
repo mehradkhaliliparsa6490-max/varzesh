@@ -4,11 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#070b14">
-<title>لیگ ورزش‌ها</title>
+<title>لیگ ورزش‌ها - با دیباگ</title>
 <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
-:root{--bg-1:#070b14;--bg-2:#0d1526;--surface:rgba(255,255,255,.05);--surface-2:rgba(255,255,255,.09);--border:rgba(255,255,255,.10);--text:#e9eefb;--muted:#8ea0bf;--accent:#4ade80;--accent-2:#22d3ee;--danger:#f87171;--panel:#101827;--panel-2:#0c1322;--modal-bg:linear-gradient(165deg,#131c30,#0b1220);--shadow:0 22px 55px rgba(0,0,0,.5);--ring:rgba(74,222,128,.18)}
+:root{--bg-1:#070b14;--bg-2:#0d1526;--surface:rgba(255,255,255,.05);--surface-2:rgba(255,255,255,.09);--border:rgba(255,255,255,.10);--text:#e9eefb;--muted:#8ea0bf;--accent:#4ade80;--accent-2:#22d3ee;--danger:#f87171;--warning:#fbbf24;--panel:#101827;--panel-2:#0c1322;--modal-bg:linear-gradient(165deg,#131c30,#0b1220);--shadow:0 22px 55px rgba(0,0,0,.5);--ring:rgba(74,222,128,.18)}
 html[data-theme="light"]{--bg-1:#eef2f9;--bg-2:#dde5f3;--surface:rgba(255,255,255,.72);--surface-2:rgba(255,255,255,.95);--border:rgba(15,23,42,.10);--text:#0f172a;--muted:#5c6b88;--accent:#16a34a;--accent-2:#0891b2;--danger:#dc2626;--panel:#fff;--panel-2:#f4f7fc;--modal-bg:linear-gradient(165deg,#fff,#f2f6fd);--shadow:0 18px 45px rgba(15,23,42,.14);--ring:rgba(22,163,74,.16)}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html,body{min-height:100%}
@@ -17,6 +17,34 @@ html[data-theme="light"] body{background-image:radial-gradient(1000px 620px at 1
 button,input,select{font-family:inherit;color:inherit}
 ::-webkit-scrollbar{width:8px;height:8px}::-webkit-scrollbar-thumb{background:var(--surface-2);border-radius:20px}
 .app{max-width:1020px;margin:0 auto;padding:14px 14px calc(60px + env(safe-area-inset-bottom))}
+
+/* ===== DEBUG PANEL ===== */
+.debug-panel{position:fixed;bottom:0;left:0;right:0;background:#000;color:#0f0;font-family:monospace;font-size:.7rem;padding:10px;max-height:45vh;overflow-y:auto;z-index:9999;border-top:2px solid #0f0;transform:translateY(100%);transition:transform .3s;direction:ltr;text-align:left}
+.debug-panel.open{transform:translateY(0)}
+.debug-panel .dbg-head{display:flex;justify-content:space-between;align-items:center;padding-bottom:8px;margin-bottom:8px;border-bottom:1px solid #0f0;position:sticky;top:-10px;background:#000;padding-top:4px}
+.debug-panel .dbg-head h3{font-size:.85rem;color:#0f0;font-family:'Vazirmatn',sans-serif;direction:rtl}
+.debug-panel .dbg-head button{background:#0f0;color:#000;border:0;padding:4px 10px;border-radius:4px;font-weight:800;cursor:pointer;font-size:.7rem;margin-inline-start:4px}
+.debug-log{line-height:1.5;white-space:pre-wrap;word-break:break-all}
+.debug-log .row{padding:3px 0;border-bottom:1px dashed #333}
+.debug-log .ok{color:#0f0}
+.debug-log .warn{color:#ff0}
+.debug-log .err{color:#f44}
+.debug-log .info{color:#0cf}
+.debug-log .time{color:#888;font-size:.65rem;margin-inline-end:6px}
+.debug-toggle{position:fixed;bottom:20px;left:20px;z-index:9998;width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#4ade80,#22d3ee);color:#062017;border:0;font-size:22px;cursor:pointer;box-shadow:0 8px 22px rgba(34,211,238,.4);display:grid;place-items:center;font-weight:900}
+.debug-toggle.has-error{background:linear-gradient(135deg,#f87171,#dc2626);color:#fff;animation:pulse 1.5s infinite}
+@keyframes pulse{0%,100%{box-shadow:0 8px 22px rgba(248,113,113,.4)}50%{box-shadow:0 8px 32px rgba(248,113,113,.8)}}
+
+/* ===== ONLINE BADGES ===== */
+.status-bar{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;position:relative;z-index:5}
+.status-chip{display:inline-flex;align-items:center;gap:5px;padding:6px 12px;border-radius:12px;font-size:.72rem;font-weight:800;border:1px solid var(--border);background:var(--surface-2)}
+.status-chip.online{background:linear-gradient(135deg,rgba(74,222,128,.2),rgba(34,211,238,.15));color:var(--accent);border-color:rgba(74,222,128,.4)}
+.status-chip.offline{background:linear-gradient(135deg,rgba(248,113,113,.2),rgba(220,38,38,.15));color:var(--danger);border-color:rgba(248,113,113,.4)}
+.status-chip.count{background:linear-gradient(135deg,rgba(34,211,238,.15),rgba(74,222,128,.15));color:var(--accent-2);border-color:rgba(34,211,238,.4)}
+.status-chip.server{background:linear-gradient(135deg,rgba(168,85,247,.2),rgba(139,92,246,.15));color:#a78bfa;border-color:rgba(168,85,247,.4)}
+.status-chip .dot{width:7px;height:7px;border-radius:50%;background:currentColor;animation:blink 2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.4}}
+
 .sync-badge{position:fixed;top:12px;left:50%;transform:translateX(-50%);z-index:999;padding:6px 14px;border-radius:20px;font-size:.72rem;font-weight:700;opacity:0;transition:opacity .3s;pointer-events:none}
 .sync-badge.show{opacity:1}
 .sync-badge.online{background:linear-gradient(135deg,#4ade80,#22d3ee);color:#062017}
@@ -27,7 +55,7 @@ button,input,select{font-family:inherit;color:inherit}
 .brand-text{min-width:0}
 .brand-text h1{font-size:1rem;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .brand-text p{font-size:.7rem;color:var(--muted);font-weight:500;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.server-pill{display:inline-block;font-size:.62rem;font-weight:800;padding:2px 7px;border-radius:7px;background:linear-gradient(135deg,rgba(74,222,128,.25),rgba(34,211,238,.2));color:var(--accent-2);margin-inline-start:6px}
+.server-pill{display:inline-block;font-size:.62rem;font-weight:800;padding:2px 7px;border-radius:7px;background:linear-gradient(135deg,rgba(168,85,247,.25),rgba(139,92,246,.2));color:#c4b5fd;margin-inline-start:6px}
 .top-actions{display:flex;gap:6px;flex:0 0 auto}
 .icon-btn{width:42px;height:42px;border-radius:13px;flex:0 0 auto;border:1px solid var(--border);background:var(--surface-2);font-size:17px;cursor:pointer;display:grid;place-items:center}
 .icon-btn.sm{width:36px;height:36px;font-size:15px;border-radius:11px}
@@ -98,8 +126,9 @@ input[type=number]{-moz-appearance:textfield;text-align:center;font-weight:700}
 .btn.block{width:100%}.btn.sm{padding:9px 12px;font-size:.8rem;border-radius:11px;min-width:38px}
 .team-row{display:grid;grid-template-columns:auto 1fr auto auto;gap:8px;align-items:center;padding:9px 0;border-top:1px solid var(--border)}
 .team-row:first-child{border-top:0}
-.color-pick-btn{width:42px;height:42px;border-radius:12px;flex:0 0 auto;border:2px solid var(--border);cursor:pointer;padding:0}
-.color-pick-btn::after{content:'🎨';position:absolute;font-size:14px;opacity:0}
+.color-pick-btn{width:42px;height:42px;border-radius:12px;flex:0 0 auto;border:2px solid var(--border);cursor:pointer;padding:0;position:relative;overflow:hidden}
+.color-pick-btn::after{content:'🎨';position:absolute;inset:0;display:grid;place-items:center;font-size:14px;opacity:0;transition:.2s;background:rgba(0,0,0,.35)}
+.color-pick-btn:hover::after{opacity:1}
 .member-btn{width:42px;height:42px;border-radius:12px;flex:0 0 auto;border:1px solid var(--border);background:var(--surface-2);font-size:16px;cursor:pointer;display:grid;place-items:center;position:relative}
 .member-btn .badge{position:absolute;top:-4px;inset-inline-end:-4px;min-width:18px;height:18px;padding:0 4px;border-radius:9px;background:linear-gradient(135deg,#4ade80,#22d3ee);color:#062017;font-size:.62rem;font-weight:800;display:grid;place-items:center}
 .rr-list{display:flex;flex-direction:column}
@@ -225,7 +254,7 @@ input[type=number]{-moz-appearance:textfield;text-align:center;font-weight:700}
 .rule-card{background:var(--surface-2);padding:12px;border-radius:14px;margin-bottom:10px;border:1px solid var(--border)}
 .rule-card-title{font-size:.78rem;font-weight:800;margin-bottom:9px}
 .rule-card-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-#toast{position:fixed;left:50%;bottom:26px;transform:translate(-50%,200px);background:linear-gradient(135deg,#4ade80,#22d3ee);color:#04231a;font-weight:700;font-size:.85rem;padding:13px 22px;border-radius:15px;z-index:500;max-width:88vw;text-align:center;opacity:0;visibility:hidden;pointer-events:none;transition:transform .35s,opacity .25s,visibility .25s}
+#toast{position:fixed;left:50%;bottom:80px;transform:translate(-50%,200px);background:linear-gradient(135deg,#4ade80,#22d3ee);color:#04231a;font-weight:700;font-size:.85rem;padding:13px 22px;border-radius:15px;z-index:99999;max-width:88vw;text-align:center;opacity:0;visibility:hidden;pointer-events:none;transition:transform .35s,opacity .25s,visibility .25s}
 #toast.show{transform:translate(-50%,0);opacity:1;visibility:visible}
 @keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}
 .shake{animation:shake .4s ease}
@@ -249,6 +278,8 @@ input[type=number]{-moz-appearance:textfield;text-align:center;font-weight:700}
   .sport-icon{font-size:36px}
   .icon-btn{width:38px;height:38px;font-size:15px}
   .members-grid{grid-template-columns:1fr}
+  .server-selector{grid-template-columns:1fr 1fr}
+  .debug-toggle{width:46px;height:46px;font-size:18px;bottom:16px;left:16px}
 }
 @media (max-width:380px){
   .brand-text p{display:none}
@@ -264,12 +295,25 @@ input[type=number]{-moz-appearance:textfield;text-align:center;font-weight:700}
 
 <div class="sync-badge" id="syncBadge"></div>
 
+<button class="debug-toggle" id="debugToggle" title="پنل دیباگ">🐞</button>
+
+<div class="debug-panel" id="debugPanel">
+  <div class="dbg-head">
+    <h3>🐞 پنل دیباگ - وضعیت زنده</h3>
+    <div>
+      <button data-dbg-action="clear">پاک کردن</button>
+      <button data-dbg-action="close">بستن</button>
+    </div>
+  </div>
+  <div class="debug-log" id="debugLog"></div>
+</div>
+
 <div class="app">
   <header class="topbar">
     <div class="brand" data-action="goHome">
       <div class="logo">🏆</div>
       <div class="brand-text">
-        <h1 id="brandTitle">لیگ ورزش‌ها <span class="server-pill" id="serverPill">سرور ۱</span></h1>
+        <h1 id="brandTitle">لیگ ورزش‌ها</h1>
         <p id="brandSub">مدیریت نتایج مسابقات</p>
       </div>
     </div>
@@ -280,6 +324,9 @@ input[type=number]{-moz-appearance:textfield;text-align:center;font-weight:700}
       <button class="icon-btn" data-action="openSettings" title="تنظیمات">⚙️</button>
     </div>
   </header>
+
+  <div class="status-bar" id="statusBar"></div>
+
   <nav class="tabs" id="tabs" style="display:none"></nav>
   <main id="view"></main>
 </div>
@@ -288,19 +335,101 @@ input[type=number]{-moz-appearance:textfield;text-align:center;font-weight:700}
 <div id="toast"></div>
 
 <script>
-/* ============ CONFIG ============ */
+/* ============================================
+   DEBUG LOGGER
+   ============================================ */
+const DEBUG = {
+  logs: [],
+  max: 300,
+  hasError: false,
+  add(type, msg, data){
+    const time = new Date().toLocaleTimeString('en-GB');
+    const entry = { time, type, msg, data, ts: Date.now() };
+    this.logs.push(entry);
+    if(this.logs.length > this.max) this.logs.shift();
+    if(type === 'err') this.hasError = true;
+    this.render();
+    // هم توی console بزن
+    const prefix = '[' + time + '][' + type.toUpperCase() + ']';
+    if(type === 'err') console.error(prefix, msg, data || '');
+    else if(type === 'warn') console.warn(prefix, msg, data || '');
+    else if(type === 'ok') console.log('%c' + prefix + ' ' + msg, 'color:#0f0', data || '');
+    else console.log(prefix, msg, data || '');
+  },
+  ok(msg, d){ this.add('ok', msg, d); },
+  info(msg, d){ this.add('info', msg, d); },
+  warn(msg, d){ this.add('warn', msg, d); },
+  err(msg, d){ this.add('err', msg, d); },
+  clear(){ this.logs = []; this.hasError = false; this.render(); this.updateBtn(); },
+  render(){
+    const el = document.getElementById('debugLog');
+    if(!el) return;
+    el.innerHTML = this.logs.slice().reverse().map(l => {
+      const cls = l.type === 'ok' ? 'ok' : l.type === 'warn' ? 'warn' : l.type === 'err' ? 'err' : 'info';
+      let extra = '';
+      if(l.data){
+        try { extra = ' | ' + (typeof l.data === 'object' ? JSON.stringify(l.data) : l.data); }
+        catch(e){ extra = ' | [object]'; }
+      }
+      return '<div class="row ' + cls + '"><span class="time">' + l.time + '</span>[' + l.type.toUpperCase() + '] ' + String(l.msg) + extra + '</div>';
+    }).join('') || '<div class="info">هیچ لاگی نیست</div>';
+    this.updateBtn();
+  },
+  updateBtn(){
+    const btn = document.getElementById('debugToggle');
+    if(!btn) return;
+    btn.classList.toggle('has-error', this.hasError);
+    const errCount = this.logs.filter(l => l.type === 'err').length;
+    btn.textContent = errCount > 0 ? '🐞' + errCount : '🐞';
+  }
+};
+
+// کلیک روی دکمه دیباگ
+document.getElementById('debugToggle').addEventListener('click', () => {
+  document.getElementById('debugPanel').classList.toggle('open');
+});
+document.querySelectorAll('[data-dbg-action]').forEach(b => {
+  b.addEventListener('click', () => {
+    const a = b.dataset.dbgAction;
+    if(a === 'clear') DEBUG.clear();
+    if(a === 'close') document.getElementById('debugPanel').classList.remove('open');
+  });
+});
+
+// خطاهای سراسری رو بگیر
+window.addEventListener('error', e => DEBUG.err('خطای سراسری', e.message));
+window.addEventListener('unhandledrejection', e => DEBUG.err('Promise رد شد', e.reason ? String(e.reason) : 'نامعلوم'));
+
+DEBUG.info('🚀 شروع راه‌اندازی اپ');
+
+/* ============================================
+   CONFIG
+   ============================================ */
 const ADMIN_PASS = 'Aa64906490';
 const MAX_TEAMS = 10;
 const MIN_TEAMS = 2;
 const MAX_MEMBERS = 15;
-const STORAGE_KEY = 'sports-league-v9';
+const STORAGE_KEY = 'sports-league-v11';
 const SERVER_KEY = 'league-server-choice';
 
 /* ============ SUPABASE ============ */
 const SUPABASE_URL = 'https://lwpyainlxrthddlockia.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx3cHlhaW5seHJ0aGRkbG9ja2lhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE1MzkxMTEsImV4cCI6MjEwNzExNTExMX0.foNhrL2xdYG9_q58VO8f_Lb076S6Swi8TML-z5Ky2pg';
 let supabaseClient = null;
-try { supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY); console.log('✅ Supabase ready'); } catch(e) { console.warn('Supabase init failed:', e); }
+
+DEBUG.info('در حال ساخت Supabase Client...');
+try {
+  if(!window.supabase){
+    DEBUG.err('کتابخانه Supabase لود نشد! احتمالاً CDN فیلتره یا اینترنت قطعه');
+  } else {
+    supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY, {
+      realtime: { params: { eventsPerSecond: 10 } }
+    });
+    DEBUG.ok('✅ Supabase Client ساخته شد', { url: SUPABASE_URL.slice(0, 40) + '...' });
+  }
+} catch(e) {
+  DEBUG.err('ساخت Supabase با خطا مواجه شد', e.message);
+}
 
 /* ============ SERVERS ============ */
 const SERVERS = [
@@ -311,6 +440,99 @@ const SERVERS = [
 let currentServerId = 'server1';
 try { const s = localStorage.getItem(SERVER_KEY); if(s && SERVERS.find(x => x.id === s)) currentServerId = s; } catch(e){}
 const getServerName = id => (SERVERS.find(x => x.id === id) || SERVERS[0]).name;
+
+DEBUG.info('سرور فعلی: ' + currentServerId);
+
+/* ============ ONLINE + CHANNELS ============ */
+let _presenceChannel = null;
+let _broadcastChannel = null;
+let _onlineCount = 0;
+let _connectionStatus = 'connecting'; // connecting | online | offline
+const _myClientId = 'u-' + Math.random().toString(36).slice(2, 10);
+DEBUG.info('شناسه من: ' + _myClientId);
+
+function updateStatusBar(){
+  const bar = document.getElementById('statusBar');
+  if(!bar) return;
+  const statusText = _connectionStatus === 'online' ? '✅ متصل' : _connectionStatus === 'offline' ? '❌ قطع' : '⏳ در حال اتصال';
+  const statusClass = _connectionStatus === 'online' ? 'online' : _connectionStatus === 'offline' ? 'offline' : 'server';
+  bar.innerHTML =
+    '<div class="status-chip ' + statusClass + '"><span class="dot"></span>' + statusText + '</div>' +
+    '<div class="status-chip count">👥 ' + _onlineCount + ' نفر آنلاین (این سرور)</div>' +
+    '<div class="status-chip server">🌐 ' + getServerName(currentServerId) + '</div>' +
+    (supabaseClient ? '<div class="status-chip online">☁️ Supabase</div>' : '<div class="status-chip offline">⚠️ بدون Supabase</div>');
+}
+
+function setConnectionStatus(s){
+  if(_connectionStatus === s) return;
+  _connectionStatus = s;
+  DEBUG.info('وضعیت اتصال: ' + s);
+  updateStatusBar();
+}
+
+function setupChannels(){
+  if(!supabaseClient){ DEBUG.warn('بدون Supabase نمی‌تونم کانال بسازم'); return; }
+  DEBUG.info('در حال راه‌اندازی کانال‌ها...');
+  if(_presenceChannel){ try { supabaseClient.removeChannel(_presenceChannel); } catch(e){} _presenceChannel = null; }
+  if(_broadcastChannel){ try { supabaseClient.removeChannel(_broadcastChannel); } catch(e){} _broadcastChannel = null; }
+
+  // Presence
+  DEBUG.info('ساخت کانال Presence برای سرور: ' + currentServerId);
+  _presenceChannel = supabaseClient.channel('online-' + currentServerId, {
+    config: { presence: { key: _myClientId } }
+  });
+  _presenceChannel
+    .on('presence', { event: 'sync' }, () => {
+      const st = _presenceChannel.presenceState();
+      const prevCount = _onlineCount;
+      _onlineCount = Object.keys(st).length;
+      if(prevCount !== _onlineCount) DEBUG.info('تعداد آنلاین تغییر کرد: ' + _onlineCount);
+      updateStatusBar();
+    })
+    .subscribe(async (status, err) => {
+      if(status === 'SUBSCRIBED'){
+        DEBUG.ok('✅ Presence متصل شد');
+        try {
+          await _presenceChannel.track({ joined: new Date().toISOString(), server: currentServerId });
+          DEBUG.ok('✅ خودم رو track کردم');
+        } catch(e){ DEBUG.err('track کردن خطا داد', e.message); }
+      } else if(status === 'CHANNEL_ERROR'){
+        DEBUG.err('خطای Presence', err ? err.message : 'نامعلوم');
+        setConnectionStatus('offline');
+      } else if(status === 'TIMED_OUT'){
+        DEBUG.warn('Presence تایم‌اوت شد');
+      } else if(status === 'CLOSED'){
+        DEBUG.warn('Presence بسته شد');
+      }
+    });
+
+  // Broadcast
+  DEBUG.info('ساخت کانال Broadcast برای سرور: ' + currentServerId);
+  _broadcastChannel = supabaseClient.channel('sync-' + currentServerId);
+  _broadcastChannel
+    .on('broadcast', { event: 'state-update' }, (payload) => {
+      DEBUG.info('📥 پیام Broadcast دریافت شد');
+      if(!payload || !payload.payload){ DEBUG.warn('پیام خالی بود'); return; }
+      if(payload.payload.sender === _myClientId){ DEBUG.info('پیام خودم بود، نادیده می‌گیرم'); return; }
+      const v = validateState(payload.payload.state);
+      if(v){
+        state = v;
+        try { localStorage.setItem(STORAGE_KEY + ':' + currentServerId, JSON.stringify(state)); } catch(e){}
+        render();
+        setConnectionStatus('online');
+        showSyncBadge('online');
+        DEBUG.ok('✅ حالت از Broadcast آپدیت شد');
+      } else {
+        DEBUG.err('داده Broadcast نامعتبر بود');
+      }
+    })
+    .subscribe((status, err) => {
+      if(status === 'SUBSCRIBED') DEBUG.ok('✅ Broadcast متصل شد');
+      else if(status === 'CHANNEL_ERROR') DEBUG.err('خطای Broadcast', err ? err.message : 'نامعلوم');
+      else if(status === 'TIMED_OUT') DEBUG.warn('Broadcast تایم‌اوت');
+      else if(status === 'CLOSED') DEBUG.warn('Broadcast بسته شد');
+    });
+}
 
 /* ============ COLORS & SPORTS ============ */
 const COLORS = ['#4ade80','#22d3ee','#f59e0b','#f472b6','#a78bfa','#fb7185','#34d399','#60a5fa','#ef4444','#fb923c','#facc15','#a3e635','#2dd4bf','#818cf8','#e879f9'];
@@ -329,13 +551,13 @@ const SPORT_DEFS = [
 ];
 
 const TYPE_INFO = {
-  score:  { label:'امتیازی',         icon:'⚽' },
-  winner: { label:'فقط برنده',       icon:'🏆' },
-  solo:   { label:'انفرادی',         icon:'📈' },
-  rank:   { label:'رتبه‌بندی',        icon:'🥇' }
+  score:  { label:'امتیازی',   icon:'⚽' },
+  winner: { label:'فقط برنده', icon:'🏆' },
+  solo:   { label:'انفرادی',   icon:'📈' },
+  rank:   { label:'رتبه‌بندی',  icon:'🥇' }
 };
 
-/* ============ I18N (فقط فارسی برای کم‌حجمی) ============ */
+/* ============ I18N ============ */
 const T = {
   appName:'لیگ ورزش‌ها', sportsHero:'ورزش‌ها', sportsHeroSub:'یک ورزش را برای مشاهده انتخاب کنید',
   noActiveSports:'هنوز ورزشی فعال نشده است.', noActiveSportsHint:'مدیر باید ورزش‌ها رو فعال کنه.',
@@ -389,10 +611,8 @@ const T = {
   captain:'سرگروه', captainSet:'سرگروه انتخاب شد',
   teamMembers:'اعضای تیم‌ها', noMembers:'هنوز عضوی اضافه نشده است.', membersCount:'عضو',
   cloudOn:'☁️ متصل به سرور', cloudOff:'⚠️ آفلاین',
-  serverSection:'سرور', serverSectionHint:'کدوم سرور رو می‌خوای ببینی؟ همه کاربرای هر سرور، تغییرات هم‌سروری‌هاشون رو می‌بینن.',
-  serverChanged:'سرور عوض شد! اطلاعات از سرور جدید بارگذاری می‌شه...',
-  serverCurrent:'سرور فعلی', serverPublic:'عمومی - همه می‌تونن انتخاب کنن',
-  currentServer:'شما در حال مشاهده سرور'
+  serverSection:'سرور', serverSectionHint:'کدوم سرور رو می‌خوای ببینی؟',
+  serverChanged:'سرور عوض شد!', currentServer:'شما در حال مشاهده سرور'
 };
 const t = k => T[k] || k;
 
@@ -477,7 +697,7 @@ function validateState(s){
 
 let state = defaultState();
 let authed = false, currentView = 'sports', currentSportId = null, currentTab = 'table';
-let _saveTimer = null, _pollTimer = null, _lastServerData = null, _myLastSave = 0, _ignoreNext = false;
+let _saveTimer = null, _pollTimer = null, _lastServerData = null, _myLastSave = 0;
 
 /* ============ SYNC BADGE ============ */
 function showSyncBadge(type){
@@ -488,55 +708,91 @@ function showSyncBadge(type){
   clearTimeout(el._tm); el._tm = setTimeout(() => el.classList.remove('show'), 2500);
 }
 
-function updateServerPill(){
-  const el = document.getElementById('serverPill');
-  if(el) el.textContent = getServerName(currentServerId);
-}
-
 /* ============ SAVE / LOAD ============ */
 const save = () => {
   try { localStorage.setItem(STORAGE_KEY + ':' + currentServerId, JSON.stringify(state)); } catch(e){}
   if(supabaseClient){
     clearTimeout(_saveTimer);
     _saveTimer = setTimeout(async () => {
+      DEBUG.info('💾 در حال ذخیره در Supabase...');
       try {
-        const now = new Date().toISOString();
-        const { error } = await supabaseClient.from('league_state').upsert({ id: currentServerId, data: state, updated_at: now }, { onConflict: 'id' });
-        if(error){ console.warn('Save error:', error); showSyncBadge('offline'); }
-        else { _myLastSave = new Date(now).getTime(); _lastServerData = JSON.stringify(state); showSyncBadge('online'); }
-      } catch(e){ console.warn('Save exception:', e); showSyncBadge('offline'); }
-    }, 200);
+        const nowIso = new Date().toISOString();
+        const { error, status } = await supabaseClient.from('league_state').upsert({ id: currentServerId, data: state, updated_at: nowIso }, { onConflict: 'id' });
+        if(error){
+          DEBUG.err('❌ خطای ذخیره در Supabase', error.message + ' | code: ' + error.code + ' | status: ' + status);
+          setConnectionStatus('offline');
+          showSyncBadge('offline');
+          return;
+        }
+        DEBUG.ok('✅ ذخیره در Supabase موفق', { status });
+        _myLastSave = new Date(nowIso).getTime();
+        _lastServerData = JSON.stringify(state);
+        setConnectionStatus('online');
+        showSyncBadge('online');
+        if(_broadcastChannel){
+          try {
+            await _broadcastChannel.send({ type: 'broadcast', event: 'state-update', payload: { sender: _myClientId, state: state } });
+            DEBUG.ok('📤 Broadcast ارسال شد');
+          } catch(e){ DEBUG.warn('ارسال Broadcast خطا داد', e.message); }
+        }
+      } catch(e){
+        DEBUG.err('❌ استثنا در ذخیره', e.message);
+        setConnectionStatus('offline');
+        showSyncBadge('offline');
+      }
+    }, 300);
+  } else {
+    DEBUG.warn('Supabase نیست، فقط localStorage');
   }
 };
 
 async function loadServer(serverId, silent){
+  DEBUG.info('📥 در حال بارگذاری سرور ' + serverId);
   if(supabaseClient){
     try {
-      const { data, error } = await supabaseClient.from('league_state').select('data').eq('id', serverId).maybeSingle();
-      if(!error && data && data.data){
+      const { data, error, status } = await supabaseClient.from('league_state').select('data').eq('id', serverId).maybeSingle();
+      if(error){
+        DEBUG.err('خطای خواندن از Supabase', error.message + ' | code: ' + error.code + ' | status: ' + status);
+      } else if(!data){
+        DEBUG.warn('داده‌ای برای سرور ' + serverId + ' پیدا نشد (اولین بازدیده)');
+      } else if(data.data){
         const v = validateState(data.data);
-        if(v){ state = v; _lastServerData = JSON.stringify(state); try { localStorage.setItem(STORAGE_KEY + ':' + serverId, JSON.stringify(state)); } catch(e){} if(!silent) showSyncBadge('online'); return true; }
+        if(v){
+          state = v;
+          _lastServerData = JSON.stringify(state);
+          try { localStorage.setItem(STORAGE_KEY + ':' + serverId, JSON.stringify(state)); } catch(e){}
+          setConnectionStatus('online');
+          DEBUG.ok('✅ داده سرور بارگذاری شد', { sports: Object.keys(v.sports).length });
+          return true;
+        } else {
+          DEBUG.err('داده سرور نامعتبر بود');
+        }
       }
-    } catch(e){ console.warn('Load error:', e); if(!silent) showSyncBadge('offline'); }
+    } catch(e){ DEBUG.err('استثنا در بارگذاری', e.message); }
   }
-  // fallback to localStorage
+  // fallback
   try {
     const raw = localStorage.getItem(STORAGE_KEY + ':' + serverId);
-    if(raw){ const v = validateState(JSON.parse(raw)); if(v){ state = v; return true; } }
-  } catch(e){}
-  // empty
+    if(raw){
+      const v = validateState(JSON.parse(raw));
+      if(v){ state = v; DEBUG.ok('✅ از localStorage بارگذاری شد'); return true; }
+    }
+  } catch(e){ DEBUG.warn('خطای localStorage', e.message); }
   state = defaultState();
+  DEBUG.warn('⚠️ حالت پیش‌فرض استفاده شد');
   return false;
 }
 
-/* ============ POLLING (هر ۳ ثانیه) ============ */
+/* ============ POLLING ============ */
 async function pollServer(){
   if(!supabaseClient || document.hidden) return;
   try {
     const { data, error } = await supabaseClient.from('league_state').select('data, updated_at').eq('id', currentServerId).maybeSingle();
-    if(error || !data || !data.data) return;
+    if(error){ setConnectionStatus('offline'); return; }
+    if(!data || !data.data){ setConnectionStatus('online'); return; }
     const serverStr = JSON.stringify(data.data);
     const serverTime = new Date(data.updated_at).getTime();
+    setConnectionStatus('online');
     if(serverStr !== _lastServerData && serverTime > _myLastSave + 800){
       _lastServerData = serverStr;
       const v = validateState(data.data);
@@ -544,15 +800,16 @@ async function pollServer(){
         state = v;
         try { localStorage.setItem(STORAGE_KEY + ':' + currentServerId, JSON.stringify(state)); } catch(e){}
         render();
-        console.log('🔄 سرور آپدیت شد');
+        DEBUG.ok('🔄 Polling: آپدیت از سرور');
       }
     }
-  } catch(e){}
+  } catch(e){ setConnectionStatus('offline'); }
 }
 
 function startPolling(){
   if(_pollTimer) clearInterval(_pollTimer);
   _pollTimer = setInterval(pollServer, 3000);
+  DEBUG.info('⏱️ Polling هر ۳ ثانیه فعال شد');
   setTimeout(pollServer, 800);
 }
 
@@ -662,14 +919,13 @@ function applySettings(){
   const meta = document.querySelector('meta[name="theme-color"]');
   if(meta) meta.setAttribute('content', state.settings.theme === 'dark' ? '#070b14' : '#eef2f9');
   document.title = t('appName');
-  const bt = document.getElementById('brandTitle'), bs = document.getElementById('brandSub');
-  if(bt) bt.innerHTML = t('appName') + ' <span class="server-pill" id="serverPill">' + getServerName(currentServerId) + '</span>';
-  if(bs) bs.textContent = 'مدیریت نتایج مسابقات';
+  const bt = document.getElementById('brandTitle');
+  if(bt) bt.innerHTML = t('appName') + ' <span class="server-pill">' + getServerName(currentServerId) + '</span>';
   const atb = document.getElementById('adminTopBtn');
   if(atb){ atb.textContent = authed ? '🔓' : '🔒'; atb.classList.toggle('active', authed); }
   const ltb = document.getElementById('logoutTopBtn');
   if(ltb) ltb.classList.toggle('show', authed);
-  updateServerPill();
+  updateStatusBar();
 }
 
 /* ============ RENDER ============ */
@@ -694,6 +950,7 @@ function render(){
   else if(currentView === 'sport') main.innerHTML = renderSportView();
   else main.innerHTML = renderSportsHome();
   if(currentView === 'sport' && currentTab === 'admin') bindTeamForm();
+  updateStatusBar();
 }
 
 function renderSportsHome(){
@@ -947,7 +1204,7 @@ function renderAdminRank(sp){
     return '<div class="solo-row" style="grid-template-columns:auto 1fr ' + (sp.showMembers?'auto':'') + ' auto auto"><button class="color-pick-btn" data-action="openPalette" data-sport="' + sp.id + '" data-id="' + tm.id + '" style="background:' + esc(tm.color) + '"></button><input class="input" value="' + esc(tm.name) + '" maxlength="24" data-rename="' + tm.id + '" data-sport="' + sp.id + '">' + (sp.showMembers ? '<button class="member-btn" data-action="openMembers" data-sport="' + sp.id + '" data-id="' + tm.id + '">👥' + (memberCount > 0 ? '<span class="badge">' + num(memberCount) + '</span>' : '') + '</button>' : '') + '<input class="solo-score-input" type="number" inputmode="numeric" min="1" max="99" value="' + (val != null ? val : '') + '" placeholder="۱" data-solo-rank="' + tm.id + '" data-sport="' + sp.id + '"><button class="btn danger sm" data-action="delTeam" data-sport="' + sp.id + '" data-id="' + tm.id + '" ' + (sp.teams.length>MIN_TEAMS?'':'disabled') + '>✕</button></div>';
   }).join('') : '<p style="color:var(--muted);font-size:.85rem;padding:8px 0">' + esc(t('noTeams')) + '</p>';
   const canAdd = sp.teams.length < MAX_TEAMS;
-  return '<div class="section fade"><div class="section-title">🔐 ' + esc(t('adminPanel')) + '<span style="margin-inline-start:auto;font-weight:600;text-transform:none">' + num(sp.teams.length) + ' ' + t('teamsCount') + '</span></div><div class="hint-box">🥇 <b>' + esc(TYPE_INFO.rank.label) + ':</b> رتبه هر نفر رو بنویس (۱ = بهترین).</div><div class="card"><form class="row-form" id="teamForm" data-sport="' + sp.id + '"><input class="input" id="teamNameInput" maxlength="24" placeholder="' + esc(t('teamName')) + '" ' + (canAdd?'':'disabled') + '><button class="btn primary" type="submit" ' + (canAdd?'':'disabled') + '>＋ ' + esc(t('add')) + '</button></form>' + (canAdd?'':'<p style="font-size:.78rem;color:var(--muted);margin:-6px 0 12px">' + esc(t('maxTeams')) + '</p>') + '<div>' + rows + '</div></div></div>';
+  return '<div class="section fade"><div class="section-title">🔐 ' + esc(t('adminPanel')) + '<span style="margin-inline-start:auto;font-weight:600;text-transform:none">' + num(sp.teams.length) + ' ' + t('teamsCount') + '</span></div><div class="hint-box">🥇 <b>' + esc(TYPE_INFO.rank.label) + ':</b> رتبه هر نفر رو بنویس.</div><div class="card"><form class="row-form" id="teamForm" data-sport="' + sp.id + '"><input class="input" id="teamNameInput" maxlength="24" placeholder="' + esc(t('teamName')) + '" ' + (canAdd?'':'disabled') + '><button class="btn primary" type="submit" ' + (canAdd?'':'disabled') + '>＋ ' + esc(t('add')) + '</button></form>' + (canAdd?'':'<p style="font-size:.78rem;color:var(--muted);margin:-6px 0 12px">' + esc(t('maxTeams')) + '</p>') + '<div>' + rows + '</div></div></div>';
 }
 
 function renderAdminHome(){
@@ -973,6 +1230,7 @@ function bindTeamForm(){
     if(sp.teams.length >= MAX_TEAMS){ toast(t('maxTeams')); return; }
     if(sp.teams.some(x => x.name.trim().toLowerCase() === name.toLowerCase())){ toast(t('teamExists')); return; }
     sp.teams.push({ id: uid(), name, color: COLORS[sp.teams.length % COLORS.length] });
+    DEBUG.ok('تیم اضافه شد: ' + name);
     save(); render(); toast(t('added'));
   });
 }
@@ -1038,10 +1296,10 @@ function openSettings(){
 
 function openGuide(){
   openModal('<div class="modal-head"><h2>❓ ' + esc(t('guide')) + '</h2><button class="icon-btn sm" data-action="closeModal">✕</button></div>' +
+    '<div class="guide-section"><h3>🐞 پنل دیباگ</h3><p>با کلیک روی دکمه 🐞 (پایین چپ صفحه) می‌تونی همه اتفاقات رو ببینی. اگه خطایی باشه، دکمه قرمز میشه و تعدادش نشون داده میشه.</p></div>' +
+    '<div class="guide-section"><h3>👥 افراد آنلاین</h3><p>بالای صفحه، تعداد کاربرای آنلاین هر سرور و وضعیت اتصال رو می‌بینی.</p></div>' +
     '<div class="guide-section"><h3>☁️ همگام‌سازی ابری</h3><p>این نسخه به سرور متصل است. هر تغییری مدیر بده، همه کاربرا فوری می‌بینن.</p></div>' +
-    '<div class="guide-section"><h3>🌐 ۳ سرور</h3><p>تو تنظیمات می‌تونی بین سرور ۱، ۲ یا ۳ انتخاب کنی. هر سرور جداگانه‌ست و کاربرای هر سرور فقط تغییرات هم‌سروری‌هاشون رو می‌بینن.</p></div>' +
-    '<div class="guide-section"><h3>🏠 صفحه اصلی</h3><p>ورزش‌های فعال رو به صورت کارت می‌بینی.</p></div>' +
-    '<div class="guide-section"><h3>🔐 پنل مدیریت</h3><p>با دکمه 🔒 وارد پنل شو.</p></div>' +
+    '<div class="guide-section"><h3>🌐 ۳ سرور</h3><p>تو تنظیمات می‌تونی بین سرور ۱، ۲ یا ۳ انتخاب کنی.</p></div>' +
     '<button class="btn block" data-action="closeModal" style="margin-top:16px">' + esc(t('close')) + '</button>');
 }
 
@@ -1051,8 +1309,8 @@ function openPassword(){
   document.getElementById('pwForm').addEventListener('submit', e => {
     e.preventDefault();
     const val = document.getElementById('pwInput').value;
-    if(val === ADMIN_PASS){ authed = true; closeModal(); applySettings(); toast('✅ ' + t('adminPanel')); render(); }
-    else { const err = document.getElementById('pwErr'); err.textContent = t('wrongPassword'); const f = modalEl.querySelector('form'); f.classList.remove('shake'); void f.offsetWidth; f.classList.add('shake'); document.getElementById('pwInput').value = ''; }
+    if(val === ADMIN_PASS){ authed = true; closeModal(); applySettings(); toast('✅ ' + t('adminPanel')); DEBUG.ok('✅ ورود مدیر موفق'); render(); }
+    else { const err = document.getElementById('pwErr'); err.textContent = t('wrongPassword'); const f = modalEl.querySelector('form'); f.classList.remove('shake'); void f.offsetWidth; f.classList.add('shake'); document.getElementById('pwInput').value = ''; DEBUG.warn('❌ رمز اشتباه'); }
   });
 }
 
@@ -1102,6 +1360,7 @@ function openSportConfig(sportId){
         sp.allowDraw = fd.get('allowDraw') === '1';
       }
     }
+    DEBUG.ok('تنظیمات ورزش ذخیره شد: ' + sp.id);
     save(); closeModal(); render(); toast('✅ ' + t('sportUpdated'));
   });
 }
@@ -1110,8 +1369,8 @@ function openSportConfig(sportId){
 function handleSavePair(btn){
   const sp = getSport(btn.dataset.sport); if(!sp) return;
   const row = btn.closest('.rr-row');
-  const hgI = row.querySelector('[data-score="hg"]'), agI = row.querySelector('[data-score="ag"]');
-  const hgS = hgI.value.trim(), agS = agI.value.trim();
+  const hgS = row.querySelector('[data-score="hg"]').value.trim();
+  const agS = row.querySelector('[data-score="ag"]').value.trim();
   if(hgS === '' || agS === ''){ toast(t('fillScores')); return; }
   const hg = Math.max(0, Math.min(sp.maxScore || 99, parseInt(hgS,10)||0));
   const ag = Math.max(0, Math.min(sp.maxScore || 99, parseInt(agS,10)||0));
@@ -1119,6 +1378,7 @@ function handleSavePair(btn){
   const ex = sp.matches.find(m => (m.home===aId && m.away===bId) || (m.home===bId && m.away===aId));
   if(ex){ if(ex.home===aId){ ex.hg=hg; ex.ag=ag; } else { ex.hg=ag; ex.ag=hg; } }
   else { sp.matches.push({ id: uid(), home: aId, away: bId, hg, ag }); }
+  DEBUG.ok('نتیجه ذخیره شد: ' + hg + '-' + ag);
   save(); render(); toast(t('saved'));
 }
 
@@ -1146,7 +1406,7 @@ function handleGenerateBracket(btn){
   const sp = getSport(btn.dataset.sport); if(!sp) return;
   if(sp.teams.length < MIN_TEAMS){ toast(t('needTwoTeams')); return; }
   if(sp.bracket && sp.bracket.length && !confirm(t('confirmRegenerate'))) return;
-  if(generateBracket(sp)){ save(); render(); toast('🏆 ' + t('bracketGenerated')); }
+  if(generateBracket(sp)){ DEBUG.ok('جدول حذفی ساخته شد برای: ' + sp.id); save(); render(); toast('🏆 ' + t('bracketGenerated')); }
 }
 
 function handleDeleteBracket(btn){
@@ -1213,18 +1473,21 @@ function handleDeleteAll(){
   try { localStorage.removeItem(STORAGE_KEY + ':' + currentServerId); } catch(e){}
   state = defaultState();
   authed = false; currentView = 'sports'; currentSportId = null; currentTab = 'table';
+  DEBUG.warn('🗑️ همه اطلاعات پاک شد');
   save(); closeModal(); applySettings(); render();
   window.scrollTo({top:0,behavior:'smooth'}); toast('🗑️ ' + t('allDataDeleted'));
 }
 
 async function handleSetServer(serverId){
   if(serverId === currentServerId){ closeModal(); return; }
+  DEBUG.info('🔄 تعویض سرور به: ' + serverId);
   currentServerId = serverId;
   try { localStorage.setItem(SERVER_KEY, serverId); } catch(e){}
   closeModal();
   _lastServerData = null; _myLastSave = 0;
   await loadServer(serverId, true);
   applySettings(); render();
+  setupChannels();
   toast('🌐 ' + t('serverChanged'));
 }
 
@@ -1272,7 +1535,7 @@ document.addEventListener('click', e => {
     save(); render(); toast(t('deleted'));
   }
   else if(a === 'logout'){ handleLogout(); }
-  else if(a === 'toggleSport'){ const sp = getSport(el.dataset.id); if(!sp) return; sp.active = !sp.active; save(); el.classList.toggle('on', sp.active); toast(sp.active ? '✅ ' + t('activated') : '⭕ ' + t('deactivated')); }
+  else if(a === 'toggleSport'){ const sp = getSport(el.dataset.id); if(!sp) return; sp.active = !sp.active; DEBUG.ok('ورزش ' + sp.id + (sp.active ? ' فعال شد' : ' غیرفعال شد')); save(); el.classList.toggle('on', sp.active); toast(sp.active ? '✅ ' + t('activated') : '⭕ ' + t('deactivated')); }
   else if(a === 'configureSport'){ openSportConfig(el.dataset.id); }
 });
 
@@ -1303,11 +1566,14 @@ document.addEventListener('keydown', e => {
 
 /* ============ INIT ============ */
 (async function init(){
+  DEBUG.info('🚀 شروع init');
   await loadServer(currentServerId, true);
   applySettings();
   render();
+  setupChannels();
   startPolling();
   if(supabaseClient) showSyncBadge('online');
+  DEBUG.ok('✅ اپ آماده شد - سرور: ' + currentServerId);
   console.log('🚀 اپ آماده - سرور: ' + currentServerId);
 })();
 </script>
