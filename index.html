@@ -1,0 +1,2084 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#070b14">
+<meta name="color-scheme" content="dark light">
+<title>لیگ ورزش‌ها</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg-1:#070b14; --bg-2:#0d1526;
+  --surface:rgba(255,255,255,.05); --surface-2:rgba(255,255,255,.09);
+  --border:rgba(255,255,255,.10);
+  --text:#e9eefb; --muted:#8ea0bf;
+  --accent:#4ade80; --accent-2:#22d3ee; --danger:#f87171;
+  --panel:#101827; --panel-2:#0c1322;
+  --modal-bg:linear-gradient(165deg,#131c30,#0b1220);
+  --shadow:0 22px 55px rgba(0,0,0,.5);
+  --ring:rgba(74,222,128,.18);
+}
+html[data-theme="light"]{
+  --bg-1:#eef2f9; --bg-2:#dde5f3;
+  --surface:rgba(255,255,255,.72); --surface-2:rgba(255,255,255,.95);
+  --border:rgba(15,23,42,.10); --text:#0f172a; --muted:#5c6b88;
+  --accent:#16a34a; --accent-2:#0891b2; --danger:#dc2626;
+  --panel:#ffffff; --panel-2:#f4f7fc;
+  --modal-bg:linear-gradient(165deg,#ffffff,#f2f6fd);
+  --shadow:0 18px 45px rgba(15,23,42,.14); --ring:rgba(22,163,74,.16);
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{min-height:100%}
+body{
+  font-family:'Vazirmatn',ui-sans-serif,system-ui,-apple-system,sans-serif;
+  color:var(--text); background-color:var(--bg-1);
+  background-image:
+    radial-gradient(1000px 620px at 12% -12%, rgba(74,222,128,.16), transparent 60%),
+    radial-gradient(900px 520px at 92% -5%, rgba(34,211,238,.14), transparent 58%),
+    linear-gradient(160deg,var(--bg-1),var(--bg-2));
+  background-attachment:fixed; min-height:100vh; min-height:100dvh;
+  -webkit-font-smoothing:antialiased; overflow-x:hidden;
+}
+html[data-theme="light"] body{
+  background-image:
+    radial-gradient(1000px 620px at 12% -12%, rgba(34,197,94,.14), transparent 60%),
+    radial-gradient(900px 520px at 92% -5%, rgba(6,182,212,.14), transparent 58%),
+    linear-gradient(160deg,var(--bg-1),var(--bg-2));
+}
+button,input,select{font-family:inherit;color:inherit}
+::-webkit-scrollbar{width:8px;height:8px}
+::-webkit-scrollbar-thumb{background:var(--surface-2);border-radius:20px}
+.app{max-width:1020px;margin:0 auto;padding:14px 14px calc(60px + env(safe-area-inset-bottom))}
+
+.topbar{
+  display:flex;align-items:center;justify-content:space-between;gap:8px;
+  padding:10px 12px;border-radius:20px;background:var(--surface);
+  border:1px solid var(--border);backdrop-filter:blur(20px);
+  box-shadow:var(--shadow);position:sticky;top:8px;z-index:60;isolation:isolate;
+}
+.brand{display:flex;align-items:center;gap:11px;min-width:0;cursor:pointer;flex:1}
+.logo{width:44px;height:44px;flex:0 0 44px;border-radius:14px;display:grid;place-items:center;font-size:22px;background:linear-gradient(135deg,#4ade80,#22d3ee);box-shadow:0 10px 24px rgba(34,211,238,.3)}
+.brand-text{min-width:0}
+.brand-text h1{font-size:1rem;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.brand-text p{font-size:.7rem;color:var(--muted);font-weight:500;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.top-actions{display:flex;gap:6px;flex:0 0 auto}
+.icon-btn{width:42px;height:42px;border-radius:13px;flex:0 0 auto;border:1px solid var(--border);background:var(--surface-2);font-size:17px;cursor:pointer;display:grid;place-items:center;transition:.2s}
+.icon-btn:hover{border-color:var(--accent);transform:translateY(-2px)}
+.icon-btn:active{transform:scale(.94)}
+.icon-btn.sm{width:36px;height:36px;font-size:15px;border-radius:11px}
+.icon-btn.active{border-color:var(--accent);background:linear-gradient(135deg,rgba(74,222,128,.2),rgba(34,211,238,.16))}
+#logoutTopBtn{display:none}
+#logoutTopBtn.show{display:grid;color:var(--danger)}
+
+.tabs{display:flex;gap:5px;margin:14px 0;padding:5px;border-radius:16px;background:var(--surface);border:1px solid var(--border);backdrop-filter:blur(16px);overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:1;min-width:88px;padding:11px 10px;border:0;border-radius:11px;background:transparent;color:var(--muted);font-size:.84rem;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;white-space:nowrap;transition:.22s}
+.tab.active{background:linear-gradient(135deg,rgba(74,222,128,.2),rgba(34,211,238,.16));color:var(--text);box-shadow:inset 0 0 0 1px var(--border)}
+.tab:active{transform:scale(.97)}
+
+.section{margin-bottom:18px}
+.section-title{font-size:.8rem;font-weight:700;color:var(--muted);letter-spacing:.03em;margin:0 4px 10px;display:flex;align-items:center;gap:7px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:16px;backdrop-filter:blur(18px);box-shadow:var(--shadow);position:relative;z-index:1;overflow:hidden}
+.hint-box{background:linear-gradient(135deg,rgba(34,211,238,.08),rgba(74,222,128,.06));border:1px solid rgba(34,211,238,.2);border-radius:16px;padding:14px 16px;margin-bottom:14px;font-size:.82rem;line-height:1.7;color:var(--text)}
+.hint-box b{color:var(--accent-2)}
+
+.sports-hero{text-align:center;padding:22px 12px 20px}
+.sports-hero h2{font-size:1.4rem;font-weight:800;letter-spacing:-.02em;margin-bottom:6px}
+.sports-hero p{font-size:.84rem;color:var(--muted);font-weight:500}
+.sports-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;margin-bottom:20px}
+.sport-card{position:relative;padding:20px 14px 16px;background:var(--surface);border:1px solid var(--border);border-radius:22px;cursor:pointer;transition:.28s cubic-bezier(.2,.9,.3,1);text-align:center;overflow:hidden;backdrop-filter:blur(16px);box-shadow:var(--shadow)}
+.sport-card::before{content:'';position:absolute;inset:0;background:radial-gradient(300px 200px at 50% 0%, var(--sport-color, var(--accent)), transparent 70%);opacity:.14;transition:.3s;pointer-events:none}
+.sport-card:hover{transform:translateY(-4px);border-color:var(--sport-color, var(--accent))}
+.sport-card:hover::before{opacity:.24}
+.sport-card:active{transform:translateY(-1px) scale(.98)}
+.sport-icon{font-size:42px;display:block;margin-bottom:10px;filter:drop-shadow(0 6px 14px rgba(0,0,0,.3));position:relative}
+.sport-name{font-size:1rem;font-weight:800;margin-bottom:8px;position:relative;line-height:1.3}
+.sport-type-badge{display:inline-block;font-size:.68rem;font-weight:700;padding:4px 10px;border-radius:9px;background:var(--surface-2);color:var(--muted);position:relative;margin-top:2px}
+.sport-meta{font-size:.72rem;color:var(--muted);font-weight:600;display:flex;justify-content:center;gap:10px;position:relative;margin-top:8px;flex-wrap:wrap}
+
+.sport-header{display:flex;align-items:center;gap:12px;padding:14px;background:var(--surface);border:1px solid var(--border);border-radius:20px;margin-bottom:14px;backdrop-filter:blur(16px);box-shadow:var(--shadow);position:relative;overflow:hidden;z-index:1}
+.sport-header::before{content:'';position:absolute;inset:0;background:radial-gradient(500px 200px at 0% 50%, var(--sport-color, var(--accent)), transparent 70%);opacity:.13;pointer-events:none}
+.back-btn{width:42px;height:42px;border-radius:13px;flex:0 0 auto;border:1px solid var(--border);background:var(--surface-2);font-size:18px;cursor:pointer;display:grid;place-items:center;transition:.2s;position:relative}
+.back-btn:hover{border-color:var(--accent);transform:scale(1.05)}
+.sport-header-icon{font-size:34px;flex:0 0 auto;position:relative}
+.sport-header-info{min-width:0;flex:1;position:relative}
+.sport-header-info h2{font-size:1.08rem;font-weight:800;line-height:1.3}
+.sport-header-info p{font-size:.72rem;color:var(--muted);margin-top:3px;font-weight:600}
+
+.table-wrap{border-radius:20px;border:1px solid var(--border);background:var(--panel);overflow-x:auto;-webkit-overflow-scrolling:touch;box-shadow:var(--shadow);position:relative;z-index:1}
+table{width:100%;border-collapse:collapse;min-width:440px}
+thead th{background:var(--panel-2);font-size:.72rem;font-weight:700;color:var(--muted);padding:13px 8px;text-align:center;white-space:nowrap}
+thead th:first-child{width:56px}
+thead th:nth-child(2){text-align:start;padding-inline-start:14px}
+tbody td{padding:13px 8px;text-align:center;white-space:nowrap;font-size:.88rem;font-weight:600;border-top:1px solid var(--border);background:var(--panel)}
+tbody td:first-child{width:56px}
+tbody td:nth-child(2){text-align:start;padding-inline-start:14px;font-weight:700}
+tbody tr:first-child td{border-top:0}
+.rank-num{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:10px;font-size:.78rem;font-weight:800;background:var(--surface-2);color:var(--muted)}
+.team-cell{display:flex;align-items:center;gap:8px}
+.dot{width:10px;height:10px;border-radius:50%;flex:0 0 10px;box-shadow:0 0 0 2px rgba(255,255,255,.06)}
+.pts{color:var(--accent);font-weight:800}
+.big-score{font-size:1.05rem;font-weight:800;color:var(--accent-2)}
+
+.empty{text-align:center;padding:40px 20px;color:var(--muted);background:var(--surface);border:1px dashed var(--border);border-radius:20px}
+.empty .ico{font-size:42px;display:block;margin-bottom:12px;opacity:.7}
+.empty p{font-size:.86rem;font-weight:500;line-height:1.7}
+
+.match-list{display:flex;flex-direction:column;gap:9px}
+.match{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--border);border-radius:15px;padding:13px;transition:.2s;position:relative;z-index:1}
+.match:hover{border-color:var(--accent)}
+.m-team{font-size:.85rem;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:flex;align-items:center;gap:6px}
+.m-team.a{justify-content:flex-start}
+.m-team.b{justify-content:flex-end}
+.m-score{display:flex;align-items:center;gap:5px;font-weight:800;font-size:.95rem;padding:6px 12px;border-radius:10px;background:var(--surface-2);white-space:nowrap}
+.m-score .win{color:var(--accent)}
+.m-winner-badge{font-size:.72rem;font-weight:800;padding:4px 10px;border-radius:8px;background:linear-gradient(135deg,rgba(74,222,128,.25),rgba(34,211,238,.2));color:var(--text);white-space:nowrap}
+.score-preview{display:flex;align-items:center;gap:4px;font-size:.65rem;font-weight:800;padding:3px 7px;border-radius:7px;background:rgba(34,211,238,.12);color:var(--accent-2);white-space:nowrap;border:1px solid rgba(34,211,238,.22)}
+
+.field{display:flex;flex-direction:column;gap:6px;min-width:0}
+.field label{font-size:.74rem;font-weight:700;color:var(--muted)}
+.input{width:100%;padding:12px 14px;border-radius:13px;border:1px solid var(--border);background:var(--surface-2);font-size:.92rem;font-weight:500;outline:none;transition:.2s;min-width:0}
+html[data-theme="light"] .input{background:#fff}
+.input:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--ring)}
+input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+input[type=number]{-moz-appearance:textfield;appearance:textfield;text-align:center;font-weight:700}
+.row-form{display:grid;grid-template-columns:1fr auto;gap:10px;margin-bottom:14px}
+
+.btn{border:1px solid var(--border);border-radius:13px;padding:12px 18px;font-size:.88rem;font-weight:700;cursor:pointer;transition:.2s;white-space:nowrap;background:var(--surface-2);color:var(--text);display:inline-flex;align-items:center;justify-content:center;gap:7px;position:relative;z-index:1}
+.btn:hover{transform:translateY(-2px);border-color:var(--accent)}
+.btn:active{transform:scale(.97)}
+.btn.primary{background:linear-gradient(135deg,#4ade80,#22d3ee);color:#062017;border-color:transparent;box-shadow:0 8px 22px rgba(34,211,238,.28)}
+.btn.primary:disabled{opacity:.45;cursor:not-allowed;transform:none}
+.btn.danger{color:var(--danger);border-color:rgba(248,113,113,.3)}
+.btn.danger:hover{background:rgba(248,113,113,.12);border-color:var(--danger)}
+.btn.danger:disabled{opacity:.35;cursor:not-allowed;transform:none}
+.btn.danger-solid{background:linear-gradient(135deg,#ef4444,#dc2626);color:#fff;border-color:transparent;box-shadow:0 8px 22px rgba(239,68,68,.28)}
+.btn.danger-solid:hover{transform:translateY(-2px)}
+.btn.block{width:100%}
+.btn.sm{padding:9px 12px;font-size:.8rem;border-radius:11px;min-width:38px}
+
+.team-row{display:grid;grid-template-columns:auto 1fr auto auto;gap:8px;align-items:center;padding:9px 0;border-top:1px solid var(--border)}
+.team-row:first-child{border-top:0}
+.team-row .input{padding:10px 12px;font-size:.86rem}
+.color-pick-btn{width:42px;height:42px;border-radius:12px;flex:0 0 auto;border:2px solid var(--border);cursor:pointer;position:relative;transition:.2s;padding:0;overflow:hidden}
+.color-pick-btn:hover{border-color:var(--text);transform:scale(1.05)}
+.color-pick-btn::after{content:'🎨';position:absolute;inset:0;display:grid;place-items:center;font-size:15px;opacity:0;transition:.2s;background:rgba(0,0,0,.35)}
+.color-pick-btn:hover::after{opacity:1}
+.member-btn{width:42px;height:42px;border-radius:12px;flex:0 0 auto;border:1px solid var(--border);background:var(--surface-2);font-size:16px;cursor:pointer;display:grid;place-items:center;transition:.2s;position:relative}
+.member-btn:hover{border-color:var(--accent-2);transform:scale(1.05)}
+.member-btn .badge{position:absolute;top:-4px;inset-inline-end:-4px;min-width:18px;height:18px;padding:0 4px;border-radius:9px;background:linear-gradient(135deg,#4ade80,#22d3ee);color:#062017;font-size:.62rem;font-weight:800;display:grid;place-items:center}
+
+.rr-list{display:flex;flex-direction:column}
+.rr-row{display:grid;grid-template-columns:minmax(0,1fr) 44px 12px 44px minmax(0,1fr) auto;gap:6px;align-items:center;padding:10px 0;border-top:1px solid var(--border);transition:background .2s}
+.rr-row:first-child{border-top:0}
+.rr-row.played{background:linear-gradient(90deg,rgba(74,222,128,.09) 0%,transparent 30%,transparent 70%,rgba(74,222,128,.09) 100%);border-radius:12px;padding-inline:8px;margin-inline:-8px}
+html[data-theme="light"] .rr-row.played{background:linear-gradient(90deg,rgba(22,163,74,.10) 0%,transparent 30%,transparent 70%,rgba(22,163,74,.10) 100%)}
+.rr-team{font-size:.86rem;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding:0 2px;display:flex;align-items:center;gap:5px}
+.rr-team.home{justify-content:flex-end;text-align:end}
+.rr-team.away{justify-content:flex-start;text-align:start}
+.rr-team .tdot{width:9px;height:9px;border-radius:50%;flex:0 0 9px}
+.rr-score{width:44px;height:40px;padding:4px;text-align:center;border-radius:11px;border:1px solid var(--border);background:var(--surface-2);color:var(--text);font-weight:800;font-size:.95rem;outline:none;transition:.18s;font-family:inherit}
+html[data-theme="light"] .rr-score{background:#fff}
+.rr-score:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--ring)}
+.rr-score::placeholder{color:var(--muted);opacity:.5;font-weight:600}
+.rr-row.played .rr-score{border-color:rgba(74,222,128,.35);background:rgba(74,222,128,.07)}
+.rr-vs{text-align:center;font-weight:800;color:var(--muted);font-size:.8rem;user-select:none}
+.rr-actions{display:flex;gap:4px;flex:0 0 auto}
+.rr-btn{width:34px;height:34px;border-radius:10px;border:1px solid var(--border);background:var(--surface-2);color:var(--text);font-size:14px;cursor:pointer;display:grid;place-items:center;transition:.18s;padding:0}
+.rr-btn:active{transform:scale(.9)}
+.rr-btn.save{background:linear-gradient(135deg,#4ade80,#22d3ee);color:#062017;border-color:transparent;box-shadow:0 4px 14px rgba(34,211,238,.28)}
+.rr-btn.save:hover{transform:scale(1.07)}
+.rr-btn.clear{color:var(--danger)}
+
+.wr-row{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr) auto;gap:8px;align-items:center;padding:14px 0;border-top:1px solid var(--border)}
+.wr-row:first-child{border-top:0}
+.wr-row.played{background:linear-gradient(90deg,rgba(74,222,128,.09) 0%,transparent 30%,transparent 70%,rgba(74,222,128,.09) 100%);border-radius:12px;padding-inline:8px;margin-inline:-8px}
+.wr-name{font-size:.85rem;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:flex;align-items:center;gap:5px}
+.wr-name.home{justify-content:flex-end;text-align:end}
+.wr-name.away{justify-content:flex-start;text-align:start}
+.wr-name .tdot{width:9px;height:9px;border-radius:50%;flex:0 0 9px}
+.wr-choice{display:flex;gap:6px;flex-wrap:nowrap}
+.wr-chip{border:1px solid var(--border);background:var(--surface-2);color:var(--muted);padding:9px 12px;border-radius:11px;font-size:.78rem;font-weight:700;cursor:pointer;transition:.18s;white-space:nowrap;display:flex;align-items:center;gap:5px}
+.wr-chip:active{transform:scale(.95)}
+.wr-chip.on{background:linear-gradient(135deg,#4ade80,#22d3ee);color:#062017;border-color:transparent;box-shadow:0 4px 12px rgba(34,211,238,.3)}
+.wr-chip.on-draw{background:linear-gradient(135deg,#facc15,#fb923c);color:#3a1d02;border-color:transparent;box-shadow:0 4px 12px rgba(251,146,60,.28)}
+
+.solo-row{display:grid;grid-template-columns:auto 1fr auto auto;gap:10px;align-items:center;padding:10px 0;border-top:1px solid var(--border)}
+.solo-row:first-child{border-top:0}
+.solo-row .input{padding:10px 12px;font-size:.86rem}
+.solo-score-input{width:80px;padding:10px;text-align:center;font-weight:800;border-radius:11px;border:1px solid var(--border);background:var(--surface-2);color:var(--text);font-family:inherit;font-size:.95rem;outline:none;transition:.2s}
+html[data-theme="light"] .solo-score-input{background:#fff}
+.solo-score-input:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--ring)}
+
+.rank-medal{display:inline-grid;place-items:center;width:34px;height:34px;border-radius:11px;font-size:1.1rem;font-weight:800;background:var(--surface-2);color:var(--muted)}
+.rank-medal.g1{background:linear-gradient(135deg,#fcd34d,#f59e0b);color:#221604}
+.rank-medal.g2{background:linear-gradient(135deg,#e2e8f0,#94a3b8);color:#0f172a}
+.rank-medal.g3{background:linear-gradient(135deg,#f59e0b,#b45309);color:#fff}
+
+.admin-sport-row{display:grid;grid-template-columns:auto 1fr auto auto;gap:12px;align-items:center;padding:14px 4px;border-top:1px solid var(--border)}
+.admin-sport-row:first-child{border-top:0}
+.admin-sport-icon{font-size:26px;flex:0 0 auto;width:42px;text-align:center}
+.admin-sport-info{min-width:0}
+.admin-sport-info h4{font-size:.92rem;font-weight:800;line-height:1.3}
+.admin-sport-info p{font-size:.7rem;color:var(--muted);margin-top:3px;font-weight:500}
+.toggle{position:relative;width:52px;height:30px;flex:0 0 auto;border-radius:15px;background:var(--surface-2);border:1px solid var(--border);cursor:pointer;transition:.25s;padding:0}
+.toggle::after{content:'';position:absolute;top:3px;inset-inline-start:3px;width:22px;height:22px;border-radius:50%;background:var(--muted);transition:.25s cubic-bezier(.2,.9,.3,1)}
+.toggle.on{background:linear-gradient(135deg,#4ade80,#22d3ee);border-color:transparent}
+.toggle.on::after{inset-inline-start:27px;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+
+.palette-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;padding:4px;margin-top:4px}
+.palette-color{width:100%;aspect-ratio:1;border-radius:14px;border:2px solid transparent;cursor:pointer;transition:.2s;position:relative;padding:0}
+.palette-color:hover{transform:scale(1.08);border-color:var(--text)}
+.palette-color.active{border-color:var(--text);transform:scale(1.05);box-shadow:0 0 0 3px var(--surface-2),0 6px 18px rgba(0,0,0,.25)}
+.palette-color.active::after{content:'✓';position:absolute;inset:0;display:grid;place-items:center;color:#fff;font-weight:900;font-size:1.4rem;text-shadow:0 2px 6px rgba(0,0,0,.55)}
+
+/* Team members display (public) */
+.members-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
+.member-card{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:14px;box-shadow:var(--shadow)}
+.member-card-head{display:flex;align-items:center;gap:8px;padding-bottom:10px;margin-bottom:10px;border-bottom:1px dashed var(--border)}
+.member-card-head .name{font-size:.9rem;font-weight:800;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.member-card-head .count{font-size:.68rem;color:var(--muted);font-weight:700;background:var(--surface-2);padding:3px 8px;border-radius:8px}
+.member-list-public{list-style:none;display:flex;flex-direction:column;gap:6px}
+.member-item{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:10px;background:var(--surface-2);font-size:.82rem;font-weight:600}
+.member-item.captain{background:linear-gradient(135deg,rgba(250,204,21,.18),rgba(251,146,60,.12));border:1px solid rgba(250,204,21,.35)}
+.member-item .cap-star{font-size:.9rem}
+.member-item .cap-badge{margin-inline-start:auto;font-size:.62rem;font-weight:800;padding:2px 7px;border-radius:6px;background:linear-gradient(135deg,#facc15,#fb923c);color:#3a1d02}
+
+/* Member management modal */
+.members-modal-list{display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
+.mm-row{display:grid;grid-template-columns:auto 1fr auto;gap:8px;align-items:center;padding:8px 10px;border-radius:12px;background:var(--surface-2);border:1px solid var(--border)}
+.mm-row.is-captain{background:linear-gradient(135deg,rgba(250,204,21,.15),rgba(251,146,60,.08));border-color:rgba(250,204,21,.4)}
+.mm-row .mm-name-input{padding:8px 10px;font-size:.86rem;background:transparent;border:0;width:100%;outline:none;font-weight:700;color:var(--text)}
+.mm-row .mm-actions{display:flex;gap:4px}
+.mm-btn{width:32px;height:32px;border-radius:9px;border:1px solid var(--border);background:var(--panel);color:var(--text);font-size:14px;cursor:pointer;display:grid;place-items:center;transition:.18s;padding:0}
+.mm-btn:hover{transform:scale(1.05)}
+.mm-btn.cap-toggle{color:var(--muted)}
+.mm-btn.cap-toggle.on{background:linear-gradient(135deg,#facc15,#fb923c);color:#3a1d02;border-color:transparent}
+.mm-btn.del{color:var(--danger)}
+.mm-btn.del:hover{background:rgba(248,113,113,.14);border-color:var(--danger)}
+.mm-empty{text-align:center;padding:20px;color:var(--muted);font-size:.82rem}
+.mm-counter{font-size:.72rem;color:var(--muted);font-weight:700;text-align:center;margin-top:6px}
+
+/* Bracket */
+.bracket-wrap{display:flex;flex-direction:column;gap:14px}
+.bracket-round{background:var(--panel);border:1px solid var(--border);border-radius:20px;padding:14px;box-shadow:var(--shadow);position:relative;z-index:1}
+.bracket-round-title{font-size:.78rem;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-bottom:10px;padding-bottom:10px;border-bottom:1px dashed var(--border);display:flex;align-items:center;gap:8px}
+.bracket-round-title .rr-count{margin-inline-start:auto;font-weight:600;color:var(--muted);text-transform:none;letter-spacing:0}
+.bracket-match{display:grid;grid-template-columns:minmax(0,1fr) 40px 10px 40px minmax(0,1fr) auto;gap:6px;align-items:center;padding:10px 0;border-top:1px solid var(--border);transition:background .2s}
+.bracket-match:first-child{border-top:0}
+.bracket-match.resolved{background:linear-gradient(90deg,rgba(74,222,128,.08) 0%,transparent 30%,transparent 70%,rgba(74,222,128,.08) 100%);border-radius:12px;padding-inline:8px;margin-inline:-8px}
+html[data-theme="light"] .bracket-match.resolved{background:linear-gradient(90deg,rgba(22,163,74,.10) 0%,transparent 30%,transparent 70%,rgba(22,163,74,.10) 100%)}
+.bm-team{font-size:.85rem;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:flex;align-items:center;gap:5px;padding:0 2px}
+.bm-team.a{justify-content:flex-end;text-align:end}
+.bm-team.b{justify-content:flex-start;text-align:start}
+.bm-team .tdot{width:9px;height:9px;border-radius:50%;flex:0 0 9px}
+.bm-team.winner{color:var(--accent)}
+.bm-team.winner .tdot{box-shadow:0 0 0 3px rgba(74,222,128,.25)}
+.bm-team.loser{opacity:.42;text-decoration:line-through}
+.bm-score{width:40px;height:38px;text-align:center;border-radius:11px;border:1px solid var(--border);background:var(--surface-2);color:var(--text);font-weight:800;font-size:.9rem;outline:none;font-family:inherit;padding:2px}
+html[data-theme="light"] .bm-score{background:#fff}
+.bm-score:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--ring)}
+.bm-score::placeholder{color:var(--muted);opacity:.45;font-weight:600}
+.bm-sep{text-align:center;font-weight:800;color:var(--muted);font-size:.75rem;user-select:none}
+.bm-score-display{display:inline-grid;place-items:center;min-width:40px;height:34px;padding:0 8px;border-radius:10px;background:var(--surface-2);font-weight:800;font-size:.9rem}
+.bm-score-display.winner{color:var(--accent)}
+.bm-bye{grid-column:1 / -1;text-align:center;padding:8px;border-radius:10px;background:linear-gradient(90deg,rgba(34,211,238,.08),rgba(74,222,128,.08));font-size:.78rem;font-weight:700;color:var(--muted);display:flex;align-items:center;justify-content:center;gap:6px;margin:4px 0}
+
+.champion-box{margin-top:14px;padding:22px 18px;background:linear-gradient(135deg,rgba(250,204,21,.15),rgba(251,146,60,.1));border:1px solid rgba(250,204,21,.35);border-radius:22px;text-align:center;box-shadow:0 12px 36px rgba(250,204,21,.12);position:relative;overflow:hidden}
+.champion-box::before{content:'';position:absolute;inset:0;background:radial-gradient(400px 200px at 50% 0%, rgba(250,204,21,.25), transparent 70%);pointer-events:none}
+.champion-box .trophy{font-size:52px;display:block;margin-bottom:10px;filter:drop-shadow(0 8px 20px rgba(250,204,21,.5));position:relative;animation:float 3s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+.champion-box h3{font-size:.78rem;color:var(--muted);font-weight:800;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;position:relative}
+.champion-box .champion-name{font-size:1.5rem;font-weight:800;display:flex;align-items:center;justify-content:center;gap:10px;position:relative}
+.champion-box .champion-name .tdot{width:14px;height:14px;border-radius:50%;flex:0 0 14px}
+.bracket-toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.bracket-toolbar .btn{flex:1;min-width:140px}
+.bm-actions{display:flex;gap:4px;flex:0 0 auto}
+.bm-btn{width:34px;height:34px;border-radius:10px;border:1px solid var(--border);background:var(--surface-2);color:var(--text);font-size:14px;cursor:pointer;display:grid;place-items:center;transition:.18s;padding:0}
+.bm-btn:active{transform:scale(.9)}
+.bm-btn.save{background:linear-gradient(135deg,#4ade80,#22d3ee);color:#062017;border-color:transparent;box-shadow:0 4px 14px rgba(34,211,238,.28)}
+.bm-btn.clear{color:var(--danger)}
+
+.overlay{position:fixed;inset:0;z-index:200;background:rgba(3,7,15,.66);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);display:flex;align-items:flex-end;justify-content:center;opacity:0;pointer-events:none;transition:opacity .25s}
+.overlay.open{opacity:1;pointer-events:auto}
+.modal{width:100%;max-width:540px;background:var(--modal-bg);border:1px solid var(--border);border-radius:26px 26px 0 0;padding:22px 20px calc(24px + env(safe-area-inset-bottom));max-height:90vh;max-height:90dvh;overflow-y:auto;transform:translateY(30px);transition:transform .3s cubic-bezier(.2,.9,.3,1);box-shadow:0 -18px 50px rgba(0,0,0,.4)}
+.overlay.open .modal{transform:translateY(0)}
+@media(min-width:640px){.overlay{align-items:center;padding:24px}.modal{border-radius:24px;padding:26px;box-shadow:var(--shadow)}}
+.modal-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}
+.modal-head h2{font-size:1.05rem;font-weight:800;display:flex;align-items:center;gap:9px}
+.modal-sub{font-size:.82rem;color:var(--muted);margin-bottom:16px;line-height:1.7}
+
+.guide-section{padding:14px 0;border-top:1px solid var(--border)}
+.guide-section:first-of-type{border-top:0;padding-top:0}
+.guide-section h3{font-size:.9rem;font-weight:800;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.guide-section p{font-size:.8rem;line-height:1.85;color:var(--muted)}
+.guide-section ul{margin:6px 18px 0;font-size:.8rem;line-height:2;color:var(--muted)}
+.guide-badge{display:inline-block;font-size:.68rem;font-weight:700;padding:3px 8px;border-radius:7px;background:var(--surface-2);color:var(--muted);margin:0 3px}
+
+.set-row{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:14px 0;border-top:1px solid var(--border)}
+.set-row:first-of-type{border-top:0}
+.set-row .lbl{font-size:.88rem;font-weight:700}
+.set-row .hint{font-size:.72rem;color:var(--muted);margin-top:3px}
+.seg{display:flex;gap:6px;background:var(--surface-2);padding:5px;border-radius:13px;flex:0 0 auto}
+.seg button{border:0;background:transparent;color:var(--muted);padding:8px 13px;border-radius:9px;font-size:.8rem;font-weight:700;cursor:pointer;transition:.2s;white-space:nowrap}
+.seg button.active{background:linear-gradient(135deg,rgba(74,222,128,.25),rgba(34,211,238,.2));color:var(--text)}
+
+.rule-card{background:var(--surface-2);padding:12px;border-radius:14px;margin-bottom:10px;border:1px solid var(--border)}
+.rule-card-title{font-size:.78rem;font-weight:800;margin-bottom:9px;display:flex;align-items:center;gap:6px}
+.rule-card-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+
+#toast{position:fixed;left:50%;bottom:26px;transform:translate(-50%,200px);background:linear-gradient(135deg,#4ade80,#22d3ee);color:#04231a;font-weight:700;font-size:.85rem;padding:13px 22px;border-radius:15px;box-shadow:0 16px 40px rgba(34,211,238,.36);z-index:500;max-width:88vw;text-align:center;opacity:0;visibility:hidden;pointer-events:none;transition:transform .35s cubic-bezier(.2,.9,.3,1),opacity .25s,visibility .25s}
+#toast.show{transform:translate(-50%,0);opacity:1;visibility:visible}
+
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}
+.shake{animation:shake .4s ease}
+.err{color:var(--danger);font-size:.8rem;font-weight:600;margin-top:10px;min-height:18px}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.fade{animation:fadeUp .35s ease both}
+
+.admin-home-cta{margin-top:20px;padding:18px;border-radius:22px;background:var(--surface);border:1px dashed var(--border);text-align:center;backdrop-filter:blur(14px);position:relative;z-index:1;overflow:hidden}
+.admin-home-cta h3{font-size:.94rem;font-weight:800;margin-bottom:6px;display:flex;align-items:center;justify-content:center;gap:8px}
+.admin-home-cta p{font-size:.78rem;color:var(--muted);margin-bottom:14px;line-height:1.6}
+.admin-home-cta .btn{position:relative;z-index:1}
+
+@media (max-width:420px){
+  .rr-row,.bracket-match{grid-template-columns:minmax(0,1fr) 36px 9px 36px minmax(0,1fr) auto;gap:4px}
+  .rr-score,.bm-score{width:36px;height:36px;font-size:.85rem}
+  .rr-vs,.bm-sep{font-size:.72rem}
+  .rr-team,.bm-team{font-size:.75rem}
+  .rr-btn,.bm-btn{width:30px;height:30px;font-size:12px}
+  .wr-row{grid-template-columns:minmax(0,1fr) minmax(0,1fr) auto;gap:6px;padding:12px 0}
+  .wr-name{font-size:.75rem}
+  .wr-choice{grid-column:1 / -1;justify-content:center;margin-top:4px}
+  .wr-chip{padding:8px 10px;font-size:.72rem}
+  .solo-row{grid-template-columns:auto 1fr auto auto;gap:6px}
+  .solo-score-input{width:64px;padding:8px;font-size:.86rem}
+  .color-pick-btn{width:38px;height:38px}
+  .member-btn{width:38px;height:38px}
+  .team-row{grid-template-columns:auto 1fr auto auto;gap:6px}
+  .sports-grid{grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px}
+  .sport-icon{font-size:36px}
+  .sport-name{font-size:.92rem}
+  .top-actions{gap:4px}
+  .icon-btn{width:38px;height:38px;font-size:15px}
+  .members-grid{grid-template-columns:1fr}
+}
+@media (max-width:380px){
+  .brand-text p{display:none}
+  .app{padding-left:10px;padding-right:10px}
+  .rr-team,.bm-team{font-size:.72rem}
+  .rr-score,.bm-score{width:34px;height:34px;font-size:.82rem}
+  .rr-row,.bracket-match{grid-template-columns:minmax(0,1fr) 34px 8px 34px minmax(0,1fr) auto}
+  .sports-grid{grid-template-columns:1fr 1fr;gap:8px}
+  .sport-card{padding:16px 10px 14px}
+  .sport-icon{font-size:32px;margin-bottom:6px}
+  .sport-name{font-size:.85rem;margin-bottom:5px}
+  .sport-type-badge{font-size:.62rem;padding:3px 7px}
+  .admin-sport-row{grid-template-columns:auto 1fr auto;gap:10px}
+  .icon-btn{width:36px;height:36px;font-size:14px}
+}
+</style>
+</head>
+<body>
+
+<div class="app">
+  <header class="topbar">
+    <div class="brand" data-action="goHome">
+      <div class="logo">🏆</div>
+      <div class="brand-text">
+        <h1 id="brandTitle">لیگ ورزش‌ها</h1>
+        <p id="brandSub">مدیریت نتایج مسابقات</p>
+      </div>
+    </div>
+    <div class="top-actions">
+      <button class="icon-btn" data-action="openGuide" title="راهنما">❓</button>
+      <button class="icon-btn" data-action="logout" id="logoutTopBtn" title="خروج از مدیریت">🚪</button>
+      <button class="icon-btn" data-action="adminShortcut" id="adminTopBtn" title="مدیریت">🔒</button>
+      <button class="icon-btn" data-action="openSettings" title="تنظیمات">⚙️</button>
+    </div>
+  </header>
+  <nav class="tabs" id="tabs" style="display:none"></nav>
+  <main id="view"></main>
+</div>
+
+<div class="overlay" id="overlay"><div class="modal" id="modal"></div></div>
+<div id="toast"></div>
+
+<script>
+const ADMIN_PASS  = 'Aa64906490';
+const MAX_TEAMS   = 10;
+const MIN_TEAMS   = 2;
+const MAX_MEMBERS = 15;
+const MIN_MEMBERS = 1;
+const STORAGE_KEY = 'sports-league-v7';
+const OLD_KEYS    = ['sports-league-v6','sports-league-v5','sports-league-v4','sports-league-v3','football-league-v2','football-league-v1'];
+
+const COLORS = ['#4ade80','#22d3ee','#f59e0b','#f472b6','#a78bfa','#fb7185','#34d399','#60a5fa','#ef4444','#fb923c','#facc15','#a3e635','#2dd4bf','#818cf8','#e879f9'];
+
+const SPORT_DEFS = [
+  { id:'football',   name:'فوتبال',         icon:'⚽', type:'score',  unit:'گل',   unitPlural:'گل‌ها',  winPoints:3, drawPoints:1, allowDraw:true,  active:true  },
+  { id:'volleyball', name:'والیبال',        icon:'🏐', type:'score',  unit:'ست',   unitPlural:'ست‌ها', winPoints:3, drawPoints:0, allowDraw:false, active:false },
+  { id:'foosball',   name:'فوتبال دستی',    icon:'🎮', type:'score',  unit:'گل',   unitPlural:'گل‌ها',  winPoints:3, drawPoints:1, allowDraw:true,  active:false },
+  { id:'efootball',  name:'فوتبال دیجیتال', icon:'🕹️', type:'score',  unit:'گل',   unitPlural:'گل‌ها',  winPoints:3, drawPoints:1, allowDraw:true,  active:false },
+  { id:'tabletennis',name:'تنیس روی میز',   icon:'🏓', type:'score',  unit:'ست',   unitPlural:'ست‌ها', winPoints:3, drawPoints:0, allowDraw:false, active:false },
+  { id:'chess',      name:'شطرنج',          icon:'♟️', type:'winner', unit:'برد',  unitPlural:'بردها', winPoints:1, drawPoints:0.5, allowDraw:true,  active:false },
+  {
+    id:'tugwar', name:'طناب کشی', icon:'🪢', type:'score',
+    unit:'برد', unitPlural:'بردها', winPoints:3, drawPoints:0, allowDraw:false, active:false,
+    scoreMode:'byScore',
+    cleanWin:{ winner:3, loser:0 },
+    closeWin:{ winner:2, loser:1 },
+    loserThreshold:0
+  },
+  { id:'darts',      name:'دارت',           icon:'🎯', type:'solo',   unit:'امتیاز', unitPlural:'امتیازها', active:false, sportKind:'individual' },
+  { id:'archery',    name:'تیراندازی',      icon:'🏹', type:'solo',   unit:'امتیاز', unitPlural:'امتیازها', active:false, sportKind:'individual' },
+  { id:'athletics',  name:'دو میدانی',      icon:'🏃', type:'rank',   unit:'رتبه',  unitPlural:'رتبه‌ها', active:false, sportKind:'individual' }
+];
+
+const TYPE_INFO = {
+  score:  { label:'امتیازی',         desc:'دو نفر روبه‌روی هم، امتیاز می‌زنن',  icon:'⚽' },
+  winner: { label:'فقط برنده',       desc:'فقط مشخص می‌کنی کدوم برنده شد',      icon:'🏆' },
+  solo:   { label:'انفرادی با امتیاز', desc:'هر نفر جدا امتیاز می‌گیره',          icon:'📈' },
+  rank:   { label:'رتبه‌بندی',        desc:'به هر نفر یه رتبه می‌دی',            icon:'🥇' }
+};
+
+const I18N = {
+  fa: {
+    appName:'لیگ ورزش‌ها', appSub:'مدیریت نتایج مسابقات',
+    sportsHero:'ورزش‌ها', sportsHeroSub:'یک ورزش را برای مشاهده انتخاب کنید',
+    noActiveSports:'هنوز ورزشی فعال نشده است.', noActiveSportsHint:'مدیر باید ورزش‌ها رو فعال کنه.',
+    teamsCount:'شرکت‌کننده', matchesCount:'مسابقه',
+    adminHome:'پنل مدیریت', adminHomeHint:'فعال‌سازی ورزش‌ها و مدیریت نتایج',
+    enterAdmin:'ورود به پنل مدیریت',
+    tabTable:'جدول', tabBracket:'جدول حذفی', tabMatches:'بازی‌ها', tabAdmin:'مدیریت',
+    settings:'تنظیمات', theme:'تم', dark:'تیره', light:'روشن',
+    language:'زبان', close:'بستن', save:'ذخیره', cancel:'انصراف',
+    rank:'رتبه', team:'نام', played:'بازی', won:'برد', drawn:'مساوی', lost:'باخت',
+    scored:'زده', conceded:'خورده', gd:'تفاضل', points:'امتیاز', score:'امتیاز',
+    noTeams:'هنوز شرکت‌کننده‌ای اضافه نشده است.', noMatches:'هنوز نتیجه‌ای ثبت نشده است.',
+    addTeam:'افزودن شرکت‌کننده', teamName:'نام شرکت‌کننده', add:'افزودن',
+    maxTeams:'حداکثر ۱۰ شرکت‌کننده مجاز است.', minTeams:'حداقل ۲ شرکت‌کننده لازم است.',
+    teamExists:'این نام قبلاً استفاده شده است.', enterTeamName:'نام را وارد کنید.',
+    teams:'شرکت‌کننده‌ها', confirmDeleteTeam:'این شرکت‌کننده و همه نتایجش حذف شود؟',
+    confirmDeleteMatch:'این نتیجه حذف شود؟',
+    password:'رمز عبور', login:'ورود', wrongPassword:'رمز اشتباه است!',
+    adminPanel:'پنل مدیریت', logout:'خروج از مدیریت', confirmLogout:'از پنل خارج می‌شوی؟',
+    saved:'ذخیره شد', added:'اضافه شد', deleted:'حذف شد', loggedOut:'از پنل خارج شدی',
+    adminHint:'رمز عبور را وارد کنید.', recordResults:'ثبت نتایج', fillScores:'هر دو نتیجه را وارد کنید',
+    everyPair:'همه مسابقات ممکن', pickColor:'رنگ', needTwoTeams:'حداقل ۲ شرکت‌کننده لازم است.',
+    sportsManagement:'مدیریت ورزش‌ها', sportsManagementHint:'هر ورزش رو فعال/غیرفعال کن',
+    sportSettings:'تنظیمات ورزش', sportName:'نام ورزش', sportIcon:'آیکون',
+    unit:'واحد', unitPlural:'واحد جمع', winPoints:'امتیاز برد', drawPoints:'امتیاز مساوی', lossPoints:'امتیاز باخت',
+    allowDraw:'مساوی مجاز؟', yes:'بله', no:'خیر', configure:'تنظیمات',
+    activated:'فعال شد', deactivated:'غیرفعال شد', sportUpdated:'ذخیره شد',
+    pickWinner:'برنده رو انتخاب کن', draw:'مساوی', winner:'برنده',
+    guide:'راهنما', dangerZone:'منطقه خطر', deleteAllData:'پاک کردن کل اطلاعات',
+    deleteAllDataHint:'همه ورزش‌ها، شرکت‌کننده‌ها و نتایج پاک می‌شن',
+    confirmDeleteAll:'⚠️ مطمئنی؟ همه اطلاعات برای همیشه پاک می‌شه!',
+    confirmDeleteAll2:'آخرین هشدار! واقعاً مطمئنی؟', allDataDeleted:'همه اطلاعات پاک شد',
+    mode:'حالت مسابقه', modeLeague:'لیگ (دوره‌ای)', modeKnockout:'حذفی (Knockout)',
+    modeHint:'در حالت حذفی، بازنده خارج می‌شه',
+    generateBracket:'ساخت جدول حذفی', generateBracketHint:'شرکت‌کننده‌ها تصادفی روبه‌روی هم قرار می‌گیرن',
+    regenerateBracket:'جدول جدید', deleteBracket:'حذف جدول',
+    confirmRegenerate:'جدول فعلی پاک و یه جدول جدید ساخته بشه؟', confirmDeleteBracket:'کل جدول حذفی حذف بشه؟',
+    bracketGenerated:'جدول ساخته شد', bracketDeleted:'جدول حذف شد',
+    champion:'قهرمان', round:'دور', final:'فینال', semiFinal:'نیمه‌نهایی', quarterFinal:'یک‌چهارم نهایی', roundOf16:'یک‌هشتم نهایی',
+    bye:'استراحت', byeTeam:'استراحت (بدون بازی)',
+    noBracket:'هنوز جدولی ساخته نشده است.', noBracketHint:'روی «ساخت جدول حذفی» بزنید',
+    knockoutNoDraw:'در حالت حذفی مساوی ممکن نیست', confirmResetMatch:'این نتیجه پاک بشه؟',
+    knockoutActive:'حالت حذفی فعال', bracketInfo:'هر مسابقه یه برنده داره که به دور بعد می‌ره',
+    scoringMode:'نوع امتیازدهی', scoringSimple:'ساده', scoringByScore:'بر اساس نتیجه',
+    scoringByScoreHint:'امتیاز برنده بسته به نتیجه فرق می‌کنه',
+    loserThreshold:'آستانه امتیاز بازنده', loserThresholdHint:'اگه امتیاز بازنده ≤ این عدد باشه، «برد پاک» حساب می‌شه',
+    cleanWin:'برد پاک', cleanWinExample:'مثلاً ۲-۰', closeWin:'برد نزدیک', closeWinExample:'مثلاً ۲-۱',
+    winnerPoints:'امتیاز برنده', loserPoints:'امتیاز بازنده',
+    /* New for members & sport kind */
+    sportKind:'نوع ورزش', sportKindHint:'گروهی یا انفرادی',
+    kindTeam:'گروهی', kindIndividual:'انفرادی',
+    showMembers:'نمایش اعضای تیم', showMembersHint:'اگه فعال باشه، می‌تونی برای هر تیم اعضا وارد کنی',
+    showCaptain:'نمایش سرگروه', showCaptainHint:'اگه فعال باشه، می‌تونی سرگروه تیم رو مشخص کنی',
+    manageMembers:'مدیریت اعضا', members:'اعضا', memberName:'نام عضو', addMember:'افزودن عضو',
+    maxMembers:'حداکثر ۱۵ عضو مجاز است.', minMembers:'حداقل ۱ عضو لازم است.',
+    memberExists:'این نام قبلاً استفاده شده است.', enterMemberName:'نام عضو را وارد کنید.',
+    confirmDeleteMember:'این عضو حذف شود؟', memberAdded:'عضو اضافه شد', memberDeleted:'عضو حذف شد',
+    captain:'سرگروه', setCaptain:'سرگروه کن', unsetCaptain:'لغو سرگروهی', captainSet:'سرگروه انتخاب شد',
+    teamMembers:'اعضای تیم‌ها', noMembers:'هنوز عضوی اضافه نشده است.', membersCount:'عضو'
+  },
+  en: {
+    appName:'Sports League', appSub:'Match Results Manager',
+    sportsHero:'Sports', sportsHeroSub:'Pick a sport to view results',
+    noActiveSports:'No sports activated.', noActiveSportsHint:'The admin must activate sports.',
+    teamsCount:'participants', matchesCount:'matches',
+    adminHome:'Admin Panel', adminHomeHint:'Activate sports and manage results', enterAdmin:'Enter Admin',
+    tabTable:'Table', tabBracket:'Bracket', tabMatches:'Matches', tabAdmin:'Manage',
+    settings:'Settings', theme:'Theme', dark:'Dark', light:'Light',
+    language:'Language', close:'Close', save:'Save', cancel:'Cancel',
+    rank:'Rank', team:'Name', played:'P', won:'W', drawn:'D', lost:'L',
+    scored:'SF', conceded:'SA', gd:'Diff', points:'Pts', score:'Score',
+    noTeams:'No participants yet.', noMatches:'No results yet.',
+    addTeam:'Add Participant', teamName:'Name', add:'Add',
+    maxTeams:'Max 10 participants.', minTeams:'Min 2 required.',
+    teamExists:'Name already used.', enterTeamName:'Enter a name.',
+    teams:'Participants', confirmDeleteTeam:'Delete this participant?', confirmDeleteMatch:'Delete this result?',
+    password:'Password', login:'Login', wrongPassword:'Wrong password!',
+    adminPanel:'Admin Panel', logout:'Logout', confirmLogout:'Log out?',
+    saved:'Saved', added:'Added', deleted:'Deleted', loggedOut:'Logged out',
+    adminHint:'Enter password.', recordResults:'Record Results', fillScores:'Enter both scores',
+    everyPair:'All possible matches', pickColor:'Color', needTwoTeams:'At least 2 required.',
+    sportsManagement:'Sports Management', sportsManagementHint:'Enable or disable each sport',
+    sportSettings:'Sport Settings', sportName:'Sport name', sportIcon:'Icon',
+    unit:'Unit', unitPlural:'Unit plural', winPoints:'Win', drawPoints:'Draw', lossPoints:'Loss',
+    allowDraw:'Allow draws?', yes:'Yes', no:'No', configure:'Configure',
+    activated:'Activated', deactivated:'Deactivated', sportUpdated:'Saved',
+    pickWinner:'Pick winner', draw:'Draw', winner:'Winner',
+    guide:'Guide', dangerZone:'Danger Zone', deleteAllData:'Delete All Data',
+    deleteAllDataHint:'All sports, participants and results will be erased',
+    confirmDeleteAll:'⚠️ Are you sure? All data will be permanently deleted!',
+    confirmDeleteAll2:'Final warning! Really sure?', allDataDeleted:'All data deleted',
+    mode:'Match mode', modeLeague:'League', modeKnockout:'Knockout', modeHint:'Losers are eliminated',
+    generateBracket:'Generate Bracket', generateBracketHint:'Participants are randomly paired',
+    regenerateBracket:'New Bracket', deleteBracket:'Delete Bracket',
+    confirmRegenerate:'Delete current bracket and create a new one?', confirmDeleteBracket:'Delete the entire bracket?',
+    bracketGenerated:'Bracket generated', bracketDeleted:'Bracket deleted',
+    champion:'Champion', round:'Round', final:'Final', semiFinal:'Semi-Final', quarterFinal:'Quarter-Final', roundOf16:'Round of 16',
+    bye:'Bye', byeTeam:'Bye', noBracket:'No bracket yet.', noBracketHint:'Click "Generate Bracket"',
+    knockoutNoDraw:'Draws not allowed in knockout', confirmResetMatch:'Delete this result?',
+    knockoutActive:'Knockout mode active', bracketInfo:'Each match has a winner who advances',
+    scoringMode:'Scoring mode', scoringSimple:'Simple', scoringByScore:'By score',
+    scoringByScoreHint:'Winner points depend on the score',
+    loserThreshold:'Loser score threshold', loserThresholdHint:'If loser score ≤ this, it\'s a clean win',
+    cleanWin:'Clean win', cleanWinExample:'e.g. 2-0', closeWin:'Close win', closeWinExample:'e.g. 2-1',
+    winnerPoints:'Winner points', loserPoints:'Loser points',
+    sportKind:'Sport kind', sportKindHint:'Team or individual',
+    kindTeam:'Team', kindIndividual:'Individual',
+    showMembers:'Show team members', showMembersHint:'If enabled, you can add members for each team',
+    showCaptain:'Show captain', showCaptainHint:'If enabled, you can mark a captain for each team',
+    manageMembers:'Manage members', members:'Members', memberName:'Member name', addMember:'Add member',
+    maxMembers:'Max 15 members.', minMembers:'Min 1 member required.',
+    memberExists:'Name already used.', enterMemberName:'Enter a member name.',
+    confirmDeleteMember:'Delete this member?', memberAdded:'Member added', memberDeleted:'Member deleted',
+    captain:'Captain', setCaptain:'Set as captain', unsetCaptain:'Remove captain', captainSet:'Captain set',
+    teamMembers:'Team Members', noMembers:'No members yet.', membersCount:'members'
+  }
+};
+
+const uid = () => (crypto.randomUUID ? crypto.randomUUID() : 'id' + Math.random().toString(36).slice(2) + Date.now());
+
+function makeSport(def){
+  const base = {
+    id: def.id, name: def.name, icon: def.icon, type: def.type,
+    unit: def.unit, unitPlural: def.unitPlural,
+    active: !!def.active, teams: [], matches: [],
+    winners: {}, soloScores: {}, ranks: {},
+    mode: 'league', bracket: null, champion: null,
+    sportKind: def.sportKind || 'team',
+    showMembers: false, showCaptain: false,
+    teamMembers: {}
+  };
+  if(def.type === 'score'){
+    base.winPoints = def.winPoints ?? 3; base.drawPoints = def.drawPoints ?? 1;
+    base.lossPoints = 0; base.allowDraw = def.allowDraw ?? true; base.maxScore = 99;
+    base.scoreMode = def.scoreMode || 'simple';
+    base.cleanWin = def.cleanWin || { winner: 3, loser: 0 };
+    base.closeWin = def.closeWin || { winner: 2, loser: 1 };
+    base.loserThreshold = def.loserThreshold ?? 0;
+  }
+  if(def.type === 'winner'){
+    base.winPoints = def.winPoints ?? 3; base.drawPoints = def.drawPoints ?? 0;
+    base.lossPoints = 0; base.allowDraw = def.allowDraw ?? false;
+  }
+  return base;
+}
+
+function defaultState(){
+  const st = { sports:{}, settings:{ theme:'dark', lang:'fa' } };
+  SPORT_DEFS.forEach(d => { st.sports[d.id] = makeSport(d); });
+  // NOTE: no default football teams anymore
+  return st;
+}
+
+function validateSport(sp, def){
+  if(!sp || typeof sp !== 'object') return makeSport(def);
+  sp.id = def.id; sp.type = def.type;
+  sp.name = sp.name || def.name; sp.icon = sp.icon || def.icon;
+  sp.unit = sp.unit || def.unit; sp.unitPlural = sp.unitPlural || def.unitPlural;
+  sp.active = !!sp.active;
+  sp.teams = Array.isArray(sp.teams) ? sp.teams : [];
+  sp.matches = Array.isArray(sp.matches) ? sp.matches : [];
+  sp.winners = (sp.winners && typeof sp.winners === 'object') ? sp.winners : {};
+  sp.soloScores = (sp.soloScores && typeof sp.soloScores === 'object') ? sp.soloScores : {};
+  sp.ranks = (sp.ranks && typeof sp.ranks === 'object') ? sp.ranks : {};
+  sp.mode = sp.mode === 'knockout' ? 'knockout' : 'league';
+  sp.bracket = Array.isArray(sp.bracket) ? sp.bracket : null;
+  sp.champion = sp.champion || null;
+  sp.sportKind = sp.sportKind === 'individual' ? 'individual' : (def.sportKind || 'team');
+  sp.showMembers = !!sp.showMembers;
+  sp.showCaptain = !!sp.showCaptain;
+  sp.teamMembers = (sp.teamMembers && typeof sp.teamMembers === 'object') ? sp.teamMembers : {};
+  // validate each team's members list
+  Object.keys(sp.teamMembers).forEach(tid => {
+    const arr = sp.teamMembers[tid];
+    if(!Array.isArray(arr)){ delete sp.teamMembers[tid]; return; }
+    sp.teamMembers[tid] = arr.map(m => ({
+      id: m.id || uid(),
+      name: String(m.name || '').trim().slice(0, 30),
+      isCaptain: !!m.isCaptain
+    })).filter(m => m.name);
+  });
+  if(def.type === 'score'){
+    sp.winPoints = sp.winPoints ?? def.winPoints; sp.drawPoints = sp.drawPoints ?? def.drawPoints;
+    sp.lossPoints = sp.lossPoints ?? 0; sp.allowDraw = sp.allowDraw ?? def.allowDraw;
+    sp.maxScore = sp.maxScore ?? 99;
+    sp.scoreMode = sp.scoreMode === 'byScore' ? 'byScore' : 'simple';
+    sp.cleanWin = (sp.cleanWin && typeof sp.cleanWin === 'object')
+      ? { winner: Number(sp.cleanWin.winner) || 0, loser: Number(sp.cleanWin.loser) || 0 }
+      : (def.cleanWin || { winner: 3, loser: 0 });
+    sp.closeWin = (sp.closeWin && typeof sp.closeWin === 'object')
+      ? { winner: Number(sp.closeWin.winner) || 0, loser: Number(sp.closeWin.loser) || 0 }
+      : (def.closeWin || { winner: 2, loser: 1 });
+    sp.loserThreshold = Number.isFinite(Number(sp.loserThreshold)) ? Number(sp.loserThreshold) : 0;
+  }
+  if(def.type === 'winner'){
+    sp.winPoints = sp.winPoints ?? def.winPoints; sp.drawPoints = sp.drawPoints ?? def.drawPoints;
+    sp.lossPoints = sp.lossPoints ?? 0; sp.allowDraw = sp.allowDraw ?? def.allowDraw;
+  }
+  sp.teams.forEach((tm, i) => { if(!tm.color) tm.color = COLORS[i % COLORS.length]; });
+  return sp;
+}
+
+function validateState(s){
+  if(!s || typeof s !== 'object') return null;
+  const st = { sports:{}, settings:Object.assign({theme:'dark',lang:'fa'}, s.settings || {}) };
+  SPORT_DEFS.forEach(def => { st.sports[def.id] = validateSport(s.sports && s.sports[def.id], def); });
+  return st;
+}
+
+function migrateOld(){
+  for(const key of OLD_KEYS){
+    try{
+      const raw = localStorage.getItem(key);
+      if(!raw) continue;
+      const old = JSON.parse(raw);
+      if(!old) continue;
+      if(old.sports){ const v = validateState(old); if(v) return v; }
+      if(Array.isArray(old.teams)){
+        const st = defaultState();
+        st.sports.football.teams = old.teams.map((tm,i) => ({ id: tm.id || 'f'+i, name: tm.name, color: tm.color || COLORS[i % COLORS.length] }));
+        st.sports.football.matches = (old.matches || []).map(m => ({ id: m.id, home: m.home, away: m.away, hg: m.hg, ag: m.ag }));
+        return st;
+      }
+    }catch(e){}
+  }
+  return null;
+}
+
+function loadState(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(raw){ const v = validateState(JSON.parse(raw)); if(v) return v; }
+    const m = migrateOld(); if(m) return m;
+  }catch(e){}
+  return defaultState();
+}
+
+let state = loadState();
+let authed = false;
+let currentView = 'sports';
+let currentSportId = null;
+let currentTab = 'table';
+
+const save = () => { try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }catch(e){} };
+const t = k => (I18N[state.settings.lang] || I18N.fa)[k] || k;
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function num(v){ const s = String(v); if(state.settings.lang !== 'fa') return s; return s.replace(/\d/g, d => '۰۱۲۳۴۵۶۷۸۹'[d]); }
+function diffFmt(v){ const s = (v > 0 ? '+' : '') + v; if(state.settings.lang !== 'fa') return s; return s.replace(/-/g,'−').replace(/\d/g, d => '۰۱۲۳۴۵۶۷۸۹'[d]); }
+function fmtPts(v){ const s = Number.isInteger(v) ? String(v) : v.toFixed(1); return num(s); }
+
+const getSport = id => state.sports[id];
+const allSports = () => SPORT_DEFS.map(d => state.sports[d.id]);
+const activeSports = () => allSports().filter(s => s.active);
+const sportColor = id => COLORS[SPORT_DEFS.findIndex(d => d.id === id) % COLORS.length] || '#4ade80';
+
+function toast(msg){
+  const el = document.getElementById('toast');
+  el.textContent = msg; el.classList.add('show');
+  clearTimeout(el._tm); el._tm = setTimeout(() => el.classList.remove('show'), 2100);
+}
+
+/* ============ STANDINGS ============ */
+function standingsScore(sp){
+  const st = {};
+  sp.teams.forEach(tm => { st[tm.id] = { id:tm.id, name:tm.name, color:tm.color, p:0,w:0,d:0,l:0,gf:0,ga:0,gd:0,pts:0 }; });
+  const byScore = sp.scoreMode === 'byScore';
+  const threshold = Number(sp.loserThreshold) || 0;
+  const cw = sp.cleanWin || { winner: 3, loser: 0 };
+  const clw = sp.closeWin || { winner: 2, loser: 1 };
+
+  sp.matches.forEach(m => {
+    const h = st[m.home], a = st[m.away]; if(!h || !a) return;
+    h.p++; a.p++; h.gf += m.hg; h.ga += m.ag; a.gf += m.ag; a.ga += m.hg;
+
+    if(m.hg > m.ag){
+      h.w++; a.l++;
+      if(byScore){
+        const isClean = m.ag <= threshold;
+        const rule = isClean ? cw : clw;
+        h.pts += Number(rule.winner) || 0;
+        a.pts += Number(rule.loser) || 0;
+      }else{
+        h.pts += sp.winPoints; a.pts += sp.lossPoints;
+      }
+    }else if(m.hg < m.ag){
+      a.w++; h.l++;
+      if(byScore){
+        const isClean = m.hg <= threshold;
+        const rule = isClean ? cw : clw;
+        a.pts += Number(rule.winner) || 0;
+        h.pts += Number(rule.loser) || 0;
+      }else{
+        a.pts += sp.winPoints; h.pts += sp.lossPoints;
+      }
+    }else{
+      h.d++; a.d++;
+      h.pts += sp.drawPoints; a.pts += sp.drawPoints;
+    }
+  });
+
+  return Object.values(st).map(s => ({ ...s, gd: s.gf - s.ga }))
+    .sort((x,y) => y.pts - x.pts || y.gd - x.gd || y.gf - x.gf || x.name.localeCompare(y.name, state.settings.lang === 'fa' ? 'fa' : 'en'));
+}
+
+function standingsWinner(sp){
+  const st = {};
+  sp.teams.forEach(tm => { st[tm.id] = { id:tm.id, name:tm.name, color:tm.color, p:0,w:0,d:0,l:0,pts:0 }; });
+  Object.values(sp.winners || {}).forEach(res => {
+    if(!res || !res.a || !res.b) return;
+    const h = st[res.a], a = st[res.b]; if(!h || !a) return;
+    h.p++; a.p++;
+    if(res.winner === 'a'){ h.w++; a.l++; h.pts += sp.winPoints; a.pts += sp.lossPoints; }
+    else if(res.winner === 'b'){ a.w++; h.l++; a.pts += sp.winPoints; h.pts += sp.lossPoints; }
+    else { h.d++; a.d++; h.pts += sp.drawPoints; a.pts += sp.drawPoints; }
+  });
+  return Object.values(st).sort((x,y) => y.pts - x.pts || y.w - x.w || x.name.localeCompare(y.name, state.settings.lang === 'fa' ? 'fa' : 'en'));
+}
+
+function standingsSolo(sp){
+  return sp.teams.map(tm => ({ id: tm.id, name: tm.name, color: tm.color, score: Number(sp.soloScores[tm.id]) || 0, hasScore: sp.soloScores[tm.id] != null && sp.soloScores[tm.id] !== '' }))
+    .sort((x,y) => y.score - x.score || x.name.localeCompare(y.name, state.settings.lang === 'fa' ? 'fa' : 'en'));
+}
+
+function standingsRank(sp){
+  return sp.teams.map(tm => ({ id: tm.id, name: tm.name, color: tm.color, rank: Number(sp.ranks[tm.id]) || 9999, hasRank: sp.ranks[tm.id] != null && sp.ranks[tm.id] !== '' }))
+    .sort((x,y) => x.rank - y.rank || x.name.localeCompare(y.name, state.settings.lang === 'fa' ? 'fa' : 'en'));
+}
+
+/* ============ BRACKET ============ */
+function getRoundName(teamCount, roundIndex){
+  if(teamCount <= 2) return t('final');
+  if(teamCount <= 4) return t('semiFinal');
+  if(teamCount <= 8) return t('quarterFinal');
+  if(teamCount <= 16) return t('roundOf16');
+  return t('round') + ' ' + num(roundIndex + 1);
+}
+
+function generateBracket(sp){
+  if(sp.teams.length < MIN_TEAMS) return false;
+  const teams = sp.teams.slice();
+  for(let i = teams.length - 1; i > 0; i--){ const j = Math.floor(Math.random() * (i + 1)); [teams[i], teams[j]] = [teams[j], teams[i]]; }
+  const n = teams.length;
+  const matches = [], byes = [];
+  for(let i = 0; i < n; i += 2){
+    if(i + 1 < n){ matches.push({ id: uid(), a: teams[i].id, b: teams[i+1].id, hg: null, ag: null, winner: null }); }
+    else { byes.push(teams[i].id); }
+  }
+  sp.bracket = [{ name: getRoundName(n, 0), matches, byes }];
+  sp.champion = null;
+  return true;
+}
+
+function ensureBracketRounds(sp){
+  if(!sp.bracket || !sp.bracket.length) return;
+  let safety = 0;
+  while(safety < 20){
+    safety++;
+    const lastIdx = sp.bracket.length - 1;
+    const last = sp.bracket[lastIdx]; if(!last) break;
+    if(last.matches.length === 0){ if(last.byes.length <= 1){ sp.champion = last.byes[0] || null; } break; }
+    const allDone = last.matches.every(m => m.winner === 'a' || m.winner === 'b');
+    if(!allDone) break;
+    const winners = last.matches.map(m => m.winner === 'a' ? m.a : m.b);
+    const nextTeams = [...winners, ...last.byes];
+    if(nextTeams.length <= 1){ sp.champion = nextTeams[0] || null; break; }
+    if(sp.bracket[lastIdx + 1]) break;
+    const matches = [], byes = [];
+    for(let i = 0; i < nextTeams.length; i += 2){
+      if(i + 1 < nextTeams.length){ matches.push({ id: uid(), a: nextTeams[i], b: nextTeams[i+1], hg: null, ag: null, winner: null }); }
+      else { byes.push(nextTeams[i]); }
+    }
+    sp.bracket.push({ name: getRoundName(nextTeams.length, sp.bracket.length), matches, byes });
+  }
+}
+
+/* ============ SETTINGS ============ */
+function applySettings(){
+  const { theme, lang } = state.settings;
+  document.documentElement.setAttribute('data-theme', theme);
+  document.documentElement.setAttribute('lang', lang);
+  document.documentElement.setAttribute('dir', lang === 'fa' ? 'rtl' : 'ltr');
+  const meta = document.querySelector('meta[name="theme-color"]');
+  if(meta) meta.setAttribute('content', theme === 'dark' ? '#070b14' : '#eef2f9');
+  document.title = t('appName') + ' | ' + t('appSub');
+  const bt = document.getElementById('brandTitle'), bs = document.getElementById('brandSub');
+  if(bt) bt.textContent = t('appName'); if(bs) bs.textContent = t('appSub');
+  const atb = document.getElementById('adminTopBtn');
+  if(atb){ atb.textContent = authed ? '🔓' : '🔒'; atb.classList.toggle('active', authed); }
+  const ltb = document.getElementById('logoutTopBtn');
+  if(ltb) ltb.classList.toggle('show', authed);
+}
+
+function renderTabs(){
+  const tabsEl = document.getElementById('tabs');
+  if(currentView !== 'sport'){ tabsEl.style.display = 'none'; return; }
+  const sp = getSport(currentSportId);
+  if(!sp){ tabsEl.style.display = 'none'; return; }
+  tabsEl.style.display = '';
+  const isKnockout = (sp.type === 'score' || sp.type === 'winner') && sp.mode === 'knockout';
+  const tabs = [{ id:'table', icon: isKnockout ? '🏆' : '📊', label: isKnockout ? t('tabBracket') : t('tabTable') }];
+  if(sp.type === 'score' || sp.type === 'winner'){ tabs.push({ id:'matches', icon:'📋', label:t('tabMatches') }); }
+  if(authed) tabs.push({ id:'admin', icon:'🔐', label:t('tabAdmin') });
+  tabsEl.innerHTML = tabs.map(tb => `
+    <button class="tab ${currentTab === tb.id ? 'active' : ''}" data-action="sportTab" data-tab="${tb.id}">
+      <span>${tb.icon}</span><span>${esc(tb.label)}</span>
+    </button>
+  `).join('');
+}
+
+function render(){
+  applySettings(); renderTabs();
+  const main = document.getElementById('view');
+  if(currentView === 'sports')     main.innerHTML = renderSportsHome();
+  else if(currentView === 'admin') main.innerHTML = renderAdminHome();
+  else if(currentView === 'sport') main.innerHTML = renderSportView();
+  else main.innerHTML = renderSportsHome();
+  if(currentView === 'sport' && currentTab === 'admin') bindTeamForm();
+}
+
+function renderSportsHome(){
+  const list = activeSports();
+  const cards = list.length
+    ? list.map(s => {
+        const color = sportColor(s.id);
+        const ti = TYPE_INFO[s.type] || TYPE_INFO.score;
+        const isKnockout = (s.type === 'score' || s.type === 'winner') && s.mode === 'knockout';
+        const kindBadge = s.sportKind === 'individual' ? '👤' : '👥';
+        let meta = '';
+        if(s.type === 'score' || s.type === 'winner'){
+          const mCount = isKnockout && s.bracket ? s.bracket.reduce((sum, r) => sum + r.matches.length, 0) : (s.type === 'score' ? s.matches.length : Object.keys(s.winners||{}).length);
+          meta = `<span>👥 ${num(s.teams.length)}</span><span>📋 ${num(mCount)}</span>`;
+        }else{ meta = `<span>👥 ${num(s.teams.length)}</span>`; }
+        const badgeLabel = isKnockout ? '🏆 حذفی' : `${ti.icon} ${esc(ti.label)}`;
+        return `
+          <div class="sport-card" data-action="openSport" data-id="${s.id}" style="--sport-color:${color}">
+            <span class="sport-icon">${esc(s.icon)}</span>
+            <h3 class="sport-name">${esc(s.name)}</h3>
+            <span class="sport-type-badge">${badgeLabel} · ${kindBadge}</span>
+            <div class="sport-meta">${meta}</div>
+          </div>`;
+      }).join('')
+    : `<div class="empty" style="grid-column:1/-1"><span class="ico">🎪</span><p>${esc(t('noActiveSports'))}<br><span style="font-size:.78rem">${esc(t('noActiveSportsHint'))}</span></p></div>`;
+  const cta = authed
+    ? `<div class="admin-home-cta"><h3>🔓 ${esc(t('adminHome'))}</h3><p>${esc(t('adminHomeHint'))}</p><button class="btn primary" data-action="gotoAdmin">⚙️ ${esc(t('sportsManagement'))}</button></div>`
+    : `<div class="admin-home-cta"><h3>🔒 ${esc(t('adminHome'))}</h3><p>${esc(t('adminHomeHint'))}</p><button class="btn" data-action="askPassword">🔑 ${esc(t('enterAdmin'))}</button></div>`;
+  return `<div class="fade"><div class="sports-hero"><h2>${esc(t('sportsHero'))}</h2><p>${esc(t('sportsHeroSub'))}</p></div><div class="sports-grid">${cards}</div>${cta}</div>`;
+}
+
+function renderSportView(){
+  const sp = getSport(currentSportId);
+  if(!sp){ currentView = 'sports'; return renderSportsHome(); }
+  const color = sportColor(sp.id);
+  const ti = TYPE_INFO[sp.type] || TYPE_INFO.score;
+  const isKnockout = (sp.type === 'score' || sp.type === 'winner') && sp.mode === 'knockout';
+  let headerMeta = '';
+  if(isKnockout){
+    headerMeta = `${num(sp.teams.length)} ${t('teamsCount')} · ${t('knockoutActive')}`;
+  }else if(sp.type === 'score'){
+    headerMeta = `${num(sp.teams.length)} ${t('teamsCount')} · ${num(sp.matches.length)} ${t('matchesCount')}`;
+  }else if(sp.type === 'winner'){
+    headerMeta = `${num(sp.teams.length)} ${t('teamsCount')} · ${num(Object.keys(sp.winners||{}).length)} ${t('matchesCount')}`;
+  }else{
+    headerMeta = `${num(sp.teams.length)} ${t('teamsCount')} · ${ti.label}`;
+  }
+  const header = `
+    <div class="sport-header" style="--sport-color:${color}">
+      <button class="back-btn" data-action="goHome">↩</button>
+      <div class="sport-header-icon">${esc(sp.icon)}</div>
+      <div class="sport-header-info"><h2>${esc(sp.name)}</h2><p>${headerMeta}</p></div>
+    </div>`;
+  let content = '';
+  if(currentTab === 'table'){
+    if(isKnockout) content = renderBracketPublic(sp);
+    else if(sp.type === 'score') content = renderTableScore(sp);
+    else if(sp.type === 'winner') content = renderTableWinner(sp);
+    else if(sp.type === 'solo') content = renderTableSolo(sp);
+    else if(sp.type === 'rank') content = renderTableRank(sp);
+    // Members section below table
+    content += renderMembersPublic(sp);
+  }else if(currentTab === 'matches'){
+    if(isKnockout) content = renderBracketMatchesList(sp);
+    else if(sp.type === 'score') content = renderMatchesScore(sp);
+    else if(sp.type === 'winner') content = renderMatchesWinner(sp);
+  }else if(currentTab === 'admin'){
+    if(!authed){ currentTab = 'table'; return renderSportView(); }
+    content = renderSportAdmin(sp);
+  }
+  return header + content;
+}
+
+function teamById(sp, id){ return sp.teams.find(x => x.id === id); }
+
+function renderMembersPublic(sp){
+  if(!sp.showMembers) return '';
+  const teamsWithMembers = sp.teams.filter(tm => (sp.teamMembers[tm.id] || []).length > 0);
+  if(!teamsWithMembers.length) return '';
+  const cards = teamsWithMembers.map(tm => {
+    const members = sp.teamMembers[tm.id] || [];
+    const items = members.map(m => {
+      const isCap = m.isCaptain && sp.showCaptain;
+      return `
+        <li class="member-item ${isCap ? 'captain' : ''}">
+          ${isCap ? '<span class="cap-star">⭐</span>' : ''}
+          <span class="member-name">${esc(m.name)}</span>
+          ${isCap ? `<span class="cap-badge">${esc(t('captain'))}</span>` : ''}
+        </li>
+      `;
+    }).join('');
+    return `
+      <div class="member-card">
+        <div class="member-card-head">
+          <span class="dot" style="background:${esc(tm.color)}"></span>
+          <span class="name">${esc(tm.name)}</span>
+          <span class="count">${num(members.length)} ${esc(t('membersCount'))}</span>
+        </div>
+        <ul class="member-list-public">${items}</ul>
+      </div>
+    `;
+  }).join('');
+  return `
+    <div class="section fade">
+      <div class="section-title">👥 ${esc(t('teamMembers'))}</div>
+      <div class="members-grid">${cards}</div>
+    </div>
+  `;
+}
+
+function renderBracketPublic(sp){
+  if(!sp.bracket || !sp.bracket.length){
+    return `<div class="empty fade"><span class="ico">🏆</span><p>${esc(t('noBracket'))}<br><span style="font-size:.78rem">${esc(t('noBracketHint'))}</span></p></div>`;
+  }
+  const roundsHtml = sp.bracket.map((round) => {
+    const matchRows = round.matches.map(m => {
+      const a = teamById(sp, m.a), b = teamById(sp, m.b);
+      if(!a || !b) return '';
+      const isResolved = m.winner === 'a' || m.winner === 'b';
+      const aCls = isResolved ? (m.winner === 'a' ? 'winner' : 'loser') : '';
+      const bCls = isResolved ? (m.winner === 'b' ? 'winner' : 'loser') : '';
+      return `
+        <div class="bracket-match ${isResolved ? 'resolved' : ''}">
+          <span class="bm-team a ${aCls}"><span>${esc(a.name)}</span><span class="tdot" style="background:${esc(a.color)}"></span></span>
+          ${isResolved
+            ? `<span class="bm-score-display ${m.winner === 'a' ? 'winner' : ''}">${num(m.hg)}</span>
+               <span class="bm-sep">−</span>
+               <span class="bm-score-display ${m.winner === 'b' ? 'winner' : ''}">${num(m.ag)}</span>`
+            : `<span class="bm-score-display">?</span><span class="bm-sep">−</span><span class="bm-score-display">?</span>`}
+          <span class="bm-team b ${bCls}"><span class="tdot" style="background:${esc(b.color)}"></span><span>${esc(b.name)}</span></span>
+          <div></div>
+        </div>`;
+    }).join('');
+    const byeRows = round.byes.map(teamId => {
+      const tm = teamById(sp, teamId); if(!tm) return '';
+      return `<div class="bm-bye">⏭️ ${esc(tm.name)} — ${esc(t('bye'))}</div>`;
+    }).join('');
+    return `
+      <div class="bracket-round">
+        <div class="bracket-round-title">🏁 ${esc(round.name)}<span class="rr-count">${num(round.matches.filter(m => m.winner).length)} / ${num(round.matches.length)}</span></div>
+        ${matchRows || `<p style="color:var(--muted);font-size:.82rem;padding:8px 4px">—</p>`}
+        ${byeRows}
+      </div>`;
+  }).join('');
+  const championHtml = sp.champion ? (() => {
+    const c = teamById(sp, sp.champion); if(!c) return '';
+    return `
+      <div class="champion-box">
+        <span class="trophy">🏆</span>
+        <h3>${esc(t('champion'))}</h3>
+        <div class="champion-name"><span class="tdot" style="background:${esc(c.color)}"></span>${esc(c.name)}</div>
+      </div>`;
+  })() : '';
+  return `<div class="section fade"><div class="hint-box">🏆 <b>${esc(t('knockoutActive'))}:</b> ${esc(t('bracketInfo'))}</div><div class="bracket-wrap">${roundsHtml}</div>${championHtml}</div>`;
+}
+
+function renderBracketMatchesList(sp){
+  if(!sp.bracket || !sp.bracket.length){
+    return `<div class="empty fade"><span class="ico">📋</span><p>${esc(t('noBracket'))}</p></div>`;
+  }
+  const allMatches = [];
+  sp.bracket.forEach((round) => {
+    round.matches.forEach(m => {
+      if(m.winner === 'a' || m.winner === 'b'){ allMatches.push({ round: round.name, m }); }
+    });
+  });
+  if(!allMatches.length){ return `<div class="empty fade"><span class="ico">📋</span><p>${esc(t('noMatches'))}</p></div>`; }
+  const items = allMatches.reverse().map(({ m }) => {
+    const a = teamById(sp, m.a), b = teamById(sp, m.b); if(!a || !b) return '';
+    const aw = m.winner === 'a', bw = m.winner === 'b';
+    return `
+      <div class="match">
+        <div class="m-team a"><span class="dot" style="background:${esc(a.color)}"></span><span>${esc(a.name)}</span></div>
+        <div class="m-score"><span class="${aw?'win':''}">${num(m.hg)}</span><span style="opacity:.4">-</span><span class="${bw?'win':''}">${num(m.ag)}</span></div>
+        <div class="m-team b"><span>${esc(b.name)}</span><span class="dot" style="background:${esc(b.color)}"></span></div>
+      </div>`;
+  }).join('');
+  return `<div class="section fade"><div class="section-title">📋 ${esc(t('tabMatches'))}</div><div class="match-list">${items}</div></div>`;
+}
+
+function renderTableScore(sp){
+  const rows = standingsScore(sp);
+  if(!sp.teams.length) return emptyBox('🏟️', t('noTeams'));
+  const byScore = sp.scoreMode === 'byScore';
+  const byScoreHint = byScore ? `
+    <div class="hint-box" style="margin-bottom:12px;font-size:.75rem">
+      🎯 <b>${esc(t('scoringByScore'))}:</b>
+      ${esc(t('cleanWin'))} (${esc(t('cleanWinExample'))}): ${num(sp.cleanWin?.winner ?? 3)} / ${num(sp.cleanWin?.loser ?? 0)} —
+      ${esc(t('closeWin'))} (${esc(t('closeWinExample'))}): ${num(sp.closeWin?.winner ?? 2)} / ${num(sp.closeWin?.loser ?? 1)}
+    </div>` : '';
+  const body = rows.map((r,i) => `
+    <tr>
+      <td>${medalOrNum(i)}</td>
+      <td><div class="team-cell"><span class="dot" style="background:${esc(r.color)}"></span><span>${esc(r.name)}</span></div></td>
+      <td>${num(r.p)}</td><td>${num(r.w)}</td><td>${num(r.d)}</td><td>${num(r.l)}</td>
+      <td>${num(r.gf)}</td><td>${num(r.ga)}</td><td>${diffFmt(r.gd)}</td>
+      <td class="pts">${fmtPts(r.pts)}</td>
+    </tr>`).join('');
+  return `<div class="section fade"><div class="section-title">📊 ${esc(t('tabTable'))}</div>${byScoreHint}<div class="table-wrap"><table><thead><tr><th>${esc(t('rank'))}</th><th>${esc(t('team'))}</th><th>${esc(t('played'))}</th><th>${esc(t('won'))}</th><th>${esc(t('drawn'))}</th><th>${esc(t('lost'))}</th><th>${esc(t('scored'))}</th><th>${esc(t('conceded'))}</th><th>${esc(t('gd'))}</th><th>${esc(t('points'))}</th></tr></thead><tbody>${body}</tbody></table></div></div>`;
+}
+
+function renderTableWinner(sp){
+  const rows = standingsWinner(sp);
+  if(!sp.teams.length) return emptyBox('🏟️', t('noTeams'));
+  const body = rows.map((r,i) => `
+    <tr>
+      <td>${medalOrNum(i)}</td>
+      <td><div class="team-cell"><span class="dot" style="background:${esc(r.color)}"></span><span>${esc(r.name)}</span></div></td>
+      <td>${num(r.p)}</td><td>${num(r.w)}</td><td>${num(r.d)}</td><td>${num(r.l)}</td>
+      <td class="pts">${fmtPts(r.pts)}</td>
+    </tr>`).join('');
+  return `<div class="section fade"><div class="section-title">📊 ${esc(t('tabTable'))}</div><div class="table-wrap"><table><thead><tr><th>${esc(t('rank'))}</th><th>${esc(t('team'))}</th><th>${esc(t('played'))}</th><th>${esc(t('won'))}</th><th>${esc(t('drawn'))}</th><th>${esc(t('lost'))}</th><th>${esc(t('points'))}</th></tr></thead><tbody>${body}</tbody></table></div></div>`;
+}
+
+function renderTableSolo(sp){
+  const rows = standingsSolo(sp);
+  if(!sp.teams.length) return emptyBox('🎯', t('noTeams'));
+  const body = rows.map((r,i) => `
+    <tr><td>${medalOrNum(i)}</td><td><div class="team-cell"><span class="dot" style="background:${esc(r.color)}"></span><span>${esc(r.name)}</span></div></td><td class="big-score">${r.hasScore ? num(r.score) : '—'}</td></tr>
+  `).join('');
+  return `<div class="section fade"><div class="hint-box">📈 <b>${esc(TYPE_INFO.solo.label)}:</b> هر شرکت‌کننده جدا امتیاز می‌گیره.</div><div class="table-wrap"><table><thead><tr><th>${esc(t('rank'))}</th><th>${esc(t('team'))}</th><th>${esc(t('score'))}</th></tr></thead><tbody>${body}</tbody></table></div></div>`;
+}
+
+function renderTableRank(sp){
+  const rows = standingsRank(sp);
+  if(!sp.teams.length) return emptyBox('🏃', t('noTeams'));
+  const body = rows.map((r,i) => `
+    <tr><td>${r.hasRank ? medalOrNum(r.rank - 1) : '<span class="rank-num">—</span>'}</td><td><div class="team-cell"><span class="dot" style="background:${esc(r.color)}"></span><span>${esc(r.name)}</span></div></td><td>${r.hasRank ? num(r.rank) : '—'}</td></tr>
+  `).join('');
+  return `<div class="section fade"><div class="hint-box">🥇 <b>${esc(TYPE_INFO.rank.label)}:</b> مدیر به هر شرکت‌کننده رتبه می‌ده.</div><div class="table-wrap"><table><thead><tr><th>${esc(t('rank'))}</th><th>${esc(t('team'))}</th><th>${esc(t('rank'))}</th></tr></thead><tbody>${body}</tbody></table></div></div>`;
+}
+
+function medalOrNum(i){
+  if(i === 0) return '<span class="rank-medal g1">🥇</span>';
+  if(i === 1) return '<span class="rank-medal g2">🥈</span>';
+  if(i === 2) return '<span class="rank-medal g3">🥉</span>';
+  return `<span class="rank-num">${num(i+1)}</span>`;
+}
+
+function emptyBox(icon, text){ return `<div class="empty fade"><span class="ico">${icon}</span><p>${esc(text)}</p></div>`; }
+
+function renderMatchesScore(sp){
+  const list = [...sp.matches].reverse();
+  if(!list.length) return emptyBox('📋', t('noMatches'));
+  const byScore = sp.scoreMode === 'byScore';
+  const threshold = Number(sp.loserThreshold) || 0;
+  const cw = sp.cleanWin || { winner: 3, loser: 0 };
+  const clw = sp.closeWin || { winner: 2, loser: 1 };
+  const items = list.map(m => {
+    const h = sp.teams.find(x => x.id === m.home), a = sp.teams.find(x => x.id === m.away);
+    if(!h || !a) return '';
+    const hw = m.hg > m.ag, aw = m.ag > m.hg;
+    let preview = '';
+    if(byScore){
+      if(hw){
+        const clean = m.ag <= threshold;
+        const r = clean ? cw : clw;
+        preview = `<div class="score-preview">${clean ? '✅' : '🔥'} ${num(r.winner)} / ${num(r.loser)}</div>`;
+      }else if(aw){
+        const clean = m.hg <= threshold;
+        const r = clean ? cw : clw;
+        preview = `<div class="score-preview">${clean ? '✅' : '🔥'} ${num(r.winner)} / ${num(r.loser)}</div>`;
+      }
+    }
+    return `<div class="match"><div class="m-team a"><span class="dot" style="background:${esc(h.color)}"></span><span>${esc(h.name)}</span></div><div class="m-score"><span class="${hw?'win':''}">${num(m.hg)}</span><span style="opacity:.4">-</span><span class="${aw?'win':''}">${num(m.ag)}</span></div><div class="m-team b"><span>${esc(a.name)}</span><span class="dot" style="background:${esc(a.color)}"></span></div>${preview}</div>`;
+  }).join('');
+  return `<div class="section fade"><div class="section-title">📋 ${esc(t('tabMatches'))}</div><div class="match-list">${items}</div></div>`;
+}
+
+function renderMatchesWinner(sp){
+  const entries = Object.entries(sp.winners || {});
+  if(!entries.length) return emptyBox('📋', t('noMatches'));
+  const items = entries.slice().reverse().map(([key, res]) => {
+    const a = sp.teams.find(x => x.id === res.a), b = sp.teams.find(x => x.id === res.b);
+    if(!a || !b) return '';
+    let badge = '';
+    if(res.winner === 'a') badge = `<div class="m-winner-badge">🏆 ${esc(a.name)}</div>`;
+    else if(res.winner === 'b') badge = `<div class="m-winner-badge">🏆 ${esc(b.name)}</div>`;
+    else badge = `<div class="m-winner-badge" style="background:rgba(250,204,21,.2)">🤝 ${esc(t('draw'))}</div>`;
+    return `<div class="match"><div class="m-team a"><span class="dot" style="background:${esc(a.color)}"></span><span>${esc(a.name)}</span></div>${badge}<div class="m-team b"><span>${esc(b.name)}</span><span class="dot" style="background:${esc(b.color)}"></span></div></div>`;
+  }).join('');
+  return `<div class="section fade"><div class="section-title">📋 ${esc(t('tabMatches'))}</div><div class="match-list">${items}</div></div>`;
+}
+
+function renderSportAdmin(sp){
+  if(sp.type === 'score')  return renderAdminScore(sp);
+  if(sp.type === 'winner') return renderAdminWinner(sp);
+  if(sp.type === 'solo')   return renderAdminSolo(sp);
+  if(sp.type === 'rank')   return renderAdminRank(sp);
+  return '';
+}
+
+function teamListBlock(sp){
+  const canAdd = sp.teams.length < MAX_TEAMS;
+  const canDel = sp.teams.length > MIN_TEAMS;
+  const showMembersBtn = sp.showMembers;
+  const rows = sp.teams.length
+    ? sp.teams.map(tm => {
+        const memberCount = (sp.teamMembers[tm.id] || []).length;
+        return `
+        <div class="team-row">
+          <button class="color-pick-btn" data-action="openPalette" data-sport="${sp.id}" data-id="${tm.id}" style="background:${esc(tm.color)}" title="${esc(t('pickColor'))}"></button>
+          <input class="input" value="${esc(tm.name)}" maxlength="24" data-rename="${tm.id}" data-sport="${sp.id}">
+          ${showMembersBtn ? `<button class="member-btn" data-action="openMembers" data-sport="${sp.id}" data-id="${tm.id}" title="${esc(t('manageMembers'))}">👥${memberCount > 0 ? `<span class="badge">${num(memberCount)}</span>` : ''}</button>` : ''}
+          <button class="btn danger sm" data-action="delTeam" data-sport="${sp.id}" data-id="${tm.id}" ${canDel?'':'disabled'}>✕</button>
+        </div>`;
+      }).join('')
+    : `<p style="color:var(--muted);font-size:.85rem;padding:8px 0">${esc(t('noTeams'))}</p>`;
+  return `
+    <div class="card" style="margin-bottom:14px">
+      <div class="section-title" style="margin:0 0 12px">👥 ${esc(t('teams'))}</div>
+      <form class="row-form" id="teamForm" data-sport="${sp.id}">
+        <input class="input" id="teamNameInput" maxlength="24" placeholder="${esc(t('teamName'))}" ${canAdd?'':'disabled'}>
+        <button class="btn primary" type="submit" ${canAdd?'':'disabled'}>＋ ${esc(t('add'))}</button>
+      </form>
+      ${canAdd?'':`<p style="font-size:.78rem;color:var(--muted);margin:-6px 0 12px">${esc(t('maxTeams'))}</p>`}
+      ${canDel?'':`<p style="font-size:.78rem;color:var(--muted);margin:-6px 0 12px">${esc(t('minTeams'))}</p>`}
+      <div>${rows}</div>
+    </div>`;
+}
+
+function renderAdminScore(sp){
+  if(sp.mode === 'knockout') return renderAdminBracket(sp);
+  const pairs = [];
+  for(let i=0;i<sp.teams.length;i++){
+    for(let j=i+1;j<sp.teams.length;j++){
+      const a=sp.teams[i], b=sp.teams[j];
+      const ex = sp.matches.find(m => (m.home===a.id && m.away===b.id) || (m.home===b.id && m.away===a.id));
+      let hg='', ag='', matchId=null;
+      if(ex){ matchId = ex.id; if(ex.home===a.id){ hg=ex.hg; ag=ex.ag; } else { hg=ex.ag; ag=ex.hg; } }
+      pairs.push({a,b,hg,ag,matchId});
+    }
+  }
+  const playedCount = pairs.filter(p => p.matchId).length;
+  const byScore = sp.scoreMode === 'byScore';
+  const byScoreHint = byScore ? `
+    <div class="hint-box" style="margin-bottom:12px;font-size:.75rem">
+      🎯 <b>${esc(t('scoringByScore'))}:</b>
+      ${esc(t('cleanWin'))} (${esc(t('cleanWinExample'))}): <b>${num(sp.cleanWin?.winner ?? 3)}</b> / <b>${num(sp.cleanWin?.loser ?? 0)}</b> —
+      ${esc(t('closeWin'))} (${esc(t('closeWinExample'))}): <b>${num(sp.closeWin?.winner ?? 2)}</b> / <b>${num(sp.closeWin?.loser ?? 1)}</b>
+    </div>` : '';
+  const rows = pairs.length
+    ? pairs.map(p => `
+        <div class="rr-row ${p.matchId?'played':''}">
+          <span class="rr-team home"><span>${esc(p.a.name)}</span><span class="tdot" style="background:${esc(p.a.color)}"></span></span>
+          <input class="rr-score" type="number" inputmode="numeric" min="0" max="${sp.maxScore}" value="${p.hg!==''?p.hg:''}" placeholder="–" data-score="hg" data-sport="${sp.id}">
+          <span class="rr-vs">−</span>
+          <input class="rr-score" type="number" inputmode="numeric" min="0" max="${sp.maxScore}" value="${p.ag!==''?p.ag:''}" placeholder="–" data-score="ag" data-sport="${sp.id}">
+          <span class="rr-team away"><span class="tdot" style="background:${esc(p.b.color)}"></span><span>${esc(p.b.name)}</span></span>
+          <div class="rr-actions">
+            <button class="rr-btn save" data-action="savePair" data-sport="${sp.id}" data-a="${p.a.id}" data-b="${p.b.id}">✓</button>
+            ${p.matchId?`<button class="rr-btn clear" data-action="clearPair" data-sport="${sp.id}" data-id="${p.matchId}">✕</button>`:''}
+          </div>
+        </div>`).join('')
+    : `<p style="color:var(--muted);font-size:.85rem;padding:10px 0">${esc(t('needTwoTeams'))}</p>`;
+  return `
+    <div class="section fade">
+      <div class="section-title">🔐 ${esc(t('adminPanel'))}<span style="margin-inline-start:auto;font-weight:600;text-transform:none">${num(playedCount)} / ${num(pairs.length)}</span></div>
+      ${teamListBlock(sp)}
+      <div class="card">
+        <div class="section-title" style="margin:0 0 12px">⚽ ${esc(t('recordResults'))}</div>
+        ${byScoreHint}
+        <div class="rr-list">${rows}</div>
+      </div>
+    </div>`;
+}
+
+function renderAdminWinner(sp){
+  if(sp.mode === 'knockout') return renderAdminBracket(sp);
+  const pairs = [];
+  for(let i=0;i<sp.teams.length;i++){
+    for(let j=i+1;j<sp.teams.length;j++){
+      const a=sp.teams[i], b=sp.teams[j];
+      const key = a.id + '|' + b.id;
+      const res = sp.winners[key] || null;
+      pairs.push({a,b,key,res});
+    }
+  }
+  const playedCount = pairs.filter(p => p.res).length;
+  const rows = pairs.length
+    ? pairs.map(p => {
+        const r = p.res;
+        const isA = r && r.winner === 'a', isB = r && r.winner === 'b', isD = r && r.winner === 'draw';
+        return `
+          <div class="wr-row ${r?'played':''}">
+            <span class="wr-name home"><span>${esc(p.a.name)}</span><span class="tdot" style="background:${esc(p.a.color)}"></span></span>
+            <div class="wr-choice">
+              <button class="wr-chip ${isA?'on':''}" data-action="pickWinner" data-sport="${sp.id}" data-a="${p.a.id}" data-b="${p.b.id}" data-w="a">${isA?'🏆':'🏳️'} ${esc(p.a.name)}</button>
+              ${sp.allowDraw ? `<button class="wr-chip ${isD?'on-draw':''}" data-action="pickWinner" data-sport="${sp.id}" data-a="${p.a.id}" data-b="${p.b.id}" data-w="draw">🤝 ${esc(t('draw'))}</button>` : ''}
+              <button class="wr-chip ${isB?'on':''}" data-action="pickWinner" data-sport="${sp.id}" data-a="${p.a.id}" data-b="${p.b.id}" data-w="b">${isB?'🏆':'🏳️'} ${esc(p.b.name)}</button>
+            </div>
+            <span class="wr-name away"><span class="tdot" style="background:${esc(p.b.color)}"></span><span>${esc(p.b.name)}</span></span>
+            <div class="rr-actions">${r ? `<button class="rr-btn clear" data-action="clearWinner" data-sport="${sp.id}" data-key="${p.key}">✕</button>` : ''}</div>
+          </div>`;
+      }).join('')
+    : `<p style="color:var(--muted);font-size:.85rem;padding:10px 0">${esc(t('needTwoTeams'))}</p>`;
+  return `
+    <div class="section fade">
+      <div class="section-title">🔐 ${esc(t('adminPanel'))}<span style="margin-inline-start:auto;font-weight:600;text-transform:none">${num(playedCount)} / ${num(pairs.length)}</span></div>
+      ${teamListBlock(sp)}
+      <div class="card">
+        <div class="section-title" style="margin:0 0 12px">🏆 ${esc(t('pickWinner'))}</div>
+        <div>${rows}</div>
+      </div>
+    </div>`;
+}
+
+function renderAdminBracket(sp){
+  const canGenerate = sp.teams.length >= MIN_TEAMS;
+  let bracketHtml = '';
+  if(!sp.bracket || !sp.bracket.length){
+    bracketHtml = `<div class="empty" style="padding:30px 20px"><span class="ico">🏆</span><p>${esc(t('noBracket'))}<br><span style="font-size:.78rem">${esc(t('noBracketHint'))}</span></p></div>`;
+  }else{
+    bracketHtml = sp.bracket.map((round, ri) => {
+      const matchRows = round.matches.map(m => {
+        const a = teamById(sp, m.a), b = teamById(sp, m.b); if(!a || !b) return '';
+        const isResolved = m.winner === 'a' || m.winner === 'b';
+        const aCls = isResolved ? (m.winner === 'a' ? 'winner' : 'loser') : '';
+        const bCls = isResolved ? (m.winner === 'b' ? 'winner' : 'loser') : '';
+        return `
+          <div class="bracket-match ${isResolved?'resolved':''}">
+            <span class="bm-team a ${aCls}"><span>${esc(a.name)}</span><span class="tdot" style="background:${esc(a.color)}"></span></span>
+            <input class="bm-score" type="number" inputmode="numeric" min="0" max="99" value="${m.hg != null ? m.hg : ''}" placeholder="–" data-bracket="hg" data-round="${ri}" data-match="${m.id}" data-sport="${sp.id}">
+            <span class="bm-sep">−</span>
+            <input class="bm-score" type="number" inputmode="numeric" min="0" max="99" value="${m.ag != null ? m.ag : ''}" placeholder="–" data-bracket="ag" data-round="${ri}" data-match="${m.id}" data-sport="${sp.id}">
+            <span class="bm-team b ${bCls}"><span class="tdot" style="background:${esc(b.color)}"></span><span>${esc(b.name)}</span></span>
+            <div class="bm-actions">
+              <button class="bm-btn save" data-action="bracketSave" data-sport="${sp.id}" data-round="${ri}" data-match="${m.id}">✓</button>
+              ${isResolved ? `<button class="bm-btn clear" data-action="bracketClear" data-sport="${sp.id}" data-round="${ri}" data-match="${m.id}">✕</button>` : ''}
+            </div>
+          </div>`;
+      }).join('');
+      const byeRows = round.byes.map(teamId => {
+        const tm = teamById(sp, teamId); if(!tm) return '';
+        return `<div class="bm-bye">⏭️ ${esc(tm.name)} — ${esc(t('bye'))}</div>`;
+      }).join('');
+      return `
+        <div class="bracket-round">
+          <div class="bracket-round-title">🏁 ${esc(round.name)}<span class="rr-count">${num(round.matches.filter(m => m.winner).length)} / ${num(round.matches.length)}</span></div>
+          ${matchRows || `<p style="color:var(--muted);font-size:.82rem;padding:8px 4px">—</p>`}
+          ${byeRows}
+        </div>`;
+    }).join('');
+  }
+  const championHtml = sp.champion ? (() => {
+    const c = teamById(sp, sp.champion); if(!c) return '';
+    return `
+      <div class="champion-box">
+        <span class="trophy">🏆</span>
+        <h3>${esc(t('champion'))}</h3>
+        <div class="champion-name"><span class="tdot" style="background:${esc(c.color)}"></span>${esc(c.name)}</div>
+      </div>`;
+  })() : '';
+  const toolbar = sp.bracket && sp.bracket.length
+    ? `<div class="bracket-toolbar">
+         <button class="btn" data-action="generateBracket" data-sport="${sp.id}">🔄 ${esc(t('regenerateBracket'))}</button>
+         <button class="btn danger" data-action="deleteBracket" data-sport="${sp.id}">🗑️ ${esc(t('deleteBracket'))}</button>
+       </div>`
+    : `<div class="bracket-toolbar">
+         <button class="btn primary" data-action="generateBracket" data-sport="${sp.id}" ${canGenerate?'':'disabled'}>🏆 ${esc(t('generateBracket'))}</button>
+       </div>
+       <p style="font-size:.75rem;color:var(--muted);margin:-6px 4px 14px">${esc(t('generateBracketHint'))}</p>`;
+  return `
+    <div class="section fade">
+      <div class="section-title">🔐 ${esc(t('adminPanel'))} — ${esc(t('modeKnockout'))}</div>
+      <div class="hint-box">🏆 <b>${esc(t('knockoutActive'))}:</b> ${esc(t('modeHint'))}</div>
+      ${teamListBlock(sp)}
+      <div class="card">
+        <div class="section-title" style="margin:0 0 12px">🏆 ${esc(t('tabBracket'))}</div>
+        ${toolbar}
+        <div class="bracket-wrap">${bracketHtml}</div>
+        ${championHtml}
+      </div>
+    </div>`;
+}
+
+function renderAdminSolo(sp){
+  const rows = sp.teams.length
+    ? sp.teams.map(tm => {
+        const val = sp.soloScores[tm.id];
+        const memberCount = (sp.teamMembers[tm.id] || []).length;
+        return `
+          <div class="solo-row" style="grid-template-columns:auto 1fr ${sp.showMembers?'auto':''} auto auto">
+            <button class="color-pick-btn" data-action="openPalette" data-sport="${sp.id}" data-id="${tm.id}" style="background:${esc(tm.color)}" title="${esc(t('pickColor'))}"></button>
+            <input class="input" value="${esc(tm.name)}" maxlength="24" data-rename="${tm.id}" data-sport="${sp.id}">
+            ${sp.showMembers ? `<button class="member-btn" data-action="openMembers" data-sport="${sp.id}" data-id="${tm.id}" title="${esc(t('manageMembers'))}">👥${memberCount > 0 ? `<span class="badge">${num(memberCount)}</span>` : ''}</button>` : ''}
+            <input class="solo-score-input" type="number" inputmode="numeric" min="0" max="9999" value="${val != null ? val : ''}" placeholder="${esc(t('score'))}" data-solo-score="${tm.id}" data-sport="${sp.id}">
+            <button class="btn danger sm" data-action="delTeam" data-sport="${sp.id}" data-id="${tm.id}" ${sp.teams.length>MIN_TEAMS?'':'disabled'}>✕</button>
+          </div>`;
+      }).join('')
+    : `<p style="color:var(--muted);font-size:.85rem;padding:8px 0">${esc(t('noTeams'))}</p>`;
+  const canAdd = sp.teams.length < MAX_TEAMS;
+  return `
+    <div class="section fade">
+      <div class="section-title">🔐 ${esc(t('adminPanel'))}<span style="margin-inline-start:auto;font-weight:600;text-transform:none">${num(sp.teams.length)} ${t('teamsCount')}</span></div>
+      <div class="hint-box">📈 <b>${esc(TYPE_INFO.solo.label)}:</b> اسم و امتیاز هر نفر رو وارد کن.</div>
+      <div class="card">
+        <form class="row-form" id="teamForm" data-sport="${sp.id}">
+          <input class="input" id="teamNameInput" maxlength="24" placeholder="${esc(t('teamName'))}" ${canAdd?'':'disabled'}>
+          <button class="btn primary" type="submit" ${canAdd?'':'disabled'}>＋ ${esc(t('add'))}</button>
+        </form>
+        ${canAdd?'':`<p style="font-size:.78rem;color:var(--muted);margin:-6px 0 12px">${esc(t('maxTeams'))}</p>`}
+        <div>${rows}</div>
+      </div>
+    </div>`;
+}
+
+function renderAdminRank(sp){
+  const rows = sp.teams.length
+    ? sp.teams.map(tm => {
+        const val = sp.ranks[tm.id];
+        const memberCount = (sp.teamMembers[tm.id] || []).length;
+        return `
+          <div class="solo-row" style="grid-template-columns:auto 1fr ${sp.showMembers?'auto':''} auto auto">
+            <button class="color-pick-btn" data-action="openPalette" data-sport="${sp.id}" data-id="${tm.id}" style="background:${esc(tm.color)}" title="${esc(t('pickColor'))}"></button>
+            <input class="input" value="${esc(tm.name)}" maxlength="24" data-rename="${tm.id}" data-sport="${sp.id}">
+            ${sp.showMembers ? `<button class="member-btn" data-action="openMembers" data-sport="${sp.id}" data-id="${tm.id}" title="${esc(t('manageMembers'))}">👥${memberCount > 0 ? `<span class="badge">${num(memberCount)}</span>` : ''}</button>` : ''}
+            <input class="solo-score-input" type="number" inputmode="numeric" min="1" max="99" value="${val != null ? val : ''}" placeholder="۱" data-solo-rank="${tm.id}" data-sport="${sp.id}">
+            <button class="btn danger sm" data-action="delTeam" data-sport="${sp.id}" data-id="${tm.id}" ${sp.teams.length>MIN_TEAMS?'':'disabled'}>✕</button>
+          </div>`;
+      }).join('')
+    : `<p style="color:var(--muted);font-size:.85rem;padding:8px 0">${esc(t('noTeams'))}</p>`;
+  const canAdd = sp.teams.length < MAX_TEAMS;
+  return `
+    <div class="section fade">
+      <div class="section-title">🔐 ${esc(t('adminPanel'))}<span style="margin-inline-start:auto;font-weight:600;text-transform:none">${num(sp.teams.length)} ${t('teamsCount')}</span></div>
+      <div class="hint-box">🥇 <b>${esc(TYPE_INFO.rank.label)}:</b> رتبه هر نفر رو بنویس (۱ = بهترین).</div>
+      <div class="card">
+        <form class="row-form" id="teamForm" data-sport="${sp.id}">
+          <input class="input" id="teamNameInput" maxlength="24" placeholder="${esc(t('teamName'))}" ${canAdd?'':'disabled'}>
+          <button class="btn primary" type="submit" ${canAdd?'':'disabled'}>＋ ${esc(t('add'))}</button>
+        </form>
+        ${canAdd?'':`<p style="font-size:.78rem;color:var(--muted);margin:-6px 0 12px">${esc(t('maxTeams'))}</p>`}
+        <div>${rows}</div>
+      </div>
+    </div>`;
+}
+
+function renderAdminHome(){
+  const rows = allSports().map(sp => {
+    const color = sportColor(sp.id);
+    const ti = TYPE_INFO[sp.type] || TYPE_INFO.score;
+    const isKnockout = (sp.type === 'score' || sp.type === 'winner') && sp.mode === 'knockout';
+    const kindBadge = sp.sportKind === 'individual' ? '👤' : '👥';
+    const badge = isKnockout ? '🏆 حذفی' : `${ti.icon} ${esc(ti.label)}`;
+    return `
+      <div class="admin-sport-row">
+        <div class="admin-sport-icon" style="color:${color}">${esc(sp.icon)}</div>
+        <div class="admin-sport-info"><h4>${esc(sp.name)} <span class="sport-type-badge" style="margin:0;font-size:.62rem">${badge} · ${kindBadge}</span></h4><p>${num(sp.teams.length)} ${t('teamsCount')}</p></div>
+        <button class="btn sm" data-action="configureSport" data-id="${sp.id}" style="padding:8px 10px">⚙️</button>
+        <button class="toggle ${sp.active?'on':''}" data-action="toggleSport" data-id="${sp.id}"></button>
+      </div>`;
+  }).join('');
+  return `
+    <div class="fade">
+      <div class="sport-header" style="--sport-color:#22d3ee">
+        <button class="back-btn" data-action="goHome">↩</button>
+        <div class="sport-header-icon">⚙️</div>
+        <div class="sport-header-info"><h2>${esc(t('sportsManagement'))}</h2><p>${esc(t('sportsManagementHint'))}</p></div>
+      </div>
+      <div class="card" style="padding:8px 16px"><div>${rows}</div></div>
+      <button class="btn block" data-action="logout" style="margin-top:16px">🚪 ${esc(t('logout'))}</button>
+    </div>`;
+}
+
+function bindTeamForm(){
+  const form = document.getElementById('teamForm');
+  if(!form) return;
+  const sportId = form.dataset.sport;
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    const sp = getSport(sportId); if(!sp) return;
+    const inp = document.getElementById('teamNameInput');
+    const name = inp.value.trim();
+    if(!name){ toast(t('enterTeamName')); return; }
+    if(sp.teams.length >= MAX_TEAMS){ toast(t('maxTeams')); return; }
+    if(sp.teams.some(x => x.name.trim().toLowerCase() === name.toLowerCase())){ toast(t('teamExists')); return; }
+    sp.teams.push({ id: uid(), name, color: COLORS[sp.teams.length % COLORS.length] });
+    save(); render(); toast(t('added'));
+  });
+}
+
+/* ============ MEMBERS MODAL ============ */
+function renderMembersModal(sportId, teamId){
+  const sp = getSport(sportId); if(!sp) return '';
+  const tm = sp.teams.find(x => x.id === teamId); if(!tm) return '';
+  const members = sp.teamMembers[teamId] || [];
+  const canAdd = members.length < MAX_MEMBERS;
+
+  const rows = members.length
+    ? members.map(m => `
+        <div class="mm-row ${m.isCaptain && sp.showCaptain ? 'is-captain' : ''}">
+          <span class="dot" style="background:${esc(tm.color)}"></span>
+          <input class="mm-name-input" value="${esc(m.name)}" maxlength="30" data-member-rename="${m.id}" data-team="${teamId}" data-sport="${sportId}">
+          <div class="mm-actions">
+            ${sp.showCaptain ? `<button class="mm-btn cap-toggle ${m.isCaptain?'on':''}" data-action="toggleCaptain" data-sport="${sportId}" data-team="${teamId}" data-member="${m.id}" title="${esc(m.isCaptain ? t('unsetCaptain') : t('setCaptain'))}">⭐</button>` : ''}
+            <button class="mm-btn del" data-action="delMember" data-sport="${sportId}" data-team="${teamId}" data-member="${m.id}" title="${esc(t('confirmDeleteMember'))}">✕</button>
+          </div>
+        </div>
+      `).join('')
+    : `<div class="mm-empty">${esc(t('noMembers'))}</div>`;
+
+  return `
+    <div class="modal-head">
+      <h2>👥 ${esc(t('manageMembers'))}</h2>
+      <button class="icon-btn sm" data-action="closeModal">✕</button>
+    </div>
+    <p class="modal-sub">
+      <b style="color:${esc(tm.color)}">●</b> ${esc(tm.name)}
+      ${sp.showCaptain ? ` — <span style="color:var(--accent-2)">⭐ ${esc(t('captain'))}</span>` : ''}
+    </p>
+
+    <div class="members-modal-list">${rows}</div>
+    <div class="mm-counter">${num(members.length)} / ${num(MAX_MEMBERS)} — ${esc(t('members'))}</div>
+
+    ${canAdd ? `
+      <form class="row-form" id="addMemberForm" data-sport="${sportId}" data-team="${teamId}" style="margin-top:14px">
+        <input class="input" id="memberNameInput" maxlength="30" placeholder="${esc(t('memberName'))}">
+        <button class="btn primary" type="submit">＋ ${esc(t('addMember'))}</button>
+      </form>
+    ` : `<p style="font-size:.78rem;color:var(--muted);margin:14px 0 8px">${esc(t('maxMembers'))}</p>`}
+
+    <button class="btn block" data-action="closeModal" style="margin-top:10px">${esc(t('close'))}</button>
+  `;
+}
+
+function openMembers(sportId, teamId){
+  const html = renderMembersModal(sportId, teamId);
+  openModal(html);
+  bindAddMemberForm();
+}
+
+function bindAddMemberForm(){
+  const form = document.getElementById('addMemberForm');
+  if(!form) return;
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    const sportId = form.dataset.sport;
+    const teamId  = form.dataset.team;
+    const sp = getSport(sportId); if(!sp) return;
+    if(!sp.teamMembers[teamId]) sp.teamMembers[teamId] = [];
+    const list = sp.teamMembers[teamId];
+    if(list.length >= MAX_MEMBERS){ toast(t('maxMembers')); return; }
+    const inp = document.getElementById('memberNameInput');
+    const name = inp.value.trim();
+    if(!name){ toast(t('enterMemberName')); return; }
+    if(list.some(m => m.name.trim().toLowerCase() === name.toLowerCase())){ toast(t('memberExists')); return; }
+    list.push({ id: uid(), name, isCaptain: false });
+    save();
+    // re-render modal
+    openMembers(sportId, teamId);
+    toast(t('memberAdded'));
+  });
+}
+
+/* ============ MODALS ============ */
+const overlay = document.getElementById('overlay');
+const modalEl = document.getElementById('modal');
+function openModal(html){ modalEl.innerHTML = html; overlay.classList.add('open'); document.body.style.overflow = 'hidden'; }
+function closeModal(){ overlay.classList.remove('open'); document.body.style.overflow = ''; }
+overlay.addEventListener('click', e => { if(e.target === overlay) closeModal(); });
+document.addEventListener('keydown', e => { if(e.key === 'Escape') closeModal(); });
+
+function openSettings(){
+  const { theme, lang } = state.settings;
+  openModal(`
+    <div class="modal-head"><h2>⚙️ ${esc(t('settings'))}</h2><button class="icon-btn sm" data-action="closeModal">✕</button></div>
+    <div class="set-row"><div><div class="lbl">🎨 ${esc(t('theme'))}</div></div><div class="seg"><button data-action="setTheme" data-val="dark"  class="${theme==='dark'?'active':''}">${esc(t('dark'))}</button><button data-action="setTheme" data-val="light" class="${theme==='light'?'active':''}">${esc(t('light'))}</button></div></div>
+    <div class="set-row"><div><div class="lbl">🌐 ${esc(t('language'))}</div></div><div class="seg"><button data-action="setLang" data-val="fa" class="${lang==='fa'?'active':''}">فارسی</button><button data-action="setLang" data-val="en" class="${lang==='en'?'active':''}">English</button></div></div>
+    <div class="set-row" style="border-top:1px solid var(--border);padding-top:16px;margin-top:4px"><div><div class="lbl" style="color:var(--danger)">🗑️ ${esc(t('deleteAllData'))}</div><div style="font-size:.72rem;color:var(--muted);margin-top:3px">${esc(t('deleteAllDataHint'))}</div></div></div>
+    <button class="btn danger-solid block" data-action="deleteAllData" style="margin-bottom:8px">🗑️ ${esc(t('deleteAllData'))}</button>
+    <button class="btn block" data-action="closeModal" style="margin-top:8px">${esc(t('close'))}</button>
+  `);
+}
+
+function openGuide(){
+  openModal(`
+    <div class="modal-head"><h2>❓ ${esc(t('guide'))}</h2><button class="icon-btn sm" data-action="closeModal">✕</button></div>
+    <div class="guide-section"><h3>🏠 صفحه اصلی</h3><p>ورزش‌های فعال رو به صورت کارت می‌بینی. روی هر کارت بزنی واردش می‌شی.</p></div>
+    <div class="guide-section"><h3>🔐 پنل مدیریت</h3><p>با دکمه 🔒 وارد پنل شو. اونجا ورزش‌ها رو فعال/غیرفعال کن و نتایج رو ثبت کن.</p></div>
+    <div class="guide-section"><h3>🎮 انواع ورزش‌ها</h3>
+      <ul>
+        <li><span class="guide-badge">⚽ امتیازی</span> نتیجه وارد می‌کنی (مثل فوتبال، والیبال).</li>
+        <li><span class="guide-badge">🏆 فقط برنده</span> فقط برنده رو مشخص می‌کنی (مثل شطرنج).</li>
+        <li><span class="guide-badge">📈 انفرادی</span> هر نفر جدا امتیاز می‌گیره (مثل دارت).</li>
+        <li><span class="guide-badge">🥇 رتبه‌بندی</span> به هر نفر رتبه می‌دی (مثل دو میدانی).</li>
+      </ul>
+    </div>
+    <div class="guide-section"><h3>🎯 امتیازدهی بر اساس نتیجه</h3>
+      <p>تو تنظیمات هر ورزش امتیازی، می‌تونی نوع امتیازدهی رو عوض کنی:</p>
+      <ul>
+        <li><b>ساده:</b> برد = ۳، مساوی = ۱، باخت = ۰</li>
+        <li><b>بر اساس نتیجه:</b> امتیاز برنده بسته به نتیجه فرق داره</li>
+      </ul>
+      <p style="margin-top:8px">مثال طناب کشی: برد پاک ۲-۰ → ۳/۰ — برد نزدیک ۲-۱ → ۲/۱</p>
+    </div>
+    <div class="guide-section"><h3>👥 اعضای تیم (جدید!)</h3>
+      <p>تو تنظیمات هر ورزش می‌تونی «نمایش اعضای تیم» رو فعال کنی:</p>
+      <ul>
+        <li>بعدش می‌تونی برای هر تیم ۱ تا ۱۵ عضو وارد کنی</li>
+        <li>اگه «نمایش سرگروه» رو هم فعال کنی، می‌تونی روی یکی تیک بزنی</li>
+        <li>تماشاچی‌ها اعضا و سرگروه رو می‌بینن</li>
+      </ul>
+    </div>
+    <div class="guide-section"><h3>👤/👥 نوع ورزش</h3><p>تو تنظیمات هر ورزش می‌تونی تعیین کنی <b>گروهی</b> یا <b>انفرادی</b> هست.</p></div>
+    <div class="guide-section"><h3>🏆 حالت حذفی</h3><p>توی تنظیمات هر ورزش امتیازی یا «فقط برنده»، می‌تونی حالت رو روی حذفی بذاری تا بازنده حذف بشه.</p></div>
+    <button class="btn block" data-action="closeModal" style="margin-top:16px">${esc(t('close'))}</button>
+  `);
+}
+
+function openPassword(){
+  openModal(`
+    <div class="modal-head"><h2>🔐 ${esc(t('adminPanel'))}</h2><button class="icon-btn sm" data-action="closeModal">✕</button></div>
+    <p class="modal-sub">${esc(t('adminHint'))}</p>
+    <form id="pwForm">
+      <div class="field"><label>${esc(t('password'))}</label><input class="input" type="password" id="pwInput" autocomplete="off" placeholder="••••••••" style="text-align:center;letter-spacing:2px"></div>
+      <div class="err" id="pwErr"></div>
+      <button class="btn primary block" type="submit" style="margin-top:6px">${esc(t('login'))}</button>
+      <button class="btn block" type="button" data-action="closeModal" style="margin-top:9px">${esc(t('cancel'))}</button>
+    </form>
+  `);
+  setTimeout(() => document.getElementById('pwInput')?.focus(), 120);
+  document.getElementById('pwForm').addEventListener('submit', e => {
+    e.preventDefault();
+    const val = document.getElementById('pwInput').value;
+    if(val === ADMIN_PASS){ authed = true; closeModal(); applySettings(); toast('✅ ' + t('adminPanel')); render(); }
+    else{ const err = document.getElementById('pwErr'); err.textContent = t('wrongPassword'); const f = modalEl.querySelector('form'); f.classList.remove('shake'); void f.offsetWidth; f.classList.add('shake'); document.getElementById('pwInput').value = ''; }
+  });
+}
+
+function openPalette(sportId, teamId){
+  const sp = getSport(sportId); if(!sp) return;
+  const team = sp.teams.find(x => x.id === teamId); if(!team) return;
+  openModal(`
+    <div class="modal-head"><h2>🎨 ${esc(t('pickColor'))}</h2><button class="icon-btn sm" data-action="closeModal">✕</button></div>
+    <p class="modal-sub"><b style="color:${esc(team.color)}">●</b> ${esc(team.name)}</p>
+    <div class="palette-grid">${COLORS.map(c => `<button class="palette-color ${c===team.color?'active':''}" data-action="setColor" data-sport="${sportId}" data-id="${team.id}" data-color="${c}" style="background:${c}"></button>`).join('')}</div>
+  `);
+}
+
+function openSportConfig(sportId){
+  const sp = getSport(sportId); if(!sp) return;
+  const isScore = sp.type === 'score';
+  const isWinner = sp.type === 'winner';
+  const isHead = isScore || isWinner;
+  const isKnockout = isHead && sp.mode === 'knockout';
+  const useByScore = isScore && sp.scoreMode === 'byScore';
+  const isIndividual = sp.sportKind === 'individual';
+
+  const modeToggle = isHead ? `
+    <div class="set-row" style="padding:10px 0;border-top:1px solid var(--border);margin-top:8px">
+      <div><div class="lbl">⚔️ ${esc(t('mode'))}</div><div class="hint">${esc(t('modeHint'))}</div></div>
+      <div class="seg">
+        <button type="button" data-action="setMode" data-val="league" class="${!isKnockout?'active':''}">${esc(t('modeLeague'))}</button>
+        <button type="button" data-action="setMode" data-val="knockout" class="${isKnockout?'active':''}">${esc(t('modeKnockout'))}</button>
+      </div>
+    </div>
+    <input type="hidden" name="mode" value="${sp.mode || 'league'}">
+  ` : '';
+
+  const scoreModeToggle = isScore ? `
+    <div class="set-row" style="padding:10px 0;border-top:1px solid var(--border);margin-top:8px">
+      <div><div class="lbl">🎯 ${esc(t('scoringMode'))}</div><div class="hint">${esc(t('scoringByScoreHint'))}</div></div>
+      <div class="seg">
+        <button type="button" data-action="setScoreMode" data-val="simple"  class="${!useByScore?'active':''}">${esc(t('scoringSimple'))}</button>
+        <button type="button" data-action="setScoreMode" data-val="byScore" class="${useByScore?'active':''}">${esc(t('scoringByScore'))}</button>
+      </div>
+    </div>
+    <input type="hidden" name="scoreMode" value="${sp.scoreMode || 'simple'}">
+  ` : '';
+
+  const simpleBlock = isScore ? `
+    <div id="simplePointsBlock" style="display:${!useByScore?'grid':'none'};grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px">
+      <div class="field"><label>${esc(t('winPoints'))}</label><input class="input" type="number" name="winPoints" min="0" max="10" step="0.5" value="${sp.winPoints}"></div>
+      <div class="field"><label>${esc(t('drawPoints'))}</label><input class="input" type="number" name="drawPoints" min="0" max="10" step="0.5" value="${sp.drawPoints}"></div>
+    </div>
+  ` : '';
+
+  const byScoreBlock = isScore ? `
+    <div id="byScoreBlock" style="display:${useByScore?'block':'none'};margin-bottom:12px">
+      <div class="field" style="margin-bottom:10px">
+        <label>${esc(t('loserThreshold'))}</label>
+        <input class="input" type="number" name="loserThreshold" min="0" max="99" value="${sp.loserThreshold ?? 0}" style="text-align:center">
+        <div style="font-size:.68rem;color:var(--muted);margin-top:2px">${esc(t('loserThresholdHint'))}</div>
+      </div>
+      <div class="rule-card">
+        <div class="rule-card-title">✅ ${esc(t('cleanWin'))} <span style="color:var(--muted);font-weight:600">— ${esc(t('cleanWinExample'))}</span></div>
+        <div class="rule-card-grid">
+          <div class="field"><label>${esc(t('winnerPoints'))}</label><input class="input" type="number" name="cleanWinWinner" min="0" max="10" step="0.5" value="${sp.cleanWin?.winner ?? 3}"></div>
+          <div class="field"><label>${esc(t('loserPoints'))}</label><input class="input" type="number" name="cleanWinLoser" min="0" max="10" step="0.5" value="${sp.cleanWin?.loser ?? 0}"></div>
+        </div>
+      </div>
+      <div class="rule-card">
+        <div class="rule-card-title">🔥 ${esc(t('closeWin'))} <span style="color:var(--muted);font-weight:600">— ${esc(t('closeWinExample'))}</span></div>
+        <div class="rule-card-grid">
+          <div class="field"><label>${esc(t('winnerPoints'))}</label><input class="input" type="number" name="closeWinWinner" min="0" max="10" step="0.5" value="${sp.closeWin?.winner ?? 2}"></div>
+          <div class="field"><label>${esc(t('loserPoints'))}</label><input class="input" type="number" name="closeWinLoser" min="0" max="10" step="0.5" value="${sp.closeWin?.loser ?? 1}"></div>
+        </div>
+      </div>
+    </div>
+  ` : '';
+
+  const winnerPointsBlock = isWinner ? `
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px">
+      <div class="field"><label>${esc(t('winPoints'))}</label><input class="input" type="number" name="winPoints" min="0" max="10" step="0.5" value="${sp.winPoints}"></div>
+      <div class="field"><label>${esc(t('drawPoints'))}</label><input class="input" type="number" name="drawPoints" min="0" max="10" step="0.5" value="${sp.drawPoints}"></div>
+    </div>
+  ` : '';
+
+  const drawToggle = isHead && !isKnockout ? `
+    <div class="set-row" style="padding:10px 0"><div class="lbl">${esc(t('allowDraw'))}</div>
+      <div class="seg">
+        <button type="button" data-action="setAllowDraw" data-val="1" class="${sp.allowDraw?'active':''}">${esc(t('yes'))}</button>
+        <button type="button" data-action="setAllowDraw" data-val="0" class="${!sp.allowDraw?'active':''}">${esc(t('no'))}</button>
+      </div>
+    </div>
+    <input type="hidden" name="allowDraw" value="${sp.allowDraw?'1':'0'}">
+  ` : '';
+
+  /* Sport kind segmented (always shown) */
+  const sportKindBlock = `
+    <div class="set-row" style="padding:10px 0;border-top:1px solid var(--border);margin-top:8px">
+      <div><div class="lbl">${isIndividual ? '👤' : '👥'} ${esc(t('sportKind'))}</div><div class="hint">${esc(t('sportKindHint'))}</div></div>
+      <div class="seg">
+        <button type="button" data-action="setSportKind" data-val="team" class="${!isIndividual?'active':''}">${esc(t('kindTeam'))}</button>
+        <button type="button" data-action="setSportKind" data-val="individual" class="${isIndividual?'active':''}">${esc(t('kindIndividual'))}</button>
+      </div>
+    </div>
+    <input type="hidden" name="sportKind" value="${sp.sportKind || 'team'}">
+  `;
+
+  /* Show members toggle (always shown) */
+  const showMembersBlock = `
+    <div class="set-row" style="padding:10px 0;border-top:1px solid var(--border);margin-top:8px">
+      <div><div class="lbl">👥 ${esc(t('showMembers'))}</div><div class="hint">${esc(t('showMembersHint'))}</div></div>
+      <button type="button" class="toggle ${sp.showMembers?'on':''}" data-action="toggleShowMembers" data-val="${sp.showMembers?'1':'0'}"></button>
+    </div>
+    <input type="hidden" name="showMembers" value="${sp.showMembers?'1':'0'}">
+
+    <div class="set-row" id="showCaptainRow" style="padding:10px 0;display:${sp.showMembers?'':'none'}">
+      <div><div class="lbl">⭐ ${esc(t('showCaptain'))}</div><div class="hint">${esc(t('showCaptainHint'))}</div></div>
+      <button type="button" class="toggle ${sp.showCaptain?'on':''}" data-action="toggleShowCaptain" data-val="${sp.showCaptain?'1':'0'}"></button>
+    </div>
+    <input type="hidden" name="showCaptain" value="${sp.showCaptain?'1':'0'}">
+  `;
+
+  openModal(`
+    <div class="modal-head"><h2>⚙️ ${esc(t('sportSettings'))}</h2><button class="icon-btn sm" data-action="closeModal">✕</button></div>
+    <p class="modal-sub">${esc(sp.icon)} <b>${esc(sp.name)}</b> — <span class="sport-type-badge">${TYPE_INFO[sp.type].icon} ${esc(TYPE_INFO[sp.type].label)}</span></p>
+    <form id="sportCfgForm" data-sport="${sportId}">
+      <div class="field" style="margin-bottom:12px"><label>${esc(t('sportName'))}</label><input class="input" type="text" name="name" maxlength="30" value="${esc(sp.name)}"></div>
+      <div class="field" style="margin-bottom:12px"><label>${esc(t('sportIcon'))}</label><input class="input" type="text" name="icon" maxlength="4" value="${esc(sp.icon)}" style="text-align:center;font-size:1.3rem"></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px">
+        <div class="field"><label>${esc(t('unit'))}</label><input class="input" type="text" name="unit" maxlength="15" value="${esc(sp.unit)}"></div>
+        <div class="field"><label>${esc(t('unitPlural'))}</label><input class="input" type="text" name="unitPlural" maxlength="20" value="${esc(sp.unitPlural)}"></div>
+      </div>
+      ${sportKindBlock}
+      ${showMembersBlock}
+      ${modeToggle}
+      ${scoreModeToggle}
+      ${simpleBlock}
+      ${byScoreBlock}
+      ${winnerPointsBlock}
+      ${drawToggle}
+      <button class="btn primary block" type="submit" style="margin-top:14px">💾 ${esc(t('save'))}</button>
+      <button class="btn block" type="button" data-action="closeModal" style="margin-top:9px">${esc(t('cancel'))}</button>
+    </form>
+  `);
+
+  /* Sport kind toggle */
+  modalEl.querySelectorAll('[data-action="setSportKind"]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const val = btn.dataset.val;
+      modalEl.querySelector('input[name="sportKind"]').value = val;
+      modalEl.querySelectorAll('[data-action="setSportKind"]').forEach(b => b.classList.toggle('active', b.dataset.val === val));
+    });
+  });
+
+  /* Show members toggle */
+  modalEl.querySelectorAll('[data-action="toggleShowMembers"]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const current = modalEl.querySelector('input[name="showMembers"]').value === '1';
+      const newVal = !current;
+      btn.dataset.val = newVal ? '1' : '0';
+      btn.classList.toggle('on', newVal);
+      modalEl.querySelector('input[name="showMembers"]').value = newVal ? '1' : '0';
+      const capRow = modalEl.querySelector('#showCaptainRow');
+      if(capRow) capRow.style.display = newVal ? '' : 'none';
+      // If turning off showMembers, also turn off showCaptain
+      if(!newVal){
+        const capBtn = modalEl.querySelector('[data-action="toggleShowCaptain"]');
+        if(capBtn){ capBtn.classList.remove('on'); capBtn.dataset.val = '0'; }
+        const capInput = modalEl.querySelector('input[name="showCaptain"]');
+        if(capInput) capInput.value = '0';
+      }
+    });
+  });
+
+  /* Show captain toggle */
+  modalEl.querySelectorAll('[data-action="toggleShowCaptain"]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const current = modalEl.querySelector('input[name="showCaptain"]').value === '1';
+      const newVal = !current;
+      btn.dataset.val = newVal ? '1' : '0';
+      btn.classList.toggle('on', newVal);
+      modalEl.querySelector('input[name="showCaptain"]').value = newVal ? '1' : '0';
+    });
+  });
+
+  /* Mode toggle */
+  modalEl.querySelectorAll('[data-action="setMode"]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const val = btn.dataset.val;
+      modalEl.querySelector('input[name="mode"]').value = val;
+      modalEl.querySelectorAll('[data-action="setMode"]').forEach(b => b.classList.toggle('active', b.dataset.val === val));
+      const showPoints = val === 'league';
+      const scoreModeRow = modalEl.querySelector('[data-action="setScoreMode"]')?.closest('.set-row');
+      if(scoreModeRow) scoreModeRow.style.display = showPoints ? '' : 'none';
+      const simple = modalEl.querySelector('#simplePointsBlock');
+      const byScore = modalEl.querySelector('#byScoreBlock');
+      const useBy = modalEl.querySelector('input[name="scoreMode"]')?.value === 'byScore';
+      if(simple) simple.style.display = (showPoints && !useBy) ? 'grid' : 'none';
+      if(byScore) byScore.style.display = (showPoints && useBy) ? 'block' : 'none';
+      const wp = modalEl.querySelectorAll('input[name="winPoints"],input[name="drawPoints"]');
+      wp.forEach(inp => {
+        const isScoreType = !!modalEl.querySelector('input[name="scoreMode"]');
+        if(!isScoreType){ inp.closest('.field').style.display = showPoints ? '' : 'none'; }
+      });
+      const drawRow = modalEl.querySelector('[data-action="setAllowDraw"]')?.closest('.set-row');
+      if(drawRow) drawRow.style.display = showPoints ? '' : 'none';
+    });
+  });
+
+  /* Score mode toggle */
+  modalEl.querySelectorAll('[data-action="setScoreMode"]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const val = btn.dataset.val;
+      modalEl.querySelector('input[name="scoreMode"]').value = val;
+      modalEl.querySelectorAll('[data-action="setScoreMode"]').forEach(b => b.classList.toggle('active', b.dataset.val === val));
+      const simple = modalEl.querySelector('#simplePointsBlock');
+      const byScore = modalEl.querySelector('#byScoreBlock');
+      if(simple) simple.style.display = val === 'simple' ? 'grid' : 'none';
+      if(byScore) byScore.style.display = val === 'byScore' ? 'block' : 'none';
+    });
+  });
+
+  /* allowDraw toggle */
+  modalEl.querySelectorAll('[data-action="setAllowDraw"]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const val = btn.dataset.val === '1';
+      modalEl.querySelector('input[name="allowDraw"]').value = val ? '1' : '0';
+      modalEl.querySelectorAll('[data-action="setAllowDraw"]').forEach(b => { b.classList.toggle('active', b.dataset.val === (val ? '1' : '0')); });
+    });
+  });
+
+  /* Submit */
+  document.getElementById('sportCfgForm').addEventListener('submit', e => {
+    e.preventDefault();
+    const fd = new FormData(e.target);
+    sp.name = String(fd.get('name') || '').trim() || sp.name;
+    sp.icon = String(fd.get('icon') || '').trim() || sp.icon;
+    sp.unit = String(fd.get('unit') || '').trim() || sp.unit;
+    sp.unitPlural = String(fd.get('unitPlural') || '').trim() || sp.unitPlural;
+    sp.sportKind = fd.get('sportKind') === 'individual' ? 'individual' : 'team';
+    sp.showMembers = fd.get('showMembers') === '1';
+    sp.showCaptain = sp.showMembers && fd.get('showCaptain') === '1';
+    if(isHead){
+      const newMode = fd.get('mode') === 'knockout' ? 'knockout' : 'league';
+      sp.mode = newMode;
+      if(newMode === 'league'){
+        if(isScore){
+          sp.scoreMode = fd.get('scoreMode') === 'byScore' ? 'byScore' : 'simple';
+          sp.winPoints = Math.max(0, parseFloat(fd.get('winPoints')) || 0);
+          sp.drawPoints = Math.max(0, parseFloat(fd.get('drawPoints')) || 0);
+          sp.loserThreshold = Math.max(0, parseInt(fd.get('loserThreshold'), 10) || 0);
+          sp.cleanWin = { winner: Math.max(0, parseFloat(fd.get('cleanWinWinner')) || 0), loser: Math.max(0, parseFloat(fd.get('cleanWinLoser')) || 0) };
+          sp.closeWin = { winner: Math.max(0, parseFloat(fd.get('closeWinWinner')) || 0), loser: Math.max(0, parseFloat(fd.get('closeWinLoser')) || 0) };
+        }
+        if(isWinner){
+          sp.winPoints = Math.max(0, parseFloat(fd.get('winPoints')) || 0);
+          sp.drawPoints = Math.max(0, parseFloat(fd.get('drawPoints')) || 0);
+        }
+        sp.allowDraw = fd.get('allowDraw') === '1';
+      }
+    }
+    save(); closeModal(); render();
+    toast('✅ ' + t('sportUpdated'));
+  });
+}
+
+/* ============ HANDLERS ============ */
+function handleSavePair(btn){
+  const sp = getSport(btn.dataset.sport); if(!sp) return;
+  const row = btn.closest('.rr-row');
+  const hgI = row.querySelector('[data-score="hg"]'), agI = row.querySelector('[data-score="ag"]');
+  const hgS = hgI.value.trim(), agS = agI.value.trim();
+  if(hgS === '' || agS === ''){ toast(t('fillScores')); (hgS === '' ? hgI : agI).focus(); return; }
+  const hg = Math.max(0, Math.min(sp.maxScore || 99, parseInt(hgS,10)||0));
+  const ag = Math.max(0, Math.min(sp.maxScore || 99, parseInt(agS,10)||0));
+  const aId = btn.dataset.a, bId = btn.dataset.b;
+  const ex = sp.matches.find(m => (m.home===aId && m.away===bId) || (m.home===bId && m.away===aId));
+  let matchId;
+  if(ex){ if(ex.home===aId){ ex.hg=hg; ex.ag=ag; } else { ex.hg=ag; ex.ag=hg; } matchId = ex.id; }
+  else{ const nm = { id: uid(), home: aId, away: bId, hg, ag }; sp.matches.push(nm); matchId = nm.id; }
+  save(); row.classList.add('played');
+  const actions = row.querySelector('.rr-actions');
+  if(!actions.querySelector('.clear')){ const cb = document.createElement('button'); cb.className = 'rr-btn clear'; cb.dataset.action = 'clearPair'; cb.dataset.sport = sp.id; cb.dataset.id = matchId; cb.textContent = '✕'; actions.appendChild(cb); }
+  try{ row.animate([{background:'rgba(74,222,128,.28)'},{background:'transparent'}], {duration:600}); }catch(e){}
+  toast(t('saved'));
+}
+
+function handleClearPair(btn){
+  if(!confirm(t('confirmDeleteMatch'))) return;
+  const sp = getSport(btn.dataset.sport); if(!sp) return;
+  const row = btn.closest('.rr-row');
+  sp.matches = sp.matches.filter(m => m.id !== btn.dataset.id);
+  save(); row.classList.remove('played');
+  row.querySelector('[data-score="hg"]').value = ''; row.querySelector('[data-score="ag"]').value = '';
+  btn.remove(); toast(t('deleted'));
+}
+
+function handlePickWinner(btn){
+  const sp = getSport(btn.dataset.sport); if(!sp) return;
+  const aId = btn.dataset.a, bId = btn.dataset.b, w = btn.dataset.w;
+  const key = aId + '|' + bId;
+  sp.winners[key] = { a: aId, b: bId, winner: w };
+  save(); render(); toast(t('saved'));
+}
+
+function handleClearWinner(btn){
+  if(!confirm(t('confirmDeleteMatch'))) return;
+  const sp = getSport(btn.dataset.sport); if(!sp) return;
+  delete sp.winners[btn.dataset.key];
+  save(); render(); toast(t('deleted'));
+}
+
+function handleGenerateBracket(btn){
+  const sp = getSport(btn.dataset.sport); if(!sp) return;
+  if(sp.teams.length < MIN_TEAMS){ toast(t('needTwoTeams')); return; }
+  if(sp.bracket && sp.bracket.length){ if(!confirm(t('confirmRegenerate'))) return; }
+  const ok = generateBracket(sp);
+  if(ok){ save(); render(); toast('🏆 ' + t('bracketGenerated')); }
+}
+
+function handleDeleteBracket(btn){
+  const sp = getSport(btn.dataset.sport); if(!sp) return;
+  if(!confirm(t('confirmDeleteBracket'))) return;
+  sp.bracket = null; sp.champion = null;
+  save(); render(); toast('🗑️ ' + t('bracketDeleted'));
+}
+
+function handleBracketSave(btn){
+  const sp = getSport(btn.dataset.sport); if(!sp || !sp.bracket) return;
+  const roundIdx = parseInt(btn.dataset.round, 10);
+  const matchId = btn.dataset.match;
+  const round = sp.bracket[roundIdx]; if(!round) return;
+  const match = round.matches.find(m => m.id === matchId); if(!match) return;
+  const row = btn.closest('.bracket-match');
+  const hgI = row.querySelector('[data-bracket="hg"]');
+  const agI = row.querySelector('[data-bracket="ag"]');
+  const hgS = hgI.value.trim(), agS = agI.value.trim();
+  if(hgS === '' || agS === ''){ toast(t('fillScores')); (hgS === '' ? hgI : agI).focus(); return; }
+  const hg = Math.max(0, Math.min(99, parseInt(hgS,10)||0));
+  const ag = Math.max(0, Math.min(99, parseInt(agS,10)||0));
+  if(hg === ag){ toast(t('knockoutNoDraw')); return; }
+  match.hg = hg; match.ag = ag; match.winner = hg > ag ? 'a' : 'b';
+  ensureBracketRounds(sp);
+  save(); render(); toast(t('saved'));
+}
+
+function handleBracketClear(btn){
+  if(!confirm(t('confirmResetMatch'))) return;
+  const sp = getSport(btn.dataset.sport); if(!sp || !sp.bracket) return;
+  const roundIdx = parseInt(btn.dataset.round, 10);
+  const matchId = btn.dataset.match;
+  const round = sp.bracket[roundIdx]; if(!round) return;
+  const match = round.matches.find(m => m.id === matchId); if(!match) return;
+  match.hg = null; match.ag = null; match.winner = null;
+  sp.bracket = sp.bracket.slice(0, roundIdx + 1);
+  sp.champion = null;
+  save(); render(); toast(t('deleted'));
+}
+
+function handleDeleteMember(btn){
+  if(!confirm(t('confirmDeleteMember'))) return;
+  const sportId = btn.dataset.sport, teamId = btn.dataset.team, memberId = btn.dataset.member;
+  const sp = getSport(sportId); if(!sp) return;
+  const list = sp.teamMembers[teamId] || [];
+  sp.teamMembers[teamId] = list.filter(m => m.id !== memberId);
+  save();
+  openMembers(sportId, teamId);
+  toast(t('memberDeleted'));
+}
+
+function handleToggleCaptain(btn){
+  const sportId = btn.dataset.sport, teamId = btn.dataset.team, memberId = btn.dataset.member;
+  const sp = getSport(sportId); if(!sp) return;
+  const list = sp.teamMembers[teamId] || [];
+  const target = list.find(m => m.id === memberId); if(!target) return;
+  // Toggle: if it's already captain, remove; else set as captain (unset others)
+  if(target.isCaptain){
+    target.isCaptain = false;
+  }else{
+    list.forEach(m => m.isCaptain = false);
+    target.isCaptain = true;
+  }
+  save();
+  openMembers(sportId, teamId);
+  toast(t('captainSet'));
+}
+
+function handleLogout(){
+  if(!confirm(t('confirmLogout'))) return;
+  authed = false; currentView = 'sports'; currentSportId = null; currentTab = 'table';
+  applySettings(); render(); window.scrollTo({top:0,behavior:'smooth'});
+  toast('🚪 ' + t('loggedOut'));
+}
+
+function handleDeleteAll(){
+  if(!confirm(t('confirmDeleteAll'))) return;
+  if(!confirm(t('confirmDeleteAll2'))) return;
+  try{
+    localStorage.removeItem(STORAGE_KEY);
+    OLD_KEYS.forEach(k => { try{ localStorage.removeItem(k); }catch(e){} });
+  }catch(e){}
+  state = defaultState();
+  authed = false; currentView = 'sports'; currentSportId = null; currentTab = 'table';
+  save(); closeModal(); applySettings(); render();
+  window.scrollTo({top:0,behavior:'smooth'});
+  toast('🗑️ ' + t('allDataDeleted'));
+}
+
+/* ============ EVENT DELEGATION ============ */
+document.addEventListener('mousedown', e => {
+  if(e.target.closest('[data-action="openPalette"],[data-action="setColor"]')) e.preventDefault();
+});
+
+document.addEventListener('click', e => {
+  const el = e.target.closest('[data-action]'); if(!el) return;
+  const a = el.dataset.action;
+
+  if(a === 'goHome'){ currentView = 'sports'; currentSportId = null; currentTab = 'table'; render(); window.scrollTo({top:0,behavior:'smooth'}); }
+  else if(a === 'openSport'){ currentSportId = el.dataset.id; currentView = 'sport'; currentTab = 'table'; render(); window.scrollTo({top:0,behavior:'smooth'}); }
+  else if(a === 'sportTab'){ currentTab = el.dataset.tab; render(); window.scrollTo({top:0,behavior:'smooth'}); }
+  else if(a === 'gotoAdmin'){ currentView = 'admin'; render(); window.scrollTo({top:0,behavior:'smooth'}); }
+  else if(a === 'adminShortcut'){ if(authed){ currentView = 'admin'; render(); window.scrollTo({top:0,behavior:'smooth'}); } else openPassword(); }
+  else if(a === 'openSettings'){ openSettings(); }
+  else if(a === 'openGuide'){ openGuide(); }
+  else if(a === 'closeModal'){ closeModal(); }
+  else if(a === 'askPassword'){ openPassword(); }
+  else if(a === 'setTheme'){ state.settings.theme = el.dataset.val; save(); applySettings(); openSettings(); }
+  else if(a === 'setLang'){ state.settings.lang = el.dataset.val; save(); render(); openSettings(); }
+  else if(a === 'deleteAllData'){ handleDeleteAll(); }
+  else if(a === 'openPalette'){ openPalette(el.dataset.sport, el.dataset.id); }
+  else if(a === 'setColor'){ const sp = getSport(el.dataset.sport); if(!sp) return; const team = sp.teams.find(x => x.id === el.dataset.id); if(!team) return; team.color = el.dataset.color; save(); closeModal(); render(); toast(t('saved')); }
+  else if(a === 'savePair'){ handleSavePair(el); }
+  else if(a === 'clearPair'){ handleClearPair(el); }
+  else if(a === 'pickWinner'){ handlePickWinner(el); }
+  else if(a === 'clearWinner'){ handleClearWinner(el); }
+  else if(a === 'generateBracket'){ handleGenerateBracket(el); }
+  else if(a === 'deleteBracket'){ handleDeleteBracket(el); }
+  else if(a === 'bracketSave'){ handleBracketSave(el); }
+  else if(a === 'bracketClear'){ handleBracketClear(el); }
+  else if(a === 'openMembers'){ openMembers(el.dataset.sport, el.dataset.id); }
+  else if(a === 'delMember'){ handleDeleteMember(el); }
+  else if(a === 'toggleCaptain'){ handleToggleCaptain(el); }
+  else if(a === 'delTeam'){
+    const sp = getSport(el.dataset.sport); if(!sp) return;
+    if(sp.teams.length <= MIN_TEAMS){ toast(t('minTeams')); return; }
+    if(!confirm(t('confirmDeleteTeam'))) return;
+    const id = el.dataset.id;
+    sp.teams = sp.teams.filter(x => x.id !== id);
+    sp.matches = sp.matches.filter(m => m.home !== id && m.away !== id);
+    delete sp.soloScores[id]; delete sp.ranks[id];
+    delete sp.teamMembers[id];
+    Object.keys(sp.winners||{}).forEach(k => { const w = sp.winners[k]; if(w && (w.a === id || w.b === id)) delete sp.winners[k]; });
+    if(sp.bracket){
+      sp.bracket.forEach(r => { r.matches = r.matches.filter(m => m.a !== id && m.b !== id); r.byes = r.byes.filter(b => b !== id); });
+      sp.bracket = sp.bracket.filter(r => r.matches.length || r.byes.length);
+      if(!sp.bracket.length) sp.bracket = null;
+      if(sp.champion === id) sp.champion = null;
+    }
+    save(); render(); toast(t('deleted'));
+  }
+  else if(a === 'logout'){ handleLogout(); }
+  else if(a === 'toggleSport'){ const sp = getSport(el.dataset.id); if(!sp) return; sp.active = !sp.active; save(); el.classList.toggle('on', sp.active); toast(sp.active ? '✅ ' + t('activated') : '⭕ ' + t('deactivated')); }
+  else if(a === 'configureSport'){ openSportConfig(el.dataset.id); }
+});
+
+document.addEventListener('input', e => {
+  const inp = e.target.closest('[data-rename]');
+  if(inp){ const sp = getSport(inp.dataset.sport); if(!sp) return; const tm = sp.teams.find(x => x.id === inp.dataset.rename); if(!tm) return; const v = inp.value.trim(); if(v) tm.name = v; save(); return; }
+  const mem = e.target.closest('[data-member-rename]');
+  if(mem){ const sp = getSport(mem.dataset.sport); if(!sp) return; const tid = mem.dataset.team; const mid = mem.dataset.memberRename; const list = sp.teamMembers[tid] || []; const m = list.find(x => x.id === mid); if(!m) return; const v = mem.value.trim(); if(v) m.name = v; save(); return; }
+  const sc = e.target.closest('[data-solo-score]');
+  if(sc){ const sp = getSport(sc.dataset.sport); if(!sp) return; const id = sc.dataset.soloScore; const v = sc.value.trim(); if(v === ''){ delete sp.soloScores[id]; } else { sp.soloScores[id] = Math.max(0, parseInt(v,10) || 0); } save(); return; }
+  const rk = e.target.closest('[data-solo-rank]');
+  if(rk){ const sp = getSport(rk.dataset.sport); if(!sp) return; const id = rk.dataset.soloRank; const v = rk.value.trim(); if(v === ''){ delete sp.ranks[id]; } else { sp.ranks[id] = Math.max(1, parseInt(v,10) || 1); } save(); }
+});
+
+document.addEventListener('change', e => {
+  const inp = e.target.closest('[data-rename]'); if(!inp) return;
+  const sp = getSport(inp.dataset.sport); if(!sp) return;
+  const tm = sp.teams.find(x => x.id === inp.dataset.rename); if(!tm) return;
+  const v = inp.value.trim(); if(!v){ inp.value = tm.name; return; }
+  if(sp.teams.some(x => x.id !== tm.id && x.name.trim().toLowerCase() === v.toLowerCase())){ toast(t('teamExists')); inp.value = tm.name; }
+});
+
+document.addEventListener('keydown', e => {
+  if(e.key !== 'Enter') return;
+  if(e.target.matches('[data-score="hg"],[data-score="ag"]')){ e.preventDefault(); const row = e.target.closest('.rr-row'); row?.querySelector('.rr-btn.save')?.click(); return; }
+  if(e.target.matches('[data-bracket="hg"],[data-bracket="ag"]')){ e.preventDefault(); const row = e.target.closest('.bracket-match'); row?.querySelector('.bm-btn.save')?.click(); return; }
+});
+
+(function init(){ applySettings(); render(); if(!localStorage.getItem(STORAGE_KEY)) save(); })();
+</script>
+</body>
+</html>
