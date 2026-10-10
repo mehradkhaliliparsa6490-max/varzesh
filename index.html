@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#070b14">
-<title>لیگ ورزش‌ها v1.3.5</title>
+<title>لیگ ورزش‌ها v1.4.0</title>
 <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
@@ -13,9 +13,15 @@ html[data-theme="light"]{--bg-1:#eef2f9;--bg-2:#dde5f3;--surface:rgba(255,255,25
 html[data-theme="ocean"]{--bg-1:#0c1828;--bg-2:#0a2338;--surface:rgba(56,189,248,.06);--surface-2:rgba(56,189,248,.12);--border:rgba(56,189,248,.18);--text:#e0f2fe;--muted:#7dd3fc;--accent:#38bdf8;--accent-2:#0ea5e9;--danger:#f87171;--panel:#0f2438;--panel-2:#0a1c2e;--modal-bg:linear-gradient(165deg,#0f2438,#0a1c2e);--shadow:0 22px 55px rgba(0,0,0,.5);--ring:rgba(56,189,248,.25)}
 html[data-theme="sunset"]{--bg-1:#1a0e1f;--bg-2:#2d1230;--surface:rgba(251,146,60,.06);--surface-2:rgba(251,146,60,.12);--border:rgba(251,146,60,.18);--text:#fff7ed;--muted:#fdba74;--accent:#fb923c;--accent-2:#f472b6;--danger:#ef4444;--panel:#2a1520;--panel-2:#1e0f18;--modal-bg:linear-gradient(165deg,#2a1520,#1e0f18);--shadow:0 22px 55px rgba(0,0,0,.5);--ring:rgba(251,146,60,.25)}
 html[data-theme="forest"]{--bg-1:#0a1a0f;--bg-2:#0f2b18;--surface:rgba(34,197,94,.06);--surface-2:rgba(34,197,94,.12);--border:rgba(34,197,94,.18);--text:#ecfdf5;--muted:#6ee7b7;--accent:#22c55e;--accent-2:#84cc16;--danger:#f87171;--panel:#0e2416;--panel-2:#0a1c10;--modal-bg:linear-gradient(165deg,#0e2416,#0a1c10);--shadow:0 22px 55px rgba(0,0,0,.5);--ring:rgba(34,197,94,.25)}
+html[data-theme="neon"]{--bg-1:#0a0416;--bg-2:#1a0b2e;--surface:rgba(236,72,153,.08);--surface-2:rgba(236,72,153,.14);--border:rgba(236,72,153,.25);--text:#fce7f3;--muted:#f9a8d4;--accent:#ec4899;--accent-2:#a855f7;--danger:#fb7185;--panel:#1a0b2e;--panel-2:#12071f;--modal-bg:linear-gradient(165deg,#1a0b2e,#12071f);--shadow:0 22px 55px rgba(0,0,0,.6);--ring:rgba(236,72,153,.3)}
+html[data-theme="candy"]{--bg-1:#fef7f8;--bg-2:#fce7f3;--surface:rgba(255,255,255,.85);--surface-2:rgba(255,255,255,.98);--border:rgba(244,114,182,.2);--text:#831843;--muted:#be185d;--accent:#ec4899;--accent-2:#f472b6;--danger:#dc2626;--panel:#fff;--panel-2:#fdf2f8;--modal-bg:linear-gradient(165deg,#fff,#fdf2f8);--shadow:0 18px 45px rgba(244,114,182,.15);--ring:rgba(236,72,153,.18)}
+html[data-theme="mono"]{--bg-1:#0a0a0a;--bg-2:#171717;--surface:rgba(255,255,255,.05);--surface-2:rgba(255,255,255,.1);--border:rgba(255,255,255,.15);--text:#f5f5f5;--muted:#a3a3a3;--accent:#e5e5e5;--accent-2:#737373;--danger:#ef4444;--panel:#1a1a1a;--panel-2:#111;--modal-bg:linear-gradient(165deg,#1a1a1a,#111);--shadow:0 22px 55px rgba(0,0,0,.7);--ring:rgba(229,229,229,.2)}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html,body{min-height:100%}
 body{font-family:'Vazirmatn',ui-sans-serif,system-ui,sans-serif;color:var(--text);background-color:var(--bg-1);background-image:radial-gradient(1000px 620px at 12% -12%,rgba(74,222,128,.16),transparent 60%),radial-gradient(900px 520px at 92% -5%,rgba(34,211,238,.14),transparent 58%),linear-gradient(160deg,var(--bg-1),var(--bg-2));background-attachment:fixed;min-height:100vh;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+html[data-theme="neon"] body{background-image:radial-gradient(1000px 620px at 12% -12%,rgba(236,72,153,.2),transparent 60%),radial-gradient(900px 520px at 92% -5%,rgba(168,85,247,.18),transparent 58%),linear-gradient(160deg,var(--bg-1),var(--bg-2))}
+html[data-theme="candy"] body{background-image:radial-gradient(1000px 620px at 12% -12%,rgba(236,72,153,.15),transparent 60%),radial-gradient(900px 520px at 92% -5%,rgba(244,114,182,.13),transparent 58%),linear-gradient(160deg,var(--bg-1),var(--bg-2))}
+html[data-theme="mono"] body{background-image:radial-gradient(1000px 620px at 12% -12%,rgba(255,255,255,.04),transparent 60%),radial-gradient(900px 520px at 92% -5%,rgba(255,255,255,.03),transparent 58%),linear-gradient(160deg,var(--bg-1),var(--bg-2))}
 button,input,select,textarea{font-family:inherit;color:inherit}
 ::-webkit-scrollbar{width:8px;height:8px}::-webkit-scrollbar-thumb{background:var(--surface-2);border-radius:20px}
 .app{max-width:1020px;margin:0 auto;padding:14px 14px calc(60px + env(safe-area-inset-bottom))}
@@ -27,14 +33,15 @@ button,input,select,textarea{font-family:inherit;color:inherit}
 .brand-text p{font-size:.68rem;color:var(--muted);font-weight:500;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .version-badge{display:inline-block;font-size:.6rem;font-weight:800;padding:1px 6px;border-radius:6px;background:var(--surface-2);color:var(--muted);margin-inline-start:5px;font-family:monospace}
 .top-actions{display:flex;gap:6px;flex:0 0 auto}
-.icon-btn{width:42px;height:42px;border-radius:13px;flex:0 0 auto;border:1px solid var(--border);background:var(--surface-2);font-size:17px;cursor:pointer;display:grid;place-items:center;transition:.2s}
+.icon-btn{width:42px;height:42px;border-radius:13px;flex:0 0 auto;border:1px solid var(--border);background:var(--surface-2);font-size:17px;cursor:pointer;display:grid;place-items:center;transition:.2s;position:relative}
 .icon-btn:hover{border-color:var(--accent)}
 .icon-btn.sm{width:36px;height:36px;font-size:15px;border-radius:11px}
-.main-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0 4px}
-.main-action-btn{padding:14px 12px;border-radius:16px;border:1px solid var(--border);background:var(--surface);cursor:pointer;font-size:.92rem;font-weight:800;display:flex;align-items:center;justify-content:center;gap:8px;transition:.22s;color:var(--text);text-align:center}
+.notif-badge{position:absolute;top:-4px;inset-inline-end:-4px;min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:linear-gradient(135deg,#f87171,#dc2626);color:#fff;font-size:.62rem;font-weight:800;display:grid;place-items:center}
+.main-actions{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:12px 0 4px}
+.main-action-btn{padding:12px 8px;border-radius:16px;border:1px solid var(--border);background:var(--surface);cursor:pointer;font-size:.85rem;font-weight:800;display:flex;align-items:center;justify-content:center;gap:6px;transition:.22s;color:var(--text);text-align:center;flex-direction:column}
 .main-action-btn:hover{transform:translateY(-2px);border-color:var(--accent)}
 .main-action-btn.active{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#062017;border-color:transparent;box-shadow:0 8px 22px rgba(34,211,238,.28)}
-.main-action-btn .ico{font-size:20px}
+.main-action-btn .ico{font-size:22px}
 .status-bar{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}
 .status-chip{display:inline-flex;align-items:center;gap:5px;padding:6px 12px;border-radius:12px;font-size:.72rem;font-weight:800;border:1px solid var(--border);background:var(--surface-2)}
 .status-chip.online{background:linear-gradient(135deg,rgba(74,222,128,.2),rgba(34,211,238,.15));color:var(--accent);border-color:rgba(74,222,128,.4)}
@@ -183,7 +190,6 @@ input[type=number]{-moz-appearance:textfield;text-align:center;font-weight:700}
 .bm-score-display{display:inline-grid;place-items:center;min-width:40px;height:34px;padding:0 8px;border-radius:10px;background:var(--surface-2);font-weight:800;font-size:.9rem}
 .bm-score-display.winner{color:var(--accent)}
 .bm-sep{text-align:center;font-weight:800;color:var(--muted);font-size:.75rem}
-.bm-bye{grid-column:1 / -1;text-align:center;padding:8px;border-radius:10px;background:linear-gradient(90deg,rgba(34,211,238,.08),rgba(74,222,128,.08));font-size:.78rem;font-weight:700;color:var(--muted);display:flex;align-items:center;justify-content:center;gap:6px;margin:4px 0}
 .champion-box{margin-top:14px;padding:22px 18px;background:linear-gradient(135deg,rgba(250,204,21,.15),rgba(251,146,60,.1));border:1px solid rgba(250,204,21,.35);border-radius:22px;text-align:center}
 .champion-box .trophy{font-size:52px;display:block;margin-bottom:10px}
 .champion-box h3{font-size:.78rem;color:var(--muted);font-weight:800;text-transform:uppercase;margin-bottom:8px}
@@ -202,22 +208,34 @@ input[type=number]{-moz-appearance:textfield;text-align:center;font-weight:700}
 .news-tag:hover{background:var(--surface)}
 .news-tag.active{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#062017;border-color:transparent}
 .news-tag.static{cursor:default}
-.news-tag.static:hover{background:var(--surface-2)}
 .news-detail h2{font-size:1.3rem;font-weight:800;margin-bottom:8px;line-height:1.4}
 .news-detail .cover{width:100%;border-radius:16px;margin-bottom:14px;max-height:400px;object-fit:cover}
 .news-detail .info{display:flex;gap:12px;font-size:.72rem;color:var(--muted);margin-bottom:14px;flex-wrap:wrap}
 .news-detail .content{font-size:.92rem;line-height:2;color:var(--text);word-wrap:break-word}
 .news-detail .content img{max-width:100%;border-radius:12px;margin:10px 0;display:block}
 .news-detail .content video{max-width:100%;border-radius:12px;margin:10px 0;display:block}
-.news-detail .actions{display:flex;gap:8px;margin-top:20px;padding-top:14px;border-top:1px solid var(--border)}
+.news-detail .content iframe{max-width:100%;width:100%;border-radius:12px;margin:10px 0;display:block;aspect-ratio:16/9;border:0}
+.news-detail .actions{display:flex;gap:8px;margin-top:20px;padding-top:14px;border-top:1px solid var(--border);flex-wrap:wrap}
 .editor-toolbar{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0}
 .editor-btn{padding:6px 12px;font-size:.78rem;border-radius:9px;border:1px solid var(--border);background:var(--surface-2);color:var(--text);cursor:pointer;font-weight:700}
 .editor-btn:hover{border-color:var(--accent)}
-.editor-content{padding:12px;border-radius:13px;border:1px solid var(--border);background:var(--surface-2);min-height:150px;font-size:.92rem;line-height:1.8;outline:none;overflow-wrap:break-word}
+.editor-content{padding:12px;border-radius:13px;border:1px solid var(--border);background:var(--surface-2);min-height:150px;font-size:.92rem;line-height:1.8;outline:none;overflow-wrap:break-word;max-height:40vh;overflow-y:auto}
 .editor-content:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--ring)}
 .editor-content img{max-width:100%;border-radius:10px;margin:8px 0;display:block}
 .editor-content video{max-width:100%;border-radius:10px;margin:8px 0;display:block}
+.editor-content iframe{max-width:100%;width:100%;border-radius:10px;margin:8px 0;display:block;aspect-ratio:16/9;border:0}
 .editor-content:empty::before{content:attr(data-placeholder);color:var(--muted);opacity:.6}
+/* FEEDBACK */
+.fb-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:14px;cursor:pointer;transition:.2s;box-shadow:var(--shadow);margin-bottom:10px}
+.fb-card:hover{border-color:var(--accent);transform:translateY(-2px)}
+.fb-card .head{display:flex;justify-content:space-between;align-items:start;gap:10px;margin-bottom:6px}
+.fb-card h3{font-size:.95rem;font-weight:800;flex:1;line-height:1.4;color:var(--text)}
+.fb-card .name{font-size:.72rem;color:var(--muted);font-weight:700;background:var(--surface-2);padding:3px 9px;border-radius:8px;white-space:nowrap}
+.fb-card .meta{font-size:.68rem;color:var(--muted);margin-bottom:8px}
+.fb-card .preview{font-size:.82rem;color:var(--muted);line-height:1.7;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.fb-detail .head{display:flex;justify-content:space-between;align-items:start;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+.fb-detail h2{font-size:1.2rem;font-weight:800;flex:1;line-height:1.4}
+.fb-detail .content{font-size:.92rem;line-height:2;color:var(--text);white-space:pre-wrap;word-wrap:break-word}
 .overlay{position:fixed;inset:0;z-index:200;background:rgba(3,7,15,.66);backdrop-filter:blur(7px);display:flex;align-items:flex-end;justify-content:center;opacity:0;pointer-events:none;transition:opacity .25s}
 .overlay.open{opacity:1;pointer-events:auto}
 .modal{width:100%;max-width:540px;background:var(--modal-bg);border:1px solid var(--border);border-radius:26px 26px 0 0;padding:22px 20px calc(24px + env(safe-area-inset-bottom));max-height:90vh;overflow-y:auto;transform:translateY(30px);transition:transform .3s}
@@ -233,17 +251,20 @@ input[type=number]{-moz-appearance:textfield;text-align:center;font-weight:700}
 .seg{display:flex;gap:6px;background:var(--surface-2);padding:5px;border-radius:13px;flex:0 0 auto;flex-wrap:wrap}
 .seg button{border:0;background:transparent;color:var(--muted);padding:8px 13px;border-radius:9px;font-size:.8rem;font-weight:700;cursor:pointer;white-space:nowrap}
 .seg button.active{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#062017}
-.theme-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:8px}
+.theme-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:8px}
 .theme-card{padding:10px 6px;border-radius:12px;border:2px solid var(--border);cursor:pointer;text-align:center;transition:.2s}
 .theme-card:hover{border-color:var(--accent)}
 .theme-card.active{border-color:var(--accent);box-shadow:0 0 0 3px var(--ring)}
 .theme-card .preview{width:100%;height:32px;border-radius:8px;margin-bottom:6px}
-.theme-card .name{font-size:.7rem;font-weight:800}
+.theme-card .name{font-size:.68rem;font-weight:800}
 .theme-preview-dark{background:linear-gradient(135deg,#070b14,#0d1526);border:1px solid rgba(74,222,128,.4)}
 .theme-preview-light{background:linear-gradient(135deg,#eef2f9,#dde5f3);border:1px solid rgba(22,163,74,.4)}
 .theme-preview-ocean{background:linear-gradient(135deg,#0c1828,#38bdf8);border:1px solid rgba(56,189,248,.5)}
 .theme-preview-sunset{background:linear-gradient(135deg,#1a0e1f,#fb923c);border:1px solid rgba(251,146,60,.5)}
 .theme-preview-forest{background:linear-gradient(135deg,#0a1a0f,#22c55e);border:1px solid rgba(34,197,94,.5)}
+.theme-preview-neon{background:linear-gradient(135deg,#0a0416,#ec4899);border:1px solid rgba(236,72,153,.5)}
+.theme-preview-candy{background:linear-gradient(135deg,#fef7f8,#ec4899);border:1px solid rgba(236,72,153,.5)}
+.theme-preview-mono{background:linear-gradient(135deg,#0a0a0a,#a3a3a3);border:1px solid rgba(255,255,255,.3)}
 .server-selector{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px;margin-top:10px}
 .server-card{padding:14px 8px;border-radius:14px;border:2px solid var(--border);background:var(--surface-2);cursor:pointer;text-align:center;transition:.2s;position:relative}
 .server-card.active{border-color:var(--accent);background:linear-gradient(135deg,rgba(74,222,128,.15),rgba(34,211,238,.12))}
@@ -309,7 +330,8 @@ input[type=number]{-moz-appearance:textfield;text-align:center;font-weight:700}
   .theme-grid{grid-template-columns:repeat(3,1fr)}
   .wr-row{grid-template-columns:minmax(0,1fr) minmax(0,1fr) auto;gap:6px}
   .wr-choice{grid-column:1 / -1;justify-content:center;margin-top:4px}
-  .main-action-btn{padding:12px 8px;font-size:.82rem}
+  .main-action-btn{padding:10px 6px;font-size:.72rem}
+  .main-action-btn .ico{font-size:18px}
 }
 @media (max-width:380px){
   .brand-text p{display:none}
@@ -317,6 +339,7 @@ input[type=number]{-moz-appearance:textfield;text-align:center;font-weight:700}
   .sport-icon{font-size:32px;margin-bottom:6px}
   .sport-name{font-size:.85rem;margin-bottom:5px}
   .icon-btn{width:38px;height:38px;font-size:15px}
+  .main-actions{grid-template-columns:1fr 1fr 1fr;gap:6px}
 }
 </style>
 </head>
@@ -327,11 +350,12 @@ input[type=number]{-moz-appearance:textfield;text-align:center;font-weight:700}
     <div class="brand" data-action="goHome">
       <div class="logo">🏆</div>
       <div class="brand-text">
-        <h1 id="brandTitle">لیگ ورزش‌ها<span class="version-badge">v1.3.5</span></h1>
+        <h1 id="brandTitle">لیگ ورزش‌ها<span class="version-badge">v1.4.0</span></h1>
         <p id="brandSub">مدیریت نتایج مسابقات</p>
       </div>
     </div>
     <div class="top-actions">
+      <button class="icon-btn" data-action="openFeedback" id="feedbackTopBtn" title="نقل و انتقادات">💬<span class="notif-badge" id="fbBadge" style="display:none">0</span></button>
       <button class="icon-btn" data-action="openGuide" id="guideBtn">❓</button>
       <button class="icon-btn" data-action="openSettings" id="settingsBtn">⚙️</button>
     </div>
@@ -340,23 +364,18 @@ input[type=number]{-moz-appearance:textfield;text-align:center;font-weight:700}
   <div class="main-actions">
     <button class="main-action-btn" data-action="goSportsHome" id="sportsActionBtn"><span class="ico">⚽</span><span>نتایج ورزشی</span></button>
     <button class="main-action-btn" data-action="openNews" id="newsActionBtn"><span class="ico">📰</span><span>اخبار و وبلاگ</span></button>
+    <button class="main-action-btn" data-action="openFeedback" id="feedbackActionBtn"><span class="ico">💬</span><span>نقل و انتقادات</span></button>
   </div>
 
   <div class="status-bar" id="statusBar"></div>
   <nav class="tabs" id="tabs" style="display:none"></nav>
   <main id="view"></main>
-  <div class="footer" id="footer">لیگ ورزش‌ها • v1.3.5</div>
+  <div class="footer" id="footer">لیگ ورزش‌ها • v1.4.0</div>
 </div>
 
 <button class="debug-toggle" id="debugToggle" title="Debug">🐞</button>
 <div class="debug-panel" id="debugPanel">
-  <div class="dbg-head">
-    <h3>🐞 Debug</h3>
-    <div>
-      <button data-dbg-action="clear">Clear</button>
-      <button data-dbg-action="close">Close</button>
-    </div>
-  </div>
+  <div class="dbg-head"><h3>🐞 Debug</h3><div><button data-dbg-action="clear">Clear</button><button data-dbg-action="close">Close</button></div></div>
   <div class="debug-log" id="debugLog"></div>
 </div>
 
@@ -396,16 +415,16 @@ const DEBUG = {
 };
 window.addEventListener('error', e => DEBUG.err('Global', e.message));
 window.addEventListener('unhandledrejection', e => DEBUG.err('Promise', e.reason ? String(e.reason) : ''));
-DEBUG.info('Init');
 
 /* ============ CONFIG ============ */
 const DEFAULT_ADMIN_PASS = 'Aa64906490';
-const STORAGE_KEY = 'sports-league-v15';
+const STORAGE_KEY = 'sports-league-v16';
 const USER_PREFS_KEY = 'sports-league-user-prefs';
 const ADMIN_KEY = 'sports-league-admin-session';
 const SERVER_SEL_KEY = 'sports-league-server';
 const CLIENT_ID_KEY = 'sports-league-client-id';
-const VERSION = 'v1.3.5';
+const FB_SEEN_KEY = 'sports-league-fb-seen';
+const VERSION = 'v1.4.0';
 const MAX_MEMBERS = 15;
 
 const SUPABASE_URL = 'https://lwpyainlxrthddlockia.supabase.co';
@@ -425,6 +444,10 @@ let authed = false;
 try { if(localStorage.getItem(ADMIN_KEY) === 'yes') authed = true; } catch(e){}
 const saveAdminSession = () => { try { if(authed) localStorage.setItem(ADMIN_KEY, 'yes'); else localStorage.removeItem(ADMIN_KEY); } catch(e){} };
 
+let _fbSeenCount = 0;
+try { _fbSeenCount = parseInt(localStorage.getItem(FB_SEEN_KEY), 10) || 0; } catch(e){}
+const saveFbSeen = (n) => { try { localStorage.setItem(FB_SEEN_KEY, String(n)); } catch(e){} };
+
 /* ============ I18N ============ */
 const I18N = {
   fa: {
@@ -435,7 +458,8 @@ const I18N = {
     adminHome:'پنل مدیریت', adminHomeHint:'فعال‌سازی ورزش‌ها و مدیریت نتایج',
     enterAdmin:'ورود به پنل مدیریت', exitAdmin:'خروج از مدیریت',
     tabTable:'جدول', tabBracket:'جدول حذفی', tabMatches:'بازی‌ها', tabAdmin:'مدیریت', tabNews:'اخبار',
-    settings:'تنظیمات', theme:'تم', dark:'تیره', light:'روشن', ocean:'اقیانوس', sunset:'غروب', forest:'جنگل',
+    tabFeedback:'نقل و انتقادات',
+    settings:'تنظیمات', theme:'تم', dark:'تیره', light:'روشن', ocean:'اقیانوس', sunset:'غروب', forest:'جنگل', neon:'نئون', candy:'آب‌نباتی', mono:'تک‌رنگ',
     language:'زبان', close:'بستن', save:'ذخیره', cancel:'انصراف',
     rank:'رتبه', team:'نام', played:'بازی', won:'برد', drawn:'مساوی', lost:'باخت',
     scored:'زده', conceded:'خورده', gd:'تفاضل', points:'امتیاز', score:'امتیاز',
@@ -489,19 +513,19 @@ const I18N = {
     enterServerPassword:'رمز سرور را وارد کنید', wrongServerPassword:'رمز سرور اشتباه است',
     deleteServer:'حذف سرور', confirmDeleteServer:'این سرور و همه اطلاعاتش حذف بشه؟',
     cantDeleteLastServer:'نمی‌تونی آخرین سرور رو حذف کنی',
-    editingServer:'ویرایش سرور', chooseServer:'انتخاب سرور', servers:'سرورها',
+    editingServer:'ویرایش سرور', chooseServer:'انتخاب سرور',
     customSports:'ورزش‌های سفارشی', addCustomSport:'افزودن ورزش جدید',
     confirmDeleteSport:'⚠️ این ورزش و همه اطلاعاتش حذف بشه؟', confirmDeleteSport2:'آخرین هشدار!',
     customBracketMode:'جدول دستی', customBracketHint:'خودت تعیین کن کی با کی بازی کنه',
     tugwarWinnerMode:'حالت انتخاب برنده', tugwarWinnerHint:'مثل شطرنج',
     newsTitle:'عنوان خبر', newsIntro:'مقدمه', newsContent:'متن کامل', newsCover:'تصویر عنوان',
     newsAuthor:'نام نویسنده', newsDate:'تاریخ', createNews:'ساخت خبر جدید', viewNews:'مشاهده اخبار',
-    deleteNews:'حذف خبر', confirmDeleteNews:'این خبر حذف بشه؟',
+    editNews:'ویرایش خبر', deleteNews:'حذف خبر', confirmDeleteNews:'این خبر حذف بشه؟',
     noNews:'هنوز خبری ثبت نشده است.', searchNews:'جستجو در اخبار...',
-    allTags:'همه', newsAdded:'خبر اضافه شد', newsDeleted:'خبر حذف شد',
+    allTags:'همه', newsAdded:'خبر اضافه شد', newsDeleted:'خبر حذف شد', newsEdited:'خبر ویرایش شد',
     manageTags:'مدیریت تگ‌ها', addTag:'افزودن تگ', tagName:'نام تگ',
     confirmDeleteTag:'این تگ حذف بشه؟', tagAdded:'تگ اضافه شد', tagDeleted:'تگ حذف شد',
-    selectTags:'تگ‌ها رو انتخاب کن', clearTags:'پاک کردن',
+    selectTags:'تگ‌ها رو انتخاب کن',
     seasons:'فصل‌ها', addSeason:'افزودن فصل', currentSeason:'فصل فعلی',
     confirmDeleteSeason:'این فصل و همه نتایجش حذف بشه؟', seasonAdded:'فصل اضافه شد', seasonDeleted:'فصل حذف شد',
     cannotDeleteLastSeason:'نمی‌تونی آخرین فصل رو حذف کنی',
@@ -513,12 +537,21 @@ const I18N = {
     resetOptions:'گزینه‌های ریست', resetHint:'انتخاب کن چی رو می‌خوای ریست کنی',
     resetAllServers:'ریست همه سرورها',
     resetAllResults:'ریست کل بخش نتایج', resetAllNews:'ریست کل بخش وبلاگ',
+    resetAllFeedback:'ریست کل صندوق انتقادات',
     resetAllSite:'ریست کل سایت', confirmReset1:'⚠️ مطمئنی؟', confirmReset2:'آخرین هشدار!',
     resetDone:'ریست انجام شد', selectAtLeastOne:'حداقل یک گزینه انتخاب کن',
-    addImage:'🖼️ تصویر', addVideo:'🎬 ویدیو',
+    addImage:'🖼️ تصویر', addVideo:'🎬 ویدیو', addVideoUrl:'🔗 لینک ویدیو',
     uploading:'در حال آپلود...', imageAdded:'تصویر اضافه شد', videoAdded:'ویدیو اضافه شد',
-    dateHint:'تاریخ را وارد کنید (متن آزاد)', authorPlaceholder:'نام خود را بنویس',
-    videoUrlPrompt:'آدرس ویدیو (YouTube, MP4,...)', pasteUrl:'لینک را اینجا بذار'
+    dateHint:'تاریخ را وارد کنید', authorPlaceholder:'نام خود را بنویس',
+    videoUrlPrompt:'آدرس ویدیو (مثلاً YouTube یا MP4)',
+    compressing:'در حال فشرده‌سازی...',
+    feedbackSection:'نقل و انتقادات', feedbackSub:'نظر، پیشنهاد یا انتقاد خود را بنویسید',
+    writeFeedback:'نوشتن پیام جدید', feedbackName:'نام شما', feedbackTitle:'عنوان',
+    feedbackText:'متن پیام', sendFeedback:'ارسال پیام', feedbackSent:'پیام شما ارسال شد',
+    noFeedback:'هنوز پیامی ثبت نشده است.', feedbackInbox:'صندوق انتقادات',
+    deleteFeedback:'حذف پیام', confirmDeleteFeedback:'این پیام حذف بشه؟',
+    feedbackDeleted:'پیام حذف شد', clickToRead:'برای خواندن کلیک کنید',
+    newFeedback:'پیام جدید', editPermission:'فقط نویسنده یا مدیر می‌تواند ویرایش کند'
   }
 };
 const t = k => (I18N[userPrefs.lang] || I18N.fa)[k] || k;
@@ -590,6 +623,7 @@ function defaultState(){
       { id: 'match-events', name: 'رویدادهای مسابقه' },
       { id: 'site-news', name: 'خبرهای سایت' }
     ],
+    feedback: [],
     serverData: { 'server1': defaultServerData() }
   };
 }
@@ -653,6 +687,7 @@ function validateState(s){
   if(!Array.isArray(out.settings.servers) || !out.settings.servers.length) out.settings.servers = [{ id:'server1', name:'سرور اصلی', icon:'🟢', password:'' }];
   out.settings.servers.forEach(s => { s.password = s.password || ''; s.icon = s.icon || '🟢'; });
   out.news = Array.isArray(s.news) ? s.news : [];
+  out.feedback = Array.isArray(s.feedback) ? s.feedback : [];
   out.newsTags = Array.isArray(s.newsTags) && s.newsTags.length ? s.newsTags : [
     { id: 'match-time', name: 'زمان برگزاری مسابقه' }, { id: 'news', name: 'خبر' },
     { id: 'match-events', name: 'رویدادهای مسابقه' }, { id: 'site-news', name: 'خبرهای سایت' }
@@ -683,7 +718,7 @@ async function loadFromCloud(){
 
 let _saveTimer = null, _myLastSave = 0, _lastServerData = null;
 const save = () => {
-  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch(e){}
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch(e){ DEBUG.warn('localStorage quota:', e.message); }
   if(!supabaseClient) return;
   clearTimeout(_saveTimer);
   _saveTimer = setTimeout(async () => {
@@ -699,7 +734,6 @@ const save = () => {
 };
 
 let _presenceChannel = null, _onlineCount = 0, _connStatus = 'connecting';
-
 function setConnStatus(s){ if(_connStatus === s) return; _connStatus = s; updateStatusBar(); }
 
 function updateStatusBar(){
@@ -737,7 +771,7 @@ async function pollServer(){
     if(str !== _lastServerData && tm > _myLastSave + 800){
       _lastServerData = str;
       const v = validateState(data.data);
-      if(v){ state = v; try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch(e){} render(); }
+      if(v){ state = v; try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch(e){} render(); updateFbBadge(); }
     }
   } catch(e){ setConnStatus('offline'); }
 }
@@ -765,6 +799,57 @@ function toast(msg){
   const el = document.getElementById('toast');
   el.textContent = msg; el.classList.add('show');
   clearTimeout(el._tm); el._tm = setTimeout(() => el.classList.remove('show'), 2100);
+}
+
+// FIX: Compress image before storing to prevent quota issues
+function compressImage(file, maxW = 900, quality = 0.65){
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const img = new Image();
+      img.onload = () => {
+        try {
+          const canvas = document.createElement('canvas');
+          let w = img.width, h = img.height;
+          if(w > maxW){ h = Math.round((h * maxW) / w); w = maxW; }
+          canvas.width = w; canvas.height = h;
+          const ctx = canvas.getContext('2d');
+          ctx.fillStyle = '#fff';
+          ctx.fillRect(0, 0, w, h);
+          ctx.drawImage(img, 0, 0, w, h);
+          resolve(canvas.toDataURL('image/jpeg', quality));
+        } catch(err){ reject(err); }
+      };
+      img.onerror = reject;
+      img.src = e.target.result;
+    };
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+
+function convertVideoUrl(url){
+  if(!url) return '';
+  url = url.trim();
+  // YouTube
+  let m = url.match(/(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([A-Za-z0-9_-]{11})/);
+  if(m) return { type:'iframe', src:'https://www.youtube.com/embed/' + m[1] };
+  // Aparat
+  m = url.match(/aparat\.com\/v\/([A-Za-z0-9]+)/);
+  if(m) return { type:'iframe', src:'https://www.aparat.com/video/video/embed/videohash/' + m[1] + '/vt/frame' };
+  // Direct video file
+  if(/\.(mp4|webm|ogg|mov|m4v)(\?.*)?$/i.test(url)) return { type:'video', src:url };
+  // Default - iframe try
+  return { type:'iframe', src:url };
+}
+
+function updateFbBadge(){
+  const badge = document.getElementById('fbBadge'); if(!badge) return;
+  if(!authed){ badge.style.display = 'none'; return; }
+  const total = (state.feedback || []).length;
+  const unseen = Math.max(0, total - _fbSeenCount);
+  if(unseen > 0){ badge.style.display = 'grid'; badge.textContent = num(unseen); }
+  else badge.style.display = 'none';
 }
 
 /* ============ STANDINGS ============ */
@@ -864,7 +949,7 @@ function applySettings(){
   document.documentElement.setAttribute('lang', userPrefs.lang);
   document.documentElement.setAttribute('dir', isRTL() ? 'rtl' : 'ltr');
   const meta = document.querySelector('meta[name="theme-color"]');
-  if(meta) meta.setAttribute('content', userPrefs.theme === 'light' ? '#eef2f9' : '#070b14');
+  if(meta) meta.setAttribute('content', userPrefs.theme === 'light' || userPrefs.theme === 'candy' ? '#eef2f9' : '#070b14');
   const bt = document.getElementById('brandTitle'), bs = document.getElementById('brandSub');
   const appTitle = state.settings.companyTheme ? 'انبارهای عمومی' : t('appName');
   if(bt) bt.innerHTML = appTitle + '<span class="version-badge">' + VERSION + '</span>';
@@ -876,12 +961,13 @@ function applySettings(){
     document.getElementById('statusBar').style.display = 'none';
   } else updateStatusBar();
   updateActionButtons();
+  updateFbBadge();
 }
 function updateActionButtons(){
-  const isNews = currentView === 'news';
-  const sb = document.getElementById('sportsActionBtn'), nb = document.getElementById('newsActionBtn');
-  if(sb) sb.classList.toggle('active', !isNews);
-  if(nb) nb.classList.toggle('active', isNews);
+  const sb = document.getElementById('sportsActionBtn'), nb = document.getElementById('newsActionBtn'), fbb = document.getElementById('feedbackActionBtn');
+  if(sb) sb.classList.toggle('active', currentView === 'sports' || currentView === 'sport' || currentView === 'admin');
+  if(nb) nb.classList.toggle('active', currentView === 'news');
+  if(fbb) fbb.classList.toggle('active', currentView === 'feedback');
 }
 
 /* ============ MODAL ============ */
@@ -892,13 +978,18 @@ function closeModal(){ overlay.classList.remove('open'); document.body.style.ove
 overlay.addEventListener('click', e => { if(e.target === overlay) closeModal(); });
 document.addEventListener('keydown', e => { if(e.key === 'Escape') closeModal(); });
 
-/* ============ FIRST VISIT ============ */
+/* ============ THEME CARDS ============ */
 function themeCard(id, cls, name){ return '<div class="theme-card ' + (userPrefs.theme===id?'active':'') + '" data-action="setFirstTheme" data-val="' + id + '"><div class="preview ' + cls + '"></div><div class="name">' + name + '</div></div>'; }
+function themeCardFull(id, cls, name){
+  return '<div class="theme-card ' + (userPrefs.theme===id?'active':'') + '" data-action="setTheme" data-val="' + id + '"><div class="preview ' + cls + '"></div><div class="name">' + name + '</div></div>';
+}
+
+/* ============ FIRST VISIT ============ */
 function openFirstVisit(){
   openModal(
     '<div class="first-visit"><h2>🎉 ' + esc(t('welcomeTitle')) + '</h2><p>' + esc(t('welcomeText')) + '</p>' +
     '<div style="text-align:start;margin-bottom:20px"><div class="section-title" style="text-transform:none">🌐 ' + esc(t('chooseLang')) + '</div><div class="lang-grid"><div class="lang-card ' + (userPrefs.lang==='fa'?'active':'') + '" data-action="setFirstLang" data-val="fa"><span class="flag">🇮🇷</span><span class="name">فارسی</span></div><div class="lang-card ' + (userPrefs.lang==='en'?'active':'') + '" data-action="setFirstLang" data-val="en"><span class="flag">🌐</span><span class="name">English</span></div></div></div>' +
-    '<div style="text-align:start;margin-bottom:20px"><div class="section-title" style="text-transform:none">🎨 ' + esc(t('chooseTheme')) + '</div><div class="theme-grid">' + themeCard('dark','theme-preview-dark',t('dark')) + themeCard('light','theme-preview-light',t('light')) + themeCard('ocean','theme-preview-ocean',t('ocean')) + themeCard('sunset','theme-preview-sunset',t('sunset')) + themeCard('forest','theme-preview-forest',t('forest')) + '</div></div>' +
+    '<div style="text-align:start;margin-bottom:20px"><div class="section-title" style="text-transform:none">🎨 ' + esc(t('chooseTheme')) + '</div><div class="theme-grid">' + themeCard('dark','theme-preview-dark',t('dark')) + themeCard('light','theme-preview-light',t('light')) + themeCard('ocean','theme-preview-ocean',t('ocean')) + themeCard('sunset','theme-preview-sunset',t('sunset')) + themeCard('forest','theme-preview-forest',t('forest')) + themeCard('neon','theme-preview-neon',t('neon')) + themeCard('candy','theme-preview-candy',t('candy')) + themeCard('mono','theme-preview-mono',t('mono')) + '</div></div>' +
     '<button class="btn primary block" data-action="finishFirstVisit">✓ ' + esc(t('continueBtn')) + '</button></div>'
   );
 }
@@ -908,7 +999,7 @@ function openSettings(){
   const theme = userPrefs.theme, lang = userPrefs.lang;
   let html = '<div class="modal-head"><h2>⚙️ ' + esc(t('settings')) + '</h2><button class="icon-btn sm" data-action="closeModal">✕</button></div>';
   html += '<div class="section-title" style="text-transform:none;color:var(--accent)">⚙️ ' + esc(t('generalSettings')) + '</div>';
-  html += '<div class="set-row" style="flex-direction:column;align-items:stretch"><div class="lbl">🎨 ' + t('theme') + '</div><div class="theme-grid">' + themeCard('dark','theme-preview-dark',t('dark')) + themeCard('light','theme-preview-light',t('light')) + themeCard('ocean','theme-preview-ocean',t('ocean')) + themeCard('sunset','theme-preview-sunset',t('sunset')) + themeCard('forest','theme-preview-forest',t('forest')) + '</div></div>';
+  html += '<div class="set-row" style="flex-direction:column;align-items:stretch"><div class="lbl">🎨 ' + t('theme') + '</div><div class="theme-grid">' + themeCardFull('dark','theme-preview-dark',t('dark')) + themeCardFull('light','theme-preview-light',t('light')) + themeCardFull('ocean','theme-preview-ocean',t('ocean')) + themeCardFull('sunset','theme-preview-sunset',t('sunset')) + themeCardFull('forest','theme-preview-forest',t('forest')) + themeCardFull('neon','theme-preview-neon',t('neon')) + themeCardFull('candy','theme-preview-candy',t('candy')) + themeCardFull('mono','theme-preview-mono',t('mono')) + '</div></div>';
   html += '<div class="set-row"><div class="lbl">🌐 ' + t('language') + '</div><div class="seg"><button data-action="setLang" data-val="fa" class="' + (lang==='fa'?'active':'') + '">فارسی</button><button data-action="setLang" data-val="en" class="' + (lang==='en'?'active':'') + '">English</button></div></div>';
   html += '<div class="set-row"><div><div class="lbl">🐞 ' + t('debugMode') + '</div><div class="hint">' + t('debugHint') + '</div></div><button type="button" class="toggle ' + (userPrefs.debugEnabled?'on':'') + '" data-action="toggleUserDebug"></button></div>';
   const servers = state.settings.servers || [];
@@ -919,9 +1010,7 @@ function openSettings(){
   else if(adminBusy) html += '<button class="btn sm" disabled title="' + esc(t('adminInSession')) + '">🔒 ' + t('adminInSessionHint') + '</button>';
   else html += '<button class="btn primary sm" data-action="adminLogin">🔑 ' + t('enterAdmin') + '</button>';
   html += '</div>';
-  if(adminBusy){
-    html += '<div class="hint-box" style="font-size:.75rem;margin-top:6px">🔒 ' + esc(t('adminInSession')) + '</div>';
-  }
+  if(adminBusy) html += '<div class="hint-box" style="font-size:.75rem;margin-top:6px">🔒 ' + esc(t('adminInSession')) + '</div>';
   if(authed){
     html += '<div style="margin-top:20px;padding-top:16px;border-top:2px solid var(--border)"><div class="section-title" style="text-transform:none;color:var(--accent)">🔐 ' + t('adminSettings') + '</div>';
     html += '<div style="margin-bottom:14px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><div class="lbl">🌐 ' + t('serversManagement') + '</div><button class="btn primary sm" data-action="addServer">＋ ' + t('addServer') + '</button></div><div class="server-selector">' + servers.map(s => '<div class="server-card"><span class="icon">' + (s.icon||'🟢') + '</span><div class="name">' + esc(s.name) + (s.password ? ' 🔒' : '') + '</div><div class="actions"><button data-action="editServer" data-id="' + s.id + '" title="✏️">✏️</button>' + (servers.length > 1 ? '<button data-action="deleteServer" data-id="' + s.id + '" title="🗑️">🗑️</button>' : '') + '</div></div>').join('') + '</div></div>';
@@ -932,6 +1021,7 @@ function openSettings(){
       html += '<div class="set-row"><div class="lbl">✍️ ' + t('newsWhoCanPost') + '</div><div class="seg"><button data-action="setNewsWho" data-val="admin" class="' + (state.settings.newsWhoCanPost==='admin'?'active':'') + '">' + t('newsAdminOnly') + '</button><button data-action="setNewsWho" data-val="everyone" class="' + (state.settings.newsWhoCanPost==='everyone'?'active':'') + '">' + t('newsEveryone') + '</button></div></div>';
       html += '<div class="set-row" style="padding:10px 0"><button class="btn block" data-action="manageTags">🏷️ ' + t('manageTags') + '</button></div>';
     }
+    html += '<div class="set-row" style="padding:10px 0"><button class="btn block" data-action="openFeedbackInbox">💬 ' + t('feedbackInbox') + ' (' + num((state.feedback||[]).length) + ')</button></div>';
     html += '<div class="set-row" style="padding:10px 0"><button class="btn block" data-action="changePassword">🔑 ' + t('changePassword') + '</button></div>';
     html += '<div class="set-row" style="padding:10px 0"><button class="btn primary block" data-action="addCustomSport">＋ ' + t('addCustomSport') + '</button></div>';
     html += '<div style="margin-top:16px;padding:14px;border:1px solid rgba(248,113,113,.3);border-radius:14px;background:rgba(248,113,113,.05)"><div class="lbl" style="color:var(--danger);margin-bottom:6px">⚠️ ' + t('resetOptions') + '</div><button class="btn danger-solid block" data-action="openResetOptions">🗑️ ' + t('deleteAllData') + '</button></div></div>';
@@ -940,10 +1030,10 @@ function openSettings(){
   openModal(html);
 }
 
-/* ============ RESET OPTIONS - FIXED with real server names ============ */
+/* ============ RESET OPTIONS ============ */
 function openResetOptions(){
   const servers = state.settings.servers || [];
-  const serverChecks = servers.map((s) =>
+  const serverChecks = servers.map(s =>
     '<label class="checkbox-row"><input type="checkbox" data-reset="server:' + s.id + '"><span>🗄️ ' + esc(s.name) + '</span></label>'
   ).join('');
   openModal(
@@ -953,6 +1043,7 @@ function openResetOptions(){
     '<label class="checkbox-row"><input type="checkbox" data-reset="allServers"><span>🌐 ' + t('resetAllServers') + '</span></label>' +
     '<label class="checkbox-row"><input type="checkbox" data-reset="allResults"><span>📊 ' + t('resetAllResults') + '</span></label>' +
     '<label class="checkbox-row"><input type="checkbox" data-reset="allNews"><span>📰 ' + t('resetAllNews') + '</span></label>' +
+    '<label class="checkbox-row"><input type="checkbox" data-reset="allFeedback"><span>💬 ' + t('resetAllFeedback') + '</span></label>' +
     '<label class="checkbox-row"><input type="checkbox" data-reset="allSite"><span>🗑️ ' + t('resetAllSite') + '</span></label>' +
     '</div>' +
     '<button class="btn danger-solid block" data-action="doReset">🗑️ ' + t('deleteAllData') + '</button>' +
@@ -983,9 +1074,9 @@ function doReset(){
           });
         }
       });
-    } else if(a === 'allNews'){
-      state.news = [];
-    } else if(a === 'allSite'){
+    } else if(a === 'allNews'){ state.news = []; }
+    else if(a === 'allFeedback'){ state.feedback = []; }
+    else if(a === 'allSite'){
       state = defaultState();
       currentServerId = state.settings.servers[0].id;
       try { localStorage.setItem(SERVER_SEL_KEY, currentServerId); } catch(e){}
@@ -1007,7 +1098,7 @@ function openPasswordModal(){
     if(val === correct){
       authed = true; saveAdminSession();
       state.settings.adminSessionClientId = _myClientId;
-      save(); closeModal(); toast('✅ ' + t('adminPanel')); DEBUG.ok('Admin login'); render(); openSettings();
+      save(); closeModal(); toast('✅ ' + t('adminPanel')); render(); openSettings();
     } else {
       const err = document.getElementById('pwErr'); err.textContent = t('wrongPassword');
       const f = modalEl.querySelector('form'); f.classList.remove('shake'); void f.offsetWidth; f.classList.add('shake');
@@ -1159,10 +1250,11 @@ function switchSeason(sportId, seasonId){
 /* ============ RENDER ============ */
 let currentView = 'sports', currentSportId = null, currentTab = 'table';
 let currentNewsId = null, currentNewsSearch = '', currentNewsTagFilter = null;
+let currentFbId = null;
 
 function renderTabs(){
   const tabsEl = document.getElementById('tabs');
-  if(currentView !== 'sport' && currentView !== 'news'){ tabsEl.style.display = 'none'; return; }
+  if(currentView !== 'sport' && currentView !== 'news' && currentView !== 'feedback'){ tabsEl.style.display = 'none'; return; }
   tabsEl.style.display = '';
   let tabs = [];
   if(currentView === 'sport'){
@@ -1173,6 +1265,7 @@ function renderTabs(){
     if(sp.type === 'score' || sp.type === 'winner') tabs.push({ id:'matches', icon:'📋', label:t('tabMatches') });
     if(authed) tabs.push({ id:'admin', icon:'🔐', label:t('tabAdmin') });
   } else if(currentView === 'news') tabs.push({ id:'newsList', icon:'📰', label:t('tabNews') });
+  else if(currentView === 'feedback') tabs.push({ id:'feedbackList', icon:'💬', label:t('tabFeedback') });
   tabsEl.innerHTML = tabs.map(tb => '<button class="tab ' + (currentTab === tb.id ? 'active' : '') + '" data-action="tab" data-tab="' + tb.id + '"><span>' + tb.icon + '</span><span>' + esc(tb.label) + '</span></button>').join('');
 }
 
@@ -1183,13 +1276,14 @@ function render(){
   else if(currentView === 'sport') main.innerHTML = renderSportView();
   else if(currentView === 'admin') main.innerHTML = renderAdminHome();
   else if(currentView === 'news') main.innerHTML = renderNews();
+  else if(currentView === 'feedback') main.innerHTML = renderFeedback();
   else main.innerHTML = renderSportsHome();
   if(currentView === 'sport' && currentTab === 'admin') bindTeamForm();
   updateStatusBar();
   updateActionButtons();
+  updateFbBadge();
 }
 
-/* ============ FIX 1: Admin button visible only when logged in ============ */
 function renderSportsHome(){
   const list = activeSports();
   const cards = list.length ? list.map(s => {
@@ -1202,7 +1296,6 @@ function renderSportsHome(){
     const meta = '<span>👥 ' + num(sd.teams.length) + '</span><span>📋 ' + num(mCount) + '</span>';
     return '<div class="sport-card" data-action="openSport" data-id="' + s.id + '" style="--sport-color:' + color + '"><span class="sport-icon">' + esc(s.icon) + '</span><h3 class="sport-name">' + esc(sportName(s)) + '</h3><span class="sport-type-badge">' + badgeLabel + ' · ' + kindBadge + '</span><div class="sport-meta">' + meta + '</div></div>';
   }).join('') : '<div class="empty" style="grid-column:1/-1"><span class="ico">🎪</span><p>' + esc(t('noActiveSports')) + '<br><span style="font-size:.78rem">' + esc(t('noActiveSportsHint')) + '</span></p></div>';
-  // Admin panel CTA - only when logged in
   const adminCta = authed ? '<div class="admin-home-cta"><h3>🔓 ' + t('adminHome') + '</h3><p>' + t('adminHomeHint') + '</p><button class="btn primary" data-action="gotoAdmin">⚙️ ' + t('sportsManagement') + '</button></div>' : '';
   return '<div class="fade"><div class="sports-hero"><h2>' + t('sportsHero') + '</h2><p>' + t('sportsHeroSub') + '</p></div><div class="sports-grid">' + cards + '</div>' + adminCta + '</div>';
 }
@@ -1498,8 +1591,8 @@ function renderAdminBracket(sp){
         const isRes = m.winner === 'a' || m.winner === 'b';
         const aCls = isRes ? (m.winner === 'a' ? 'winner' : 'loser') : '';
         const bCls = isRes ? (m.winner === 'b' ? 'winner' : 'loser') : '';
-        const aHtml = a ? '<span>' + esc(a.name) + '</span><span class="tdot" style="background:' + esc(a.color) + '"></span>' : '<span class="empty">در انتظار برنده</span>';
-        const bHtml = b ? '<span class="tdot" style="background:' + esc(b.color) + '"></span><span>' + esc(b.name) + '</span>' : '<span class="empty">در انتظار برنده</span>';
+        const aHtml = a ? '<span>' + esc(a.name) + '</span><span class="tdot" style="background:' + esc(a.color) + '"></span>' : '<span class="empty">در انتظار</span>';
+        const bHtml = b ? '<span class="tdot" style="background:' + esc(b.color) + '"></span><span>' + esc(b.name) + '</span>' : '<span class="empty">در انتظار</span>';
         const canEdit = a && b;
         return '<div class="bracket-match"><span class="bm-team a ' + aCls + '">' + aHtml + '</span><input class="bm-score" type="number" inputmode="numeric" min="0" max="99" value="' + (m.hg != null ? m.hg : '') + '" placeholder="–" ' + (canEdit ? '' : 'disabled') + ' data-bracket="hg" data-round="' + ri + '" data-match="' + m.id + '" data-sport="' + sp.id + '"><span class="bm-sep">−</span><input class="bm-score" type="number" inputmode="numeric" min="0" max="99" value="' + (m.ag != null ? m.ag : '') + '" placeholder="–" ' + (canEdit ? '' : 'disabled') + ' data-bracket="ag" data-round="' + ri + '" data-match="' + m.id + '" data-sport="' + sp.id + '"><span class="bm-team b ' + bCls + '">' + bHtml + '</span><div class="rr-actions">' + (canEdit ? '<button class="rr-btn save" data-action="bracketSave" data-sport="' + sp.id + '" data-round="' + ri + '" data-match="' + m.id + '">✓</button>' : '') + (isRes ? '<button class="rr-btn clear" data-action="bracketClear" data-sport="' + sp.id + '" data-round="' + ri + '" data-match="' + m.id + '">✕</button>' : '') + '</div></div>';
       }).join('');
@@ -1551,7 +1644,13 @@ function bindTeamForm(){
   });
 }
 
-/* ============ NEWS / BLOG - FIX 2: Tags work correctly ============ */
+/* ============ NEWS ============ */
+function canEditNews(n){
+  if(authed) return true;
+  if(n && n.authorId && n.authorId === _myClientId) return true;
+  return false;
+}
+
 function renderNews(){
   if(currentNewsId) return renderNewsDetail();
   const tags = state.newsTags || [];
@@ -1568,7 +1667,7 @@ function renderNews(){
   const createBtn = canPost ? '<button class="btn primary block" data-action="createNews" style="margin-bottom:14px">✍️ ' + t('createNews') + '</button>' : '';
   const grid = filtered.length ? '<div class="news-grid">' + filtered.map(n => {
     const nt = (n.tags||[]).map(tid => tags.find(x => x.id === tid)).filter(Boolean);
-    const cover = n.cover ? '<img class="cover" src="' + n.cover + '" alt="">' : '';
+    const cover = n.cover ? '<img class="cover" src="' + n.cover + '" alt="" loading="lazy">' : '';
     return '<div class="news-card" data-action="viewNews" data-id="' + n.id + '">' + cover + '<div class="meta"><span>👤 ' + esc(n.author || 'ناشناس') + '</span><span>📅 ' + esc(n.date || '') + '</span></div><h3>' + esc(n.title) + '</h3><div class="intro">' + esc(n.intro) + '</div><div class="news-tags">' + nt.map(tg => '<span class="news-tag static">' + esc(tg.name) + '</span>').join('') + '</div></div>';
   }).join('') + '</div>' : '<div class="empty fade"><span class="ico">📰</span><p>' + t('noNews') + '</p></div>';
   return '<div class="fade">' + createBtn + searchBox + tagFilter + grid + '</div>';
@@ -1579,31 +1678,43 @@ function renderNewsDetail(){
   if(!n){ currentNewsId = null; return renderNews(); }
   const tags = state.newsTags || [];
   const nt = (n.tags||[]).map(tid => tags.find(x => x.id === tid)).filter(Boolean);
-  const actions = authed ? '<div class="actions"><button class="btn danger" data-action="deleteNews" data-id="' + n.id + '">🗑️ ' + t('deleteNews') + '</button></div>' : '';
+  const editable = canEditNews(n);
+  let actions = '';
+  if(editable){
+    actions = '<div class="actions"><button class="btn" data-action="editNews" data-id="' + n.id + '">✏️ ' + t('editNews') + '</button>';
+    if(authed) actions += '<button class="btn danger" data-action="deleteNews" data-id="' + n.id + '">🗑️ ' + t('deleteNews') + '</button>';
+    actions += '</div>';
+  }
   const cover = n.cover ? '<img class="cover" src="' + n.cover + '" alt="">' : '';
   const content = n.contentHtml ? n.contentHtml : esc(n.content || '').replace(/\n/g, '<br>');
   return '<div class="fade"><button class="btn sm" data-action="closeNews" style="margin-bottom:14px">↩ بازگشت</button><div class="card news-detail">' + cover + '<h2>' + esc(n.title) + '</h2><div class="info"><span>👤 ' + esc(n.author || 'ناشناس') + '</span><span>📅 ' + esc(n.date || '') + '</span></div><p style="font-size:.9rem;color:var(--muted);line-height:1.8;margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid var(--border)">' + esc(n.intro) + '</p><div class="content">' + content + '</div><div class="news-tags" style="margin-top:16px">' + nt.map(tg => '<span class="news-tag static">' + esc(tg.name) + '</span>').join('') + '</div>' + actions + '</div></div>';
 }
 
-function openNewsForm(){
+function openNewsForm(editId){
+  const editing = editId ? state.news.find(x => x.id === editId) : null;
+  if(editing && !canEditNews(editing)){ toast(t('editPermission')); return; }
   const tags = state.newsTags || [];
-  const tagChips = '<div class="tag-selector" id="newsTagSelector">' + tags.map(tg => '<div class="tag-chip" data-tag="' + tg.id + '">' + esc(tg.name) + '</div>').join('') + '</div>';
-  const today = new Date().toLocaleDateString('fa-IR');
+  const activeTagIds = editing ? (editing.tags || []) : [];
+  const tagChips = '<div class="tag-selector" id="newsTagSelector">' + tags.map(tg => '<div class="tag-chip ' + (activeTagIds.includes(tg.id) ? 'active' : '') + '" data-tag="' + tg.id + '">' + esc(tg.name) + '</div>').join('') + '</div>';
+  const today = editing ? (editing.date || new Date().toLocaleDateString('fa-IR')) : new Date().toLocaleDateString('fa-IR');
+  const title = editing ? editing.title : '';
+  const intro = editing ? editing.intro : '';
+  const author = editing ? editing.author : '';
+  const contentHtml = editing ? (editing.contentHtml || esc(editing.content || '').replace(/\n/g,'<br>')) : '';
   openModal(
-    '<div class="modal-head"><h2>✍️ ' + t('createNews') + '</h2><button class="icon-btn sm" data-action="closeModal">✕</button></div>' +
-    '<form id="newsForm" style="display:flex;flex-direction:column;gap:12px;max-height:70vh;overflow-y:auto">' +
-    '<div class="field"><label>' + t('newsTitle') + '</label><input class="input" type="text" id="nfTitle" maxlength="100" required></div>' +
-    '<div class="field"><label>' + t('newsCover') + '</label><input type="file" accept="image/*" id="nfCover" style="display:none"><button type="button" class="btn block" id="nfCoverBtn">📷 ' + t('addImage') + '</button><div id="nfCoverPreview" style="margin-top:8px"></div></div>' +
-    '<div class="field"><label>' + t('newsIntro') + '</label><textarea class="input" id="nfIntro" maxlength="300" required></textarea></div>' +
-    '<div class="field"><label>' + t('newsContent') + '</label><div class="editor-toolbar"><button type="button" class="editor-btn" id="nfAddImg">🖼️ ' + t('addImage') + '</button><button type="button" class="editor-btn" id="nfAddVid">🎬 ' + t('addVideo') + '</button></div><div class="editor-content" id="nfContent" contenteditable="true" data-placeholder="متن خبر..."></div><input type="file" accept="image/*" id="nfImgInput" style="display:none"><input type="file" accept="video/*" id="nfVidInput" style="display:none"></div>' +
-    '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px"><div class="field"><label>' + t('newsAuthor') + '</label><input class="input" type="text" id="nfAuthor" maxlength="30" required></div><div class="field"><label>' + t('newsDate') + '</label><input class="input" type="text" id="nfDate" value="' + today + '" placeholder="' + t('dateHint') + '"></div></div>' +
+    '<div class="modal-head"><h2>' + (editing ? '✏️ ' + t('editNews') : '✍️ ' + t('createNews')) + '</h2><button class="icon-btn sm" data-action="closeModal">✕</button></div>' +
+    '<form id="newsForm" data-edit-id="' + (editing ? editing.id : '') + '" style="display:flex;flex-direction:column;gap:12px;max-height:70vh;overflow-y:auto">' +
+    '<div class="field"><label>' + t('newsTitle') + '</label><input class="input" type="text" id="nfTitle" maxlength="120" value="' + esc(title) + '" required></div>' +
+    '<div class="field"><label>' + t('newsCover') + '</label><input type="file" accept="image/*" id="nfCover" style="display:none"><button type="button" class="btn block" id="nfCoverBtn">📷 ' + t('addImage') + '</button><div id="nfCoverPreview" style="margin-top:8px">' + (editing && editing.cover ? '<img src="' + editing.cover + '" style="max-width:100%;border-radius:12px;max-height:180px">' : '') + '</div></div>' +
+    '<div class="field"><label>' + t('newsIntro') + '</label><textarea class="input" id="nfIntro" maxlength="400" required>' + esc(intro) + '</textarea></div>' +
+    '<div class="field"><label>' + t('newsContent') + '</label><div class="editor-toolbar"><button type="button" class="editor-btn" id="nfAddImg">🖼️ ' + t('addImage') + '</button><button type="button" class="editor-btn" id="nfAddVidUrl">🔗 ' + t('addVideoUrl') + '</button></div><div class="editor-content" id="nfContent" contenteditable="true" data-placeholder="متن خبر...">' + contentHtml + '</div><input type="file" accept="image/*" id="nfImgInput" style="display:none"></div>' +
+    '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px"><div class="field"><label>' + t('newsAuthor') + '</label><input class="input" type="text" id="nfAuthor" maxlength="40" value="' + esc(author) + '" required></div><div class="field"><label>' + t('newsDate') + '</label><input class="input" type="text" id="nfDate" value="' + esc(today) + '" placeholder="' + t('dateHint') + '"></div></div>' +
     '<div class="field"><label>' + t('selectTags') + '</label>' + tagChips + '</div>' +
     '<button class="btn primary block" type="submit">💾 ' + t('save') + '</button>' +
     '<button class="btn block" type="button" data-action="closeModal">' + t('cancel') + '</button>' +
     '</form>'
   );
-  // FIX: Only ONE handler for tag chips
-  const selectedTags = new Set();
+  const selectedTags = new Set(activeTagIds);
   modalEl.querySelectorAll('.tag-chip').forEach(chip => {
     chip.addEventListener('click', () => {
       const id = chip.dataset.tag;
@@ -1611,53 +1722,55 @@ function openNewsForm(){
       else { selectedTags.add(id); chip.classList.add('active'); }
     });
   });
-  let coverData = '';
+  let coverData = editing ? (editing.cover || '') : '';
   const coverInput = document.getElementById('nfCover');
   document.getElementById('nfCoverBtn').addEventListener('click', () => coverInput.click());
-  coverInput.addEventListener('change', e => {
+  coverInput.addEventListener('change', async e => {
     const f = e.target.files[0]; if(!f) return;
-    const reader = new FileReader();
-    reader.onload = ev => { coverData = ev.target.result; document.getElementById('nfCoverPreview').innerHTML = '<img src="' + coverData + '" style="max-width:100%;border-radius:12px;max-height:180px">'; };
-    reader.readAsDataURL(f);
+    toast(t('compressing'));
+    try {
+      coverData = await compressImage(f, 900, 0.6);
+      document.getElementById('nfCoverPreview').innerHTML = '<img src="' + coverData + '" style="max-width:100%;border-radius:12px;max-height:180px">';
+    } catch(err){ toast('خطا در فشرده‌سازی'); }
   });
   const imgInput = document.getElementById('nfImgInput');
   document.getElementById('nfAddImg').addEventListener('click', () => imgInput.click());
-  imgInput.addEventListener('change', e => {
+  imgInput.addEventListener('change', async e => {
     const f = e.target.files[0]; if(!f) return;
-    if(f.size > 1500000){ toast('حجم تصویر زیاده'); return; }
-    const reader = new FileReader();
-    reader.onload = ev => {
+    toast(t('compressing'));
+    try {
+      const dataUrl = await compressImage(f, 800, 0.55);
       const editor = document.getElementById('nfContent');
       const img = document.createElement('img');
-      img.src = ev.target.result;
+      img.src = dataUrl;
       editor.appendChild(img);
       editor.appendChild(document.createElement('br'));
       toast(t('imageAdded'));
-    };
-    reader.readAsDataURL(f);
+    } catch(err){ toast('خطا در فشرده‌سازی'); }
   });
-  const vidInput = document.getElementById('nfVidInput');
-  document.getElementById('nfAddVid').addEventListener('click', () => vidInput.click());
-  vidInput.addEventListener('change', e => {
-    const f = e.target.files[0]; if(!f) return;
-    if(f.size > 5000000){ toast('حجم ویدیو زیاده'); return; }
-    const reader = new FileReader();
-    reader.onload = ev => {
-      const editor = document.getElementById('nfContent');
+  document.getElementById('nfAddVidUrl').addEventListener('click', () => {
+    const url = prompt(t('videoUrlPrompt'), '');
+    if(!url) return;
+    const v = convertVideoUrl(url);
+    if(!v || !v.src){ toast('لینک نامعتبر'); return; }
+    const editor = document.getElementById('nfContent');
+    if(v.type === 'video'){
       const vid = document.createElement('video');
-      vid.src = ev.target.result;
-      vid.controls = true;
+      vid.src = v.src; vid.controls = true;
       editor.appendChild(vid);
-      editor.appendChild(document.createElement('br'));
-      toast(t('videoAdded'));
-    };
-    reader.readAsDataURL(f);
+    } else {
+      const iframe = document.createElement('iframe');
+      iframe.src = v.src; iframe.setAttribute('allowfullscreen','');
+      editor.appendChild(iframe);
+    }
+    editor.appendChild(document.createElement('br'));
+    toast(t('videoAdded'));
   });
   document.getElementById('newsForm').addEventListener('submit', e => {
     e.preventDefault();
     const editor = document.getElementById('nfContent');
-    const news = {
-      id: 'news_' + Date.now(),
+    const editIdVal = document.getElementById('newsForm').dataset.editId;
+    const data = {
       title: document.getElementById('nfTitle').value.trim(),
       intro: document.getElementById('nfIntro').value.trim(),
       contentHtml: editor.innerHTML,
@@ -1665,11 +1778,19 @@ function openNewsForm(){
       cover: coverData,
       author: document.getElementById('nfAuthor').value.trim(),
       date: document.getElementById('nfDate').value.trim(),
-      tags: Array.from(selectedTags),
-      createdAt: Date.now()
+      tags: Array.from(selectedTags)
     };
-    if(!news.title || !news.intro){ toast('همه فیلدها الزامی هستن'); return; }
-    state.news.push(news); save(); closeModal(); render(); toast('✅ ' + t('newsAdded'));
+    if(!data.title || !data.intro){ toast('عنوان و مقدمه الزامی هستن'); return; }
+    if(editIdVal){
+      const idx = state.news.findIndex(x => x.id === editIdVal);
+      if(idx < 0) return;
+      if(!canEditNews(state.news[idx])){ toast(t('editPermission')); return; }
+      state.news[idx] = Object.assign({}, state.news[idx], data);
+      save(); closeModal(); render(); toast('✅ ' + t('newsEdited'));
+    } else {
+      state.news.push(Object.assign({ id: 'news_' + Date.now(), authorId: _myClientId, createdAt: Date.now() }, data));
+      save(); closeModal(); render(); toast('✅ ' + t('newsAdded'));
+    }
   });
 }
 
@@ -1691,6 +1812,69 @@ function openManageTags(){
     state.newsTags.push({ id: 'tag_' + Date.now(), name });
     save(); closeModal(); setTimeout(openManageTags, 200); toast('✅ ' + t('tagAdded'));
   });
+}
+
+/* ============ FEEDBACK ============ */
+function renderFeedback(){
+  if(currentFbId) return renderFeedbackDetail();
+  const list = (state.feedback || []).slice().sort((a,b) => (b.createdAt||0) - (a.createdAt||0));
+  const createBtn = '<button class="btn primary block" data-action="createFeedback" style="margin-bottom:14px">✍️ ' + t('writeFeedback') + '</button>';
+  const items = list.length ? list.map(f => (
+    '<div class="fb-card" data-action="viewFeedback" data-id="' + f.id + '">' +
+    '<div class="head"><h3>' + esc(f.title) + '</h3><span class="name">' + esc(f.name) + '</span></div>' +
+    '<div class="meta">📅 ' + esc(f.date || '') + '</div>' +
+    '<div class="preview">' + esc(f.text) + '</div>' +
+    '</div>'
+  )).join('') : '<div class="empty fade"><span class="ico">💬</span><p>' + t('noFeedback') + '</p></div>';
+  return '<div class="fade">' + createBtn + items + '</div>';
+}
+
+function renderFeedbackDetail(){
+  const f = state.feedback.find(x => x.id === currentFbId);
+  if(!f){ currentFbId = null; return renderFeedback(); }
+  const actions = authed ? '<div style="display:flex;gap:8px;margin-top:20px;padding-top:14px;border-top:1px solid var(--border)"><button class="btn danger" data-action="deleteFeedback" data-id="' + f.id + '">🗑️ ' + t('deleteFeedback') + '</button></div>' : '';
+  return '<div class="fade"><button class="btn sm" data-action="closeFeedback" style="margin-bottom:14px">↩ بازگشت</button><div class="card fb-detail"><div class="head"><h2>' + esc(f.title) + '</h2><span class="name">' + esc(f.name) + '</span></div><div class="info" style="display:flex;gap:12px;font-size:.72rem;color:var(--muted);margin-bottom:14px;flex-wrap:wrap"><span>📅 ' + esc(f.date || '') + '</span></div><div class="content">' + esc(f.text) + '</div>' + actions + '</div></div>';
+}
+
+function openFeedbackForm(){
+  const today = new Date().toLocaleDateString('fa-IR');
+  openModal(
+    '<div class="modal-head"><h2>✍️ ' + t('writeFeedback') + '</h2><button class="icon-btn sm" data-action="closeModal">✕</button></div>' +
+    '<form id="fbForm" style="display:flex;flex-direction:column;gap:12px">' +
+    '<div class="field"><label>' + t('feedbackName') + '</label><input class="input" type="text" id="fbName" maxlength="40" required></div>' +
+    '<div class="field"><label>' + t('feedbackTitle') + '</label><input class="input" type="text" id="fbTitle" maxlength="100" required></div>' +
+    '<div class="field"><label>' + t('feedbackText') + '</label><textarea class="input" id="fbText" maxlength="2000" style="min-height:140px" required></textarea></div>' +
+    '<button class="btn primary block" type="submit">📩 ' + t('sendFeedback') + '</button>' +
+    '<button class="btn block" type="button" data-action="closeModal">' + t('cancel') + '</button>' +
+    '</form>'
+  );
+  document.getElementById('fbForm').addEventListener('submit', e => {
+    e.preventDefault();
+    const name = document.getElementById('fbName').value.trim();
+    const title = document.getElementById('fbTitle').value.trim();
+    const text = document.getElementById('fbText').value.trim();
+    if(!name || !title || !text){ toast('همه فیلدها الزامی هستن'); return; }
+    state.feedback.push({ id: 'fb_' + Date.now(), name, title, text, date: today, createdAt: Date.now() });
+    save(); closeModal(); render(); toast('✅ ' + t('feedbackSent'));
+  });
+}
+
+function deleteFeedback(id){
+  if(!confirm(t('confirmDeleteFeedback'))) return;
+  state.feedback = state.feedback.filter(f => f.id !== id);
+  if(currentFbId === id) currentFbId = null;
+  save(); render(); toast('🗑️ ' + t('feedbackDeleted'));
+}
+
+function openFeedbackInbox(){
+  closeModal();
+  currentView = 'feedback';
+  currentFbId = null;
+  currentTab = 'feedbackList';
+  _fbSeenCount = (state.feedback || []).length;
+  saveFbSeen(_fbSeenCount);
+  render();
+  window.scrollTo({top:0,behavior:'smooth'});
 }
 
 /* ============ SPORT CONFIG ============ */
@@ -1872,7 +2056,7 @@ function openPalette(sportId, teamId){
 }
 
 function openGuide(){
-  openModal('<div class="modal-head"><h2>❓ ' + t('guide') + '</h2><button class="icon-btn sm" data-action="closeModal">✕</button></div><div style="padding:10px 0"><h3 style="font-size:.9rem;font-weight:800;margin-bottom:8px">🏆 v1.3.5</h3><p style="font-size:.8rem;color:var(--muted);line-height:1.8">۳ سرور، ۵ تم، ۲ زبان، فصل‌ها، وبلاگ با تصویر، جدول حذفی کامل</p></div><div style="padding:10px 0;border-top:1px solid var(--border)"><h3 style="font-size:.9rem;font-weight:800;margin-bottom:8px">🌐 سرورها</h3><p style="font-size:.8rem;color:var(--muted);line-height:1.8">همه کاربرا می‌تونن سرور انتخاب کنن. سرورها می‌تونن رمز داشته باشن.</p></div><div style="padding:10px 0;border-top:1px solid var(--border)"><h3 style="font-size:.9rem;font-weight:800;margin-bottom:8px">🏆 جدول حذفی</h3><p style="font-size:.8rem;color:var(--muted);line-height:1.8">از اول تا فینال نشون داده می‌شه. با ثبت هر نتیجه، برنده خودکار به دور بعد می‌ره.</p></div><button class="btn block" data-action="closeModal" style="margin-top:16px">' + t('close') + '</button>');
+  openModal('<div class="modal-head"><h2>❓ ' + t('guide') + '</h2><button class="icon-btn sm" data-action="closeModal">✕</button></div><div style="padding:10px 0"><h3 style="font-size:.9rem;font-weight:800;margin-bottom:8px">🏆 v1.4.0</h3><p style="font-size:.8rem;color:var(--muted);line-height:1.8">۸ تم، ۲ زبان، ۳ سرور، فصل‌ها، وبلاگ با تصویر، جدول حذفی، نقل و انتقادات</p></div><div style="padding:10px 0;border-top:1px solid var(--border)"><h3 style="font-size:.9rem;font-weight:800;margin-bottom:8px">💬 نقل و انتقادات</h3><p style="font-size:.8rem;color:var(--muted);line-height:1.8">می‌تونی با اسم، عنوان و متن، نظر یا انتقادت رو ثبت کنی. مدیر اون‌ها رو می‌بینه.</p></div><button class="btn block" data-action="closeModal" style="margin-top:16px">' + t('close') + '</button>');
 }
 
 /* ============ DEBUG PANEL ============ */
@@ -1889,7 +2073,7 @@ document.querySelectorAll('[data-dbg-action]').forEach(b => {
 document.addEventListener('click', e => {
   const el = e.target.closest('[data-action]'); if(!el) return;
   const a = el.dataset.action;
-  if(a === 'goHome' || a === 'goSportsHome'){ currentView = 'sports'; currentSportId = null; currentTab = 'table'; currentNewsId = null; render(); window.scrollTo({top:0,behavior:'smooth'}); }
+  if(a === 'goHome' || a === 'goSportsHome'){ currentView = 'sports'; currentSportId = null; currentTab = 'table'; currentNewsId = null; currentFbId = null; render(); window.scrollTo({top:0,behavior:'smooth'}); }
   else if(a === 'openSport'){ currentSportId = el.dataset.id; currentView = 'sport'; currentTab = 'table'; render(); window.scrollTo({top:0,behavior:'smooth'}); }
   else if(a === 'tab'){ currentTab = el.dataset.tab; render(); }
   else if(a === 'gotoAdmin'){ currentView = 'admin'; render(); }
@@ -1897,8 +2081,15 @@ document.addEventListener('click', e => {
   else if(a === 'viewNews'){ currentNewsId = el.dataset.id; render(); window.scrollTo({top:0,behavior:'smooth'}); }
   else if(a === 'closeNews'){ currentNewsId = null; render(); }
   else if(a === 'createNews'){ openNewsForm(); }
+  else if(a === 'editNews'){ openNewsForm(el.dataset.id); }
   else if(a === 'deleteNews'){ deleteNews(el.dataset.id); }
   else if(a === 'filterTag'){ currentNewsTagFilter = el.dataset.tag || null; render(); }
+  else if(a === 'openFeedback'){ currentView = 'feedback'; currentFbId = null; currentTab = 'feedbackList'; if(authed){ _fbSeenCount = (state.feedback||[]).length; saveFbSeen(_fbSeenCount); } render(); window.scrollTo({top:0,behavior:'smooth'}); }
+  else if(a === 'viewFeedback'){ currentFbId = el.dataset.id; render(); window.scrollTo({top:0,behavior:'smooth'}); }
+  else if(a === 'closeFeedback'){ currentFbId = null; render(); }
+  else if(a === 'createFeedback'){ openFeedbackForm(); }
+  else if(a === 'deleteFeedback'){ deleteFeedback(el.dataset.id); }
+  else if(a === 'openFeedbackInbox'){ openFeedbackInbox(); }
   else if(a === 'openSettings'){ openSettings(); }
   else if(a === 'openGuide'){ openGuide(); }
   else if(a === 'closeModal'){ closeModal(); }
