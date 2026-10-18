@@ -1007,7 +1007,7 @@ function openSettings(){
   const servers = state.settings.servers || [];
   html += '<div class="set-row" style="flex-direction:column;align-items:stretch"><div class="lbl" style="margin-bottom:6px">🌐 ' + t('chooseServer') + '</div><div class="server-selector">' + servers.map(s => '<div class="server-card ' + (s.id===currentServerId?'active':'') + '" data-action="switchServer" data-id="' + s.id + '">' + (s.password ? '<span class="lock">🔒</span>' : '') + '<span class="icon">' + (s.icon||'🟢') + '</span><div class="name">' + esc(s.name) + '</div></div>').join('') + '</div></div>';
   html += '<div class="set-row"><div><div class="lbl">🔐 ' + t('adminPanel') + '</div><div class="hint">' + (authed ? 'شما مدیر هستید' : t('adminHint')) + '</div></div>';
-  const adminBusy = state.settings.adminSessionClientId && state.settings.adminSessionClientId !== _myClientId && !authed;
+  const adminBusy = false;
   if(authed) html += '<button class="btn danger sm" data-action="adminLogout">🚪 ' + t('exitAdmin') + '</button>';
   else if(adminBusy) html += '<button class="btn sm" disabled title="' + esc(t('adminInSession')) + '">🔒 ' + t('adminInSessionHint') + '</button>';
   else html += '<button class="btn primary sm" data-action="adminLogin">🔑 ' + t('enterAdmin') + '</button>';
@@ -1017,7 +1017,7 @@ function openSettings(){
     html += '<div style="margin-top:20px;padding-top:16px;border-top:2px solid var(--border)"><div class="section-title" style="text-transform:none;color:var(--accent)">🔐 ' + t('adminSettings') + '</div>';
     html += '<div style="margin-bottom:14px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><div class="lbl">🌐 ' + t('serversManagement') + '</div><button class="btn primary sm" data-action="addServer">＋ ' + t('addServer') + '</button></div><div class="server-selector">' + servers.map(s => '<div class="server-card"><span class="icon">' + (s.icon||'🟢') + '</span><div class="name">' + esc(s.name) + (s.password ? ' 🔒' : '') + '</div><div class="actions"><button data-action="editServer" data-id="' + s.id + '" title="✏️">✏️</button>' + (servers.length > 1 ? '<button data-action="deleteServer" data-id="' + s.id + '" title="🗑️">🗑️</button>' : '') + '</div></div>').join('') + '</div></div>';
     html += '<div class="set-row"><div><div class="lbl">🏢 ' + t('companyTheme') + '</div><div class="hint">' + t('companyThemeHint') + '</div></div><button type="button" class="toggle ' + (state.settings.companyTheme?'on':'') + '" data-action="toggleCompanyTheme"></button></div>';
-    html += '<div class="set-row"><div><div class="lbl">👤 ' + t('singleAdminMode') + '</div><div class="hint">' + t('singleAdminHint') + '</div></div><button type="button" class="toggle ' + (state.settings.singleAdminMode?'on':'') + '" data-action="toggleSingleAdmin"></button></div>';
+    html += '<div class="set-row" style="padding:10px 0"><button class="btn block" data-action="manageAdmins">👥 مدیران سایت (' + num((state.settings.admins||[]).length) + ')</button></div>';
     html += '<div class="set-row"><div><div class="lbl">📰 ' + t('newsEnabled') + '</div><div class="hint">' + t('newsEnabledHint') + '</div></div><button type="button" class="toggle ' + (state.settings.newsEnabled?'on':'') + '" data-action="toggleNews"></button></div>';
     if(state.settings.newsEnabled){
       html += '<div class="set-row"><div class="lbl">✍️ ' + t('newsWhoCanPost') + '</div><div class="seg"><button data-action="setNewsWho" data-val="admin" class="' + (state.settings.newsWhoCanPost==='admin'?'active':'') + '">' + t('newsAdminOnly') + '</button><button data-action="setNewsWho" data-val="everyone" class="' + (state.settings.newsWhoCanPost==='everyone'?'active':'') + '">' + t('newsEveryone') + '</button></div></div>';
@@ -1090,16 +1090,18 @@ function doReset(){
 /* ============ ADMIN AUTH ============ */
 function openPasswordModal(){
   openModal(
-    '<div class="modal-head"><h2>🔐 ' + t('adminPanel') + '</h2><button class="icon-btn sm" data-action="closeModal">✕</button></div><p class="modal-sub">' + t('adminHint') + '</p><form id="pwForm"><div class="field"><label>' + t('password') + '</label><input class="input" type="password" id="pwInput" autocomplete="off" placeholder="••••••••" style="text-align:center;letter-spacing:2px"></div><div class="err" id="pwErr"></div><button class="btn primary block" type="submit" style="margin-top:6px">' + t('login') + '</button><button class="btn block" type="button" data-action="closeModal" style="margin-top:9px">' + t('cancel') + '</button></form>'
+    '<div class="modal-head"><h2>🔐 ' + t('adminPanel') + '</h2><button class="icon-btn sm" data-action="closeModal">✕</button></div><p class="modal-sub">' + t('adminHint') + '</p><form id="pwForm"><div class="field" style="margin-bottom:10px"><label>نام کاربری (اختیاری — برای رمز اصلی خالی بگذارید)</label><input class="input" type="text" id="pwUser" autocomplete="off" style="text-align:center"></div><div class="field"><label>' + t('password') + '</label><input class="input" type="password" id="pwInput" autocomplete="off" placeholder="••••••••" style="text-align:center;letter-spacing:2px"></div><div class="err" id="pwErr"></div><button class="btn primary block" type="submit" style="margin-top:6px">' + t('login') + '</button><button class="btn block" type="button" data-action="closeModal" style="margin-top:9px">' + t('cancel') + '</button></form>'
   );
   setTimeout(() => document.getElementById('pwInput')?.focus(), 120);
   document.getElementById('pwForm').addEventListener('submit', e => {
     e.preventDefault();
     const val = document.getElementById('pwInput').value;
-    const correct = state.settings.customPassword || DEFAULT_ADMIN_PASS;
-    if(val === correct){
+    const user = (document.getElementById('pwUser').value || '').trim().toLowerCase();
+    const admins = state.settings.admins || [];
+    const mainPass = state.settings.customPassword || DEFAULT_ADMIN_PASS;
+    const ok = user ? admins.some(a => a.name.trim().toLowerCase() === user && a.pass === val) : (val === mainPass || admins.some(a => a.pass === val));
+    if(ok){
       authed = true; saveAdminSession();
-      state.settings.adminSessionClientId = _myClientId;
       save(); closeModal(); toast('✅ ' + t('adminPanel')); render(); openSettings();
     } else {
       const err = document.getElementById('pwErr'); err.textContent = t('wrongPassword');
@@ -2240,7 +2242,7 @@ renderTableSolo=function(sp){
   var body=rows.map(function(r,i){
     return '<tr><td>'+(r.hasScore?medalOrNum(rk[i]-1):'<span class="rank-num">—</span>')+'</td><td><div class="team-cell">'+(show?'<span class="dot" style="background:'+esc(r.color)+'"></span>':'')+'<span>'+esc(r.name)+'</span></div></td>'+soloArr(sd,r.id).map(function(v){return '<td>'+fmt(v)+'</td>';}).join('')+'<td class="big-score">'+(r.hasScore?num(r.score):'—')+'</td></tr>';
   }).join('');
-  return '<div class="section fade"><div class="hint-box">📈 <b>'+G[gender]+'</b> — رتبه‌بندی بر اساس جمع ۵ نمره (از بیشترین به کمترین)</div><button class="btn primary block" data-action="exportPdf" data-sport="'+sp.id+'" style="margin-bottom:12px">📄 خروجی PDF جدول</button><div class="table-wrap"><table><thead><tr>'+head5()+'</tr></thead><tbody>'+body+'</tbody></table></div></div>';
+  return '<div class="section fade"><div class="hint-box">📈 <b>'+G[gender]+'</b> — رتبه‌بندی بر اساس جمع ۵ نمره (از بیشترین به کمترین)</div><div class="table-wrap"><table><thead><tr>'+head5()+'</tr></thead><tbody>'+body+'</tbody></table></div></div>';
 };
 
 renderAdminSolo=function(sp){
@@ -2265,24 +2267,125 @@ document.addEventListener('input',function(e){
   save();
 });
 
-/* ---------- 4) خروجی PDF (چاپ → Save as PDF) ---------- */
+/* ---------- 4) گزارش PDF (چاپ → Save as PDF) ---------- */
 var area=document.createElement('div'); area.id='printArea'; document.body.appendChild(area);
-function exportPdf(id){
-  var sp=getSport(id); if(!sp) return;
-  var sd=getCurrentSeason(sp), rows=standingsSolo(sp);
-  if(!rows.length){toast('شرکت‌کننده‌ای ثبت نشده است');return;}
-  var sn=sp.seasons.find(function(x){return x.id===sp.currentSeasonId;})||{name:''};
-  var rk=ranks(rows);
-  var body=rows.map(function(r,i){
-    return '<tr><td>'+(r.hasScore?num(rk[i]):'—')+'</td><td class="n">'+esc(r.name)+'</td>'+soloArr(sd,r.id).map(function(v){return '<td>'+fmt(v)+'</td>';}).join('')+'<td class="tt">'+(r.hasScore?num(r.score):'—')+'</td></tr>';
-  }).join('');
-  area.innerHTML='<div class="pa-head"><div class="pa-season">فصل مسابقات: '+esc(sn.name)+'</div><div class="pa-sport">'+esc(sp.icon)+' '+esc(sp.name)+' — '+G[gender]+'</div></div><table><thead><tr>'+head5()+'</tr></thead><tbody>'+body+'</tbody></table><div class="pa-foot">تاریخ گزارش: '+new Date().toLocaleDateString('fa-IR')+'</div>';
-  var old=document.title;
-  document.title=sp.name+' - '+sn.name+' - '+G[gender];
+function tn(sd,id){var x=sd.teams.find(function(q){return q.id===id;});return x?esc(x.name):'—';}
+function medal(i){return i===0?'🥇':i===1?'🥈':i===2?'🥉':num(i+1);}
+function tbl(heads,rows,cls){return '<table class="'+(cls||'')+'"><thead><tr>'+heads.map(function(h){return '<th>'+h+'</th>';}).join('')+'</tr></thead><tbody>'+rows.join('')+'</tbody></table>';}
+function ttl(x){return '<div class="rp-title">'+x+'</div>';}
+function empty(x){return '<div class="rp-empty">'+x+'</div>';}
+function vsRows(sd,items){return items.map(function(it){
+  return '<tr><td class="n'+(it.w==='a'?' w':'')+'">'+it.a+'</td><td class="sc">'+it.mid+'</td><td class="n'+(it.w==='b'?' w':'')+'">'+it.b+'</td></tr>';});}
+function sportBody(sp,sd){
+  var h='', ko=(sp.type==='score'||sp.type==='winner')&&sp.mode==='knockout';
+  if(ko){
+    if(!sd.bracket||!sd.bracket.length) return empty('جدول حذفی هنوز ساخته نشده است');
+    sd.bracket.forEach(function(r){
+      var items=r.matches.map(function(m){
+        var mid=(m.winner&&(!m.a||!m.b))?'🛌 استراحت':(m.winner&&m.hg!=null?num(m.hg)+' − '+num(m.ag):'—');
+        return {a:m.a?tn(sd,m.a):'—',b:m.b?tn(sd,m.b):'—',mid:mid,w:m.winner};
+      });
+      h+=ttl('🏁 '+esc(r.name))+tbl(['تیم اول','نتیجه','تیم دوم'],vsRows(sd,items),'m');
+    });
+    if(sd.champion) h+='<div class="rp-champ">🏆 قهرمان: <b>'+tn(sd,sd.champion)+'</b></div>';
+    return h;
+  }
+  if(sp.type==='score'){
+    var st=standingsScore(sp);
+    h+=ttl('📊 جدول رده‌بندی')+tbl(['رتبه','نام','بازی','برد','مساوی','باخت','زده','خورده','تفاضل','امتیاز'],st.map(function(r,i){
+      return '<tr><td>'+medal(i)+'</td><td class="n">'+esc(r.name)+'</td><td>'+num(r.p)+'</td><td>'+num(r.w)+'</td><td>'+num(r.d)+'</td><td>'+num(r.l)+'</td><td>'+num(r.gf)+'</td><td>'+num(r.ga)+'</td><td>'+diffFmt(r.gd)+'</td><td class="tt">'+fmtPts(r.pts)+'</td></tr>';}),'st');
+    h+=ttl('📋 نتایج مسابقات')+(sd.matches.length?tbl(['تیم اول','نتیجه','تیم دوم'],vsRows(sd,sd.matches.map(function(m){
+      return {a:tn(sd,m.home),b:tn(sd,m.away),mid:num(m.hg)+' − '+num(m.ag),w:m.hg>m.ag?'a':(m.ag>m.hg?'b':'')};})),'m'):empty('نتیجه‌ای ثبت نشده است'));
+    return h;
+  }
+  if(sp.type==='winner'){
+    var sw=standingsWinner(sp);
+    h+=ttl('📊 جدول رده‌بندی')+tbl(['رتبه','نام','بازی','برد','مساوی','باخت','امتیاز'],sw.map(function(r,i){
+      return '<tr><td>'+medal(i)+'</td><td class="n">'+esc(r.name)+'</td><td>'+num(r.p)+'</td><td>'+num(r.w)+'</td><td>'+num(r.d)+'</td><td>'+num(r.l)+'</td><td class="tt">'+fmtPts(r.pts)+'</td></tr>';}),'st');
+    var ws=Object.keys(sd.winners||{}).map(function(k){return sd.winners[k];}).filter(function(x){return x&&x.a&&x.b;});
+    h+=ttl('📋 نتایج مسابقات')+(ws.length?tbl(['شرکت‌کننده اول','نتیجه','شرکت‌کننده دوم'],vsRows(sd,ws.map(function(x){
+      return {a:tn(sd,x.a),b:tn(sd,x.b),mid:x.winner==='draw'?'🤝 مساوی':'🏆',w:x.winner==='draw'?'':x.winner};})),'m'):empty('نتیجه‌ای ثبت نشده است'));
+    return h;
+  }
+  if(sp.type==='solo'){
+    var rows=standingsSolo(sp), rk=ranks(rows);
+    return ttl('📈 رتبه‌بندی بر اساس جمع ۵ نمره')+tbl(head5().replace(/<\/?th>/g,function(m){return m;}).match(/<th>.*?<\/th>/g).map(function(x){return x.replace(/<\/?th>/g,'');}),rows.map(function(r,i){
+      return '<tr><td>'+(r.hasScore?medal(rk[i]-1):'—')+'</td><td class="n">'+esc(r.name)+'</td>'+soloArr(sd,r.id).map(function(v){return '<td>'+fmt(v)+'</td>';}).join('')+'<td class="tt">'+(r.hasScore?num(r.score):'—')+'</td></tr>';}),'st');
+  }
+  if(sp.type==='rank'){
+    return ttl('🥇 رتبه‌بندی')+tbl(['جایگاه','نام','رتبه'],standingsRank(sp).map(function(r,i){
+      return '<tr><td>'+(r.hasRank?medal(r.rank-1):'—')+'</td><td class="n">'+esc(r.name)+'</td><td class="tt">'+(r.hasRank?num(r.rank):'—')+'</td></tr>';}),'st');
+  }
+  return '';
+}
+function section(sp,gen){
+  var keep=gender; gender=gen;
+  try{
+    var sd=getCurrentSeason(sp); if(!sd.teams.length) return null;
+    var sn=sp.seasons.find(function(x){return x.id===sp.currentSeasonId;})||{name:''};
+    return {sn:sn.name,html:'<section class="rp-sec"><div class="rp-head"><div class="rp-season">فصل مسابقات: '+esc(sn.name)+'</div><div class="rp-sport">'+esc(sp.icon)+' '+esc(sp.name)+' — '+G[gen]+'</div></div>'+sportBody(sp,sd)+'</section>'};
+  } finally { gender=keep; }
+}
+function doPrint(html,ttlText){
+  area.innerHTML=html+'<div class="rp-foot">🏆 لیگ ورزش‌ها • تاریخ گزارش: '+new Date().toLocaleDateString('fa-IR')+'</div>';
+  var old=document.title; document.title=ttlText;
   var back=function(){document.title=old;window.removeEventListener('afterprint',back);};
   window.addEventListener('afterprint',back);
-  setTimeout(function(){window.print();},60);
+  setTimeout(function(){window.print();},80);
 }
+function exportPdf(id){
+  var sp=getSport(id); if(!sp) return;
+  var s=section(sp,gender);
+  if(!s){toast('شرکت‌کننده‌ای ثبت نشده است');return;}
+  doPrint(s.html,sp.name+' - '+s.sn+' - '+G[gender]);
+}
+function exportAll(){
+  var parts=[], items=[];
+  activeSports().forEach(function(sp){
+    ['men','women'].forEach(function(g){
+      var s=section(sp,g);
+      if(s){parts.push(s.html); items.push('<div>'+esc(sp.icon)+' '+esc(sp.name)+' — '+G[g]+' <span style="font-weight:400">('+esc(s.sn)+')</span></div>');}
+    });
+  });
+  if(!parts.length){toast('هنوز نتیجه‌ای برای گزارش ثبت نشده است');return;}
+  var cover='<section class="rp-cover"><div class="rp-logo">🏆</div><h1>گزارش کامل مسابقات</h1><div class="rp-sub">'+new Date().toLocaleDateString('fa-IR')+'</div><div class="rp-list">'+items.join('')+'</div></section>';
+  doPrint(cover+parts.join(''),'گزارش کامل مسابقات');
+}
+var _rsh=renderSportsHome;
+renderSportsHome=function(){
+  var h=_rsh();
+  if(!activeSports().length) return h;
+  return h+'<div style="margin-top:14px"><button class="btn primary block" data-action="exportAll">📄 گزارش کامل همه ورزش‌ها (PDF)</button></div>';
+};
+
+/* ---------- مدیران چندگانه ---------- */
+function openAdmins(){
+  var list=(state.settings.admins=state.settings.admins||[]);
+  var rows=list.length?list.map(function(a){return '<div class="adm-row"><input class="input" value="'+esc(a.name)+'" data-adm-name="'+a.id+'" placeholder="نام کاربری" maxlength="30"><input class="input" value="'+esc(a.pass)+'" data-adm-pass="'+a.id+'" placeholder="رمز" maxlength="40"><button class="btn danger sm" data-action="delAdmin" data-id="'+a.id+'">✕</button></div>';}).join(''):'<p style="color:var(--muted);font-size:.85rem;text-align:center;padding:10px">هنوز مدیر اضافه‌ای ثبت نشده است.</p>';
+  openModal('<div class="modal-head"><h2>👥 مدیران سایت</h2><button class="icon-btn sm" data-action="closeModal">✕</button></div><p class="modal-sub">هر مدیر با نام کاربری و رمز خودش وارد می‌شود و همه امکانات مدیر را دارد. رمز اصلی سایت هم کار می‌کند و چند مدیر می‌توانند هم‌زمان وارد باشند.</p>'+rows+'<form id="addAdmForm" class="adm-add"><input class="input" id="newAdmName" placeholder="نام کاربری" maxlength="30"><input class="input" id="newAdmPass" placeholder="رمز (حداقل ۴ کاراکتر)" maxlength="40"><button class="btn primary" type="submit">＋ افزودن</button></form><button class="btn block" data-action="closeModal" style="margin-top:12px">'+t('close')+'</button>');
+  document.getElementById('addAdmForm').addEventListener('submit',function(e){
+    e.preventDefault();
+    var n=document.getElementById('newAdmName').value.trim(), p=document.getElementById('newAdmPass').value.trim();
+    if(!n){toast('نام کاربری را وارد کنید');return;}
+    if(p.length<4){toast('رمز حداقل ۴ کاراکتر باشد');return;}
+    if(list.some(function(a){return a.name.trim().toLowerCase()===n.toLowerCase();})){toast('این نام کاربری قبلاً ثبت شده');return;}
+    list.push({id:uid(),name:n,pass:p}); save(); openAdmins(); toast('✅ '+t('added'));
+  });
+}
+document.addEventListener('change',function(e){
+  var el=e.target.closest&&e.target.closest('[data-adm-name],[data-adm-pass]'); if(!el) return;
+  var list=state.settings.admins||[], id=el.dataset.admName||el.dataset.admPass, a=list.find(function(x){return x.id===id;});
+  if(!a) return;
+  var v=el.value.trim();
+  if(el.dataset.admName){
+    if(!v||list.some(function(x){return x.id!==id&&x.name.trim().toLowerCase()===v.toLowerCase();})){toast('نام نامعتبر یا تکراری');el.value=a.name;return;}
+    a.name=v;
+  } else {
+    if(v.length<4){toast('رمز حداقل ۴ کاراکتر باشد');el.value=a.pass;return;}
+    a.pass=v;
+  }
+  save(); toast('✅ '+t('saved'));
+});
 
 /* ---------- 5) نوار جنسیت و فصل ---------- */
 function decorate(){
@@ -2292,7 +2395,7 @@ function decorate(){
   var old=view.querySelector('.season-bar'); if(old) old.remove();
   var chips=sp.seasons.map(function(sn){return '<div class="season-chip '+(sn.id===sp.currentSeasonId?'active':'')+'" data-action="switchSeason" data-sport="'+sp.id+'" data-season="'+sn.id+'">'+esc(sn.name)+'</div>';}).join('');
   var adm=authed?'<div class="season-chip" data-action="addSeason" data-sport="'+sp.id+'">＋ فصل جدید</div><div class="season-chip" data-action="renameSeason" data-sport="'+sp.id+'">✏️ نام فصل</div>':'';
-  hdr.insertAdjacentHTML('afterend','<div class="gender-bar"><button class="gender-btn '+(gender==='women'?'on':'')+'" data-action="setGender" data-val="women">👩 بانوان</button><button class="gender-btn '+(gender==='men'?'on':'')+'" data-action="setGender" data-val="men">👨 آقایان</button></div><div class="season-bar">'+chips+adm+'</div>');
+  hdr.insertAdjacentHTML('afterend','<div class="gender-bar"><button class="gender-btn '+(gender==='women'?'on':'')+'" data-action="setGender" data-val="women">👩 بانوان</button><button class="gender-btn '+(gender==='men'?'on':'')+'" data-action="setGender" data-val="men">👨 آقایان</button></div><div class="season-bar">'+chips+adm+'</div><button class="btn block" data-action="exportPdf" data-sport="'+sp.id+'" style="margin-bottom:12px">📄 خروجی PDF نتایج و مسابقات</button>');
 }
 function fixTexts(){
   var tb=document.getElementById('feedbackTopBtn'); if(tb) tb.title=NEW;
@@ -2349,6 +2452,13 @@ document.addEventListener('click',function(e){
   var a=el.dataset.action;
   if(a==='setGender'){gender=el.dataset.val;render();}
   else if(a==='exportPdf'){exportPdf(el.dataset.sport);}
+  else if(a==='exportAll'){exportAll();}
+  else if(a==='manageAdmins'){openAdmins();}
+  else if(a==='delAdmin'){
+    if(!confirm('این مدیر حذف شود؟')) return;
+    state.settings.admins=(state.settings.admins||[]).filter(function(x){return x.id!==el.dataset.id;});
+    save(); openAdmins(); toast('🗑️ '+t('deleted'));
+  }
   else if(a==='renameSeason'){
     var sp=getSport(el.dataset.sport); if(!sp) return;
     var sn=sp.seasons.find(function(x){return x.id===sp.currentSeasonId;}); if(!sn) return;
@@ -2370,25 +2480,35 @@ st.textContent=
 '.solo-r:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--ring)}'+
 '.solo-total{font-weight:800;color:var(--accent-2);font-size:.9rem;white-space:nowrap}'+
 '.bracket-round .bm-team .empty{text-decoration:none!important;opacity:.8}'+
+'.adm-row,.adm-add{display:grid;grid-template-columns:1fr 1fr auto;gap:6px;margin-bottom:8px}'+
 '#printArea{display:none}'+
 '@media print{'+
 'html,body{background:#fff!important;background-image:none!important;color:#000!important}'+
 'body>*:not(#printArea){display:none!important}'+
 '#printArea{display:block!important;direction:rtl;font-family:Vazirmatn,Tahoma,sans-serif;-webkit-print-color-adjust:exact;print-color-adjust:exact}'+
-'.pa-head{border:3px solid #000;border-radius:10px;background:#eef3fb!important;text-align:center;padding:16px 10px;margin-bottom:18px}'+
-'.pa-season{font-size:28px;font-weight:900;margin-bottom:8px}'+
-'.pa-sport{font-size:24px;font-weight:900}'+
-'#printArea table{width:100%;border-collapse:collapse;font-size:15px}'+
-'#printArea th,#printArea td{border:1px solid #444;padding:9px 6px;text-align:center;color:#000}'+
-'#printArea table{background:#fff!important}'+
-'#printArea th{background:#e4ecf7!important;font-weight:800;color:#111!important}'+
-'#printArea tbody td{background:#fff!important;color:#111!important}'+
-'#printArea tbody tr:nth-child(even) td{background:#f4f7fb!important}'+
-'#printArea tbody tr:nth-child(1) td{background:#fff8dc!important}'+
-'#printArea td.tt{color:#0b4a8f!important}'+
-'#printArea td.n{text-align:right}#printArea td.tt{font-weight:900;font-size:17px}'+
-'.pa-foot{margin-top:12px;font-size:12px;color:#444;text-align:left}'+
-'@page{size:A4;margin:14mm}}';
+'.rp-sec{page-break-before:always}.rp-sec:first-child{page-break-before:auto}'+
+'.rp-head{border:3px solid #1f3b73;border-radius:16px;background:linear-gradient(135deg,#e7f7ef,#e4effb)!important;text-align:center;padding:18px 12px;margin-bottom:18px}'+
+'.rp-season{font-size:28px;font-weight:900;color:#1f3b73}'+
+'.rp-sport{font-size:24px;font-weight:900;margin-top:8px;color:#0f2a55}'+
+'.rp-title{font-size:16px;font-weight:800;color:#1f3b73;margin:18px 0 8px;padding-right:10px;border-right:6px solid #22b573}'+
+'#printArea table{width:100%;min-width:0!important;border-collapse:separate;border-spacing:0;font-size:14px;background:#fff!important;border:1px solid #c5d4ea;border-radius:10px;overflow:hidden}'+
+'#printArea th{background:#dce8f8!important;color:#10285a!important;font-weight:800;padding:9px 5px;text-align:center;border-bottom:2px solid #b7c9e6}'+
+'#printArea td{background:#fff!important;color:#1b2540!important;padding:8px 5px;text-align:center;border-top:1px solid #e3eaf5;font-weight:600}'+
+'#printArea tbody tr:nth-child(even) td{background:#f5f8fd!important}'+
+'#printArea table.st tbody tr:first-child td{background:#fff7da!important}'+
+'#printArea tr{page-break-inside:avoid}'+
+'#printArea td.n{text-align:right}'+
+'#printArea td.w{font-weight:900;color:#0a7a46!important}'+
+'#printArea td.sc{font-weight:900;font-size:16px;color:#0b4a8f!important;white-space:nowrap}'+
+'#printArea td.tt{font-weight:900;font-size:15px;color:#0b4a8f!important}'+
+'.rp-empty{padding:14px;text-align:center;color:#667;border:1px dashed #b7c9e6;border-radius:10px}'+
+'.rp-champ{margin-top:16px;padding:16px;text-align:center;font-size:20px;border:2px solid #e2b93b;border-radius:14px;background:#fff7da!important}'+
+'.rp-cover{height:240mm;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;border:4px solid #1f3b73;border-radius:24px;background:linear-gradient(160deg,#e7f7ef,#e4effb)!important;padding:20px}'+
+'.rp-logo{font-size:72px}.rp-cover h1{font-size:38px;font-weight:900;color:#1f3b73;margin:12px 0}'+
+'.rp-sub{font-size:15px;color:#445;margin-bottom:22px}'+
+'.rp-list{font-size:16px;font-weight:700;line-height:2.2}'+
+'.rp-foot{margin-top:16px;text-align:center;font-size:12px;color:#667}'+
+'@page{size:A4;margin:12mm}}';
 document.head.appendChild(st);
 
 /* ---------- 7) PWA: manifest + service worker ---------- */
