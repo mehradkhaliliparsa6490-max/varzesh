@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#070b14">
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icon-192.png">
-<title>لیگ ورزش‌ها v1.5.7</title>
+<title>لیگ ورزش‌ها v1.5.9</title>
 <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
@@ -352,7 +352,7 @@ input[type=number]{-moz-appearance:textfield;text-align:center;font-weight:700}
     <div class="brand" data-action="goHome">
       <div class="logo">🏆</div>
       <div class="brand-text">
-        <h1 id="brandTitle">لیگ ورزش‌ها<span class="version-badge">v1.5.7</span></h1>
+        <h1 id="brandTitle">لیگ ورزش‌ها<span class="version-badge">v1.5.9</span></h1>
         <p id="brandSub">مدیریت نتایج مسابقات</p>
       </div>
     </div>
@@ -372,7 +372,7 @@ input[type=number]{-moz-appearance:textfield;text-align:center;font-weight:700}
   <div class="status-bar" id="statusBar"></div>
   <nav class="tabs" id="tabs" style="display:none"></nav>
   <main id="view"></main>
-  <div class="footer" id="footer">لیگ ورزش‌ها • v1.5.7</div>
+  <div class="footer" id="footer">لیگ ورزش‌ها • v1.5.9</div>
 </div>
 
 <button class="debug-toggle" id="debugToggle" title="Debug">🐞</button>
@@ -426,7 +426,7 @@ const ADMIN_KEY = 'sports-league-admin-session';
 const SERVER_SEL_KEY = 'sports-league-server';
 const CLIENT_ID_KEY = 'sports-league-client-id';
 const FB_SEEN_KEY = 'sports-league-fb-seen';
-const VERSION = 'v1.5.7';
+const VERSION = 'v1.5.9';
 const MAX_MEMBERS = 15;
 
 const SUPABASE_URL = 'https://lwpyainlxrthddlockia.supabase.co';
@@ -2058,7 +2058,7 @@ function openPalette(sportId, teamId){
 }
 
 function openGuide(){
-  openModal('<div class="modal-head"><h2>❓ ' + t('guide') + '</h2><button class="icon-btn sm" data-action="closeModal">✕</button></div><div style="padding:10px 0"><h3 style="font-size:.9rem;font-weight:800;margin-bottom:8px">🏆 v1.5.7</h3><p style="font-size:.8rem;color:var(--muted);line-height:1.8">۸ تم، ۲ زبان، ۳ سرور، فصل‌ها، وبلاگ با تصویر، جدول حذفی، انتقادات و پیشنهادات</p></div><div style="padding:10px 0;border-top:1px solid var(--border)"><h3 style="font-size:.9rem;font-weight:800;margin-bottom:8px">💬 انتقادات و پیشنهادات</h3><p style="font-size:.8rem;color:var(--muted);line-height:1.8">می‌تونی با اسم، عنوان و متن، نظر یا انتقادت رو ثبت کنی. مدیر اون‌ها رو می‌بینه.</p></div><button class="btn block" data-action="closeModal" style="margin-top:16px">' + t('close') + '</button>');
+  openModal('<div class="modal-head"><h2>❓ ' + t('guide') + '</h2><button class="icon-btn sm" data-action="closeModal">✕</button></div><div style="padding:10px 0"><h3 style="font-size:.9rem;font-weight:800;margin-bottom:8px">🏆 v1.5.9</h3><p style="font-size:.8rem;color:var(--muted);line-height:1.8">۸ تم، ۲ زبان، ۳ سرور، فصل‌ها، وبلاگ با تصویر، جدول حذفی، انتقادات و پیشنهادات</p></div><div style="padding:10px 0;border-top:1px solid var(--border)"><h3 style="font-size:.9rem;font-weight:800;margin-bottom:8px">💬 انتقادات و پیشنهادات</h3><p style="font-size:.8rem;color:var(--muted);line-height:1.8">می‌تونی با اسم، عنوان و متن، نظر یا انتقادت رو ثبت کنی. مدیر اون‌ها رو می‌بینه.</p></div><button class="btn block" data-action="closeModal" style="margin-top:16px">' + t('close') + '</button>');
 }
 
 /* ============ DEBUG PANEL ============ */
@@ -2193,9 +2193,9 @@ document.addEventListener('keydown', e => {
   DEBUG.ok('Ready');
 })();
 </script>
-<!-- v1.5.7: این بلوک را قبل از </body> و بعد از اسکریپت اصلی index.html بچسبانید -->
+<!-- v1.5.9: این بلوک را قبل از </body> و بعد از اسکریپت اصلی index.html بچسبانید -->
 <script>
-/* لیگ ورزش‌ها — افزونه v1.5.7 */
+/* لیگ ورزش‌ها — افزونه v1.5.9 */
 (function(){
 var gender='men';
 var G={men:'آقایان',women:'بانوان'};
@@ -2352,12 +2352,12 @@ function sportBody(sp,sd){
   }
   return '';
 }
-function section(sp,gen){
+function section(sp,gen,noSeason){
   var keep=gender; gender=gen;
   try{
     var sd=getCurrentSeason(sp); if(!sd.teams.length) return null;
     var sn=sp.seasons.find(function(x){return x.id===sp.currentSeasonId;})||{name:''};
-    return {sn:sn.name,html:'<section class="rp-sec"><div class="rp-head"><div class="rp-season">فصل مسابقات: '+esc(sn.name)+'</div><div class="rp-sport">'+esc(sp.icon)+' '+esc(sp.name)+' — '+G[gen]+'</div></div>'+sportBody(sp,sd)+'</section>'};
+    return {sn:sn.name,html:'<section class="rp-sec"><div class="rp-head'+(noSeason?' ns':'')+'">'+(noSeason?'':'<div class="rp-season">فصل مسابقات: '+esc(sn.name)+'</div>')+'<div class="rp-sport">'+esc(sp.icon)+' '+esc(sp.name)+' — '+G[gen]+'</div></div>'+sportBody(sp,sd)+'</section>'};
   } finally { gender=keep; }
 }
 function doPrint(html,ttlText){
@@ -2373,17 +2373,38 @@ function exportPdf(id){
   if(!s){toast('شرکت‌کننده‌ای ثبت نشده است');return;}
   doPrint(s.html,sp.name+' - '+s.sn+' - '+G[gender]);
 }
+var seasonOpts=[];
 function exportAll(){
-  var parts=[], items=[];
+  var cnt={}, order=[];
+  activeSports().forEach(function(sp){sp.seasons.forEach(function(sn){var k=sn.name.trim();if(!(k in cnt)){cnt[k]=0;order.push(k);}cnt[k]++;});});
+  seasonOpts=order;
+  if(order.length<=1){runAll(null);return;}
+  var list=order.map(function(k,i){return '<button class="btn block" data-action="exportAllPick" data-idx="'+i+'" style="margin-bottom:8px">📅 '+esc(k)+' <span style="color:var(--muted);font-weight:600">('+num(cnt[k])+' ورزش)</span></button>';}).join('');
+  openModal('<div class="modal-head"><h2>📄 گزارش کامل — انتخاب فصل</h2><button class="icon-btn sm" data-action="closeModal">✕</button></div><p class="modal-sub">رویدادها و نتایج کدام فصل در گزارش بیاید؟</p><button class="btn primary block" data-action="exportAllPick" data-idx="-1" style="margin-bottom:8px">📌 فصل فعلی هر ورزش</button>'+list+'<button class="btn block" data-action="closeModal" style="margin-top:6px">'+t('cancel')+'</button>');
+}
+function runAll(name){
+  var chosen=[];
   activeSports().forEach(function(sp){
-    ['men','women'].forEach(function(g){
-      var s=section(sp,g);
-      if(s){parts.push(s.html); items.push('<div>'+esc(sp.icon)+' '+esc(sp.name)+' — '+G[g]+' <span style="font-weight:400">('+esc(s.sn)+')</span></div>');}
-    });
+    var sn=name===null?sp.seasons.find(function(x){return x.id===sp.currentSeasonId;}):sp.seasons.find(function(x){return x.name.trim()===name;});
+    if(sn) chosen.push({sp:sp,sn:sn});
   });
-  if(!parts.length){toast('هنوز نتیجه‌ای برای گزارش ثبت نشده است');return;}
-  var cover='<section class="rp-cover"><div class="rp-logo">🏆</div><h1>گزارش کامل مسابقات</h1><div class="rp-sub">'+new Date().toLocaleDateString('fa-IR')+'</div><div class="rp-list">'+items.join('')+'</div></section>';
-  doPrint(cover+parts.join(''),'گزارش کامل مسابقات');
+  var names={};chosen.forEach(function(c){names[c.sn.name.trim()]=1;});
+  var uniq=Object.keys(names), one=uniq.length===1?uniq[0]:null;
+  var parts=[], items=[];
+  chosen.forEach(function(c){
+    var sp=c.sp, keep=sp.currentSeasonId; sp.currentSeasonId=c.sn.id; applyCfg(sp);
+    try{
+      ['men','women'].forEach(function(g){
+        var s=section(sp,g,!!one);
+        if(s){parts.push(s.html); items.push('<div>'+esc(sp.icon)+' '+esc(sp.name)+' — '+G[g]+(one?'':' <span style="font-weight:400">('+esc(s.sn)+')</span>')+'</div>');}
+      });
+    } finally { sp.currentSeasonId=keep; applyCfg(sp); }
+  });
+  if(!parts.length){toast('برای این فصل نتیجه‌ای ثبت نشده است');return;}
+  var ttlTxt='گزارش کامل مسابقات'+(one?' — '+one:'');
+  var cover='<section class="rp-cover"><div class="rp-logo">🏆</div><h1>گزارش کامل مسابقات</h1>'+(one?'<div class="rp-seasonbig">فصل مسابقات: '+esc(one)+'</div>':'')+'<div class="rp-sub">'+new Date().toLocaleDateString('fa-IR')+'</div><div class="rp-list">'+items.join('')+'</div></section>';
+  closeModal();
+  doPrint(cover+parts.join(''),ttlTxt);
 }
 var _rsh=renderSportsHome;
 renderSportsHome=function(){
@@ -2434,9 +2455,9 @@ function decorate(){
 function fixTexts(){
   var tb=document.getElementById('feedbackTopBtn'); if(tb) tb.title=NEW;
   var ab=document.querySelector('#feedbackActionBtn span:last-child'); if(ab) ab.textContent=NEW;
-  document.querySelectorAll('.version-badge').forEach(function(b){b.textContent='v1.5.7';});
-  var f=document.getElementById('footer'); if(f) f.textContent='لیگ ورزش‌ها • v1.5.7';
-  document.title=document.title.replace('v1.4.0','v1.5.7');
+  document.querySelectorAll('.version-badge').forEach(function(b){b.textContent='v1.5.9';});
+  var f=document.getElementById('footer'); if(f) f.textContent='لیگ ورزش‌ها • v1.5.9';
+  document.title=document.title.replace('v1.4.0','v1.5.9');
 }
 
 /* ---------- 6) جدول حذفی: اندازه توان ۲ (حداقل ۴) + استراحت تصادفی ---------- */
@@ -2480,7 +2501,7 @@ function bracketFix(){
 var _render=render;
 render=function(){_render();decorate();bracketFix();fixTexts();};
 var _guide=openGuide;
-openGuide=function(){_guide();modalEl.innerHTML=modalEl.innerHTML.split(OLD).join(NEW).replace('v1.4.0','v1.5.7');};
+openGuide=function(){_guide();modalEl.innerHTML=modalEl.innerHTML.split(OLD).join(NEW).replace('v1.4.0','v1.5.9');};
 
 document.addEventListener('click',function(e){
   var el=e.target.closest('[data-action]'); if(!el) return;
@@ -2488,6 +2509,7 @@ document.addEventListener('click',function(e){
   if(a==='setGender'){gender=el.dataset.val;render();}
   else if(a==='exportPdf'){exportPdf(el.dataset.sport);}
   else if(a==='exportAll'){exportAll();}
+  else if(a==='exportAllPick'){var ix=parseInt(el.dataset.idx,10);runAll(ix<0?null:seasonOpts[ix]);}
   else if(a==='manageAdmins'){openAdmins();}
   else if(a==='delAdmin'){
     if(!confirm('این مدیر حذف شود؟')) return;
@@ -2524,6 +2546,8 @@ st.textContent=
 '.rp-sec{page-break-before:always}.rp-sec:first-child{page-break-before:auto}'+
 '.rp-head{border:3px solid #1f3b73;border-radius:16px;background:linear-gradient(135deg,#e7f7ef,#e4effb)!important;text-align:center;padding:18px 12px;margin-bottom:18px}'+
 '.rp-season{font-size:28px;font-weight:900;color:#1f3b73}'+
+'.rp-head.ns .rp-sport{font-size:28px;margin-top:0}'+
+'.rp-seasonbig{font-size:34px;font-weight:900;color:#1f3b73;border:3px solid #1f3b73;border-radius:14px;padding:10px 26px;margin:6px 0 16px;background:#fff!important}'+
 '.rp-sport{font-size:24px;font-weight:900;margin-top:8px;color:#0f2a55}'+
 '.rp-title{font-size:16px;font-weight:800;color:#1f3b73;margin:18px 0 8px;padding-right:10px;border-right:6px solid #22b573}'+
 '#printArea table{width:100%;min-width:0!important;border-collapse:separate;border-spacing:0;font-size:14px;background:#fff!important;border:1px solid #c5d4ea;border-radius:10px;overflow:hidden}'+
