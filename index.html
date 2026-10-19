@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#070b14">
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icon-192.png">
-<title>لیگ ورزش‌ها v1.5.5</title>
+<title>لیگ ورزش‌ها v1.5.7</title>
 <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
@@ -352,7 +352,7 @@ input[type=number]{-moz-appearance:textfield;text-align:center;font-weight:700}
     <div class="brand" data-action="goHome">
       <div class="logo">🏆</div>
       <div class="brand-text">
-        <h1 id="brandTitle">لیگ ورزش‌ها<span class="version-badge">v1.5.5</span></h1>
+        <h1 id="brandTitle">لیگ ورزش‌ها<span class="version-badge">v1.5.7</span></h1>
         <p id="brandSub">مدیریت نتایج مسابقات</p>
       </div>
     </div>
@@ -372,7 +372,7 @@ input[type=number]{-moz-appearance:textfield;text-align:center;font-weight:700}
   <div class="status-bar" id="statusBar"></div>
   <nav class="tabs" id="tabs" style="display:none"></nav>
   <main id="view"></main>
-  <div class="footer" id="footer">لیگ ورزش‌ها • v1.5.5</div>
+  <div class="footer" id="footer">لیگ ورزش‌ها • v1.5.7</div>
 </div>
 
 <button class="debug-toggle" id="debugToggle" title="Debug">🐞</button>
@@ -426,7 +426,7 @@ const ADMIN_KEY = 'sports-league-admin-session';
 const SERVER_SEL_KEY = 'sports-league-server';
 const CLIENT_ID_KEY = 'sports-league-client-id';
 const FB_SEEN_KEY = 'sports-league-fb-seen';
-const VERSION = 'v1.5.5';
+const VERSION = 'v1.5.7';
 const MAX_MEMBERS = 15;
 
 const SUPABASE_URL = 'https://lwpyainlxrthddlockia.supabase.co';
@@ -2058,7 +2058,7 @@ function openPalette(sportId, teamId){
 }
 
 function openGuide(){
-  openModal('<div class="modal-head"><h2>❓ ' + t('guide') + '</h2><button class="icon-btn sm" data-action="closeModal">✕</button></div><div style="padding:10px 0"><h3 style="font-size:.9rem;font-weight:800;margin-bottom:8px">🏆 v1.5.5</h3><p style="font-size:.8rem;color:var(--muted);line-height:1.8">۸ تم، ۲ زبان، ۳ سرور، فصل‌ها، وبلاگ با تصویر، جدول حذفی، انتقادات و پیشنهادات</p></div><div style="padding:10px 0;border-top:1px solid var(--border)"><h3 style="font-size:.9rem;font-weight:800;margin-bottom:8px">💬 انتقادات و پیشنهادات</h3><p style="font-size:.8rem;color:var(--muted);line-height:1.8">می‌تونی با اسم، عنوان و متن، نظر یا انتقادت رو ثبت کنی. مدیر اون‌ها رو می‌بینه.</p></div><button class="btn block" data-action="closeModal" style="margin-top:16px">' + t('close') + '</button>');
+  openModal('<div class="modal-head"><h2>❓ ' + t('guide') + '</h2><button class="icon-btn sm" data-action="closeModal">✕</button></div><div style="padding:10px 0"><h3 style="font-size:.9rem;font-weight:800;margin-bottom:8px">🏆 v1.5.7</h3><p style="font-size:.8rem;color:var(--muted);line-height:1.8">۸ تم، ۲ زبان، ۳ سرور، فصل‌ها، وبلاگ با تصویر، جدول حذفی، انتقادات و پیشنهادات</p></div><div style="padding:10px 0;border-top:1px solid var(--border)"><h3 style="font-size:.9rem;font-weight:800;margin-bottom:8px">💬 انتقادات و پیشنهادات</h3><p style="font-size:.8rem;color:var(--muted);line-height:1.8">می‌تونی با اسم، عنوان و متن، نظر یا انتقادت رو ثبت کنی. مدیر اون‌ها رو می‌بینه.</p></div><button class="btn block" data-action="closeModal" style="margin-top:16px">' + t('close') + '</button>');
 }
 
 /* ============ DEBUG PANEL ============ */
@@ -2193,9 +2193,9 @@ document.addEventListener('keydown', e => {
   DEBUG.ok('Ready');
 })();
 </script>
-<!-- v1.5.5: این بلوک را قبل از </body> و بعد از اسکریپت اصلی index.html بچسبانید -->
+<!-- v1.5.7: این بلوک را قبل از </body> و بعد از اسکریپت اصلی index.html بچسبانید -->
 <script>
-/* لیگ ورزش‌ها — افزونه v1.5.5 */
+/* لیگ ورزش‌ها — افزونه v1.5.7 */
 (function(){
 var gender='men';
 var G={men:'آقایان',women:'بانوان'};
@@ -2434,9 +2434,9 @@ function decorate(){
 function fixTexts(){
   var tb=document.getElementById('feedbackTopBtn'); if(tb) tb.title=NEW;
   var ab=document.querySelector('#feedbackActionBtn span:last-child'); if(ab) ab.textContent=NEW;
-  document.querySelectorAll('.version-badge').forEach(function(b){b.textContent='v1.5.5';});
-  var f=document.getElementById('footer'); if(f) f.textContent='لیگ ورزش‌ها • v1.5.5';
-  document.title=document.title.replace('v1.4.0','v1.5.5');
+  document.querySelectorAll('.version-badge').forEach(function(b){b.textContent='v1.5.7';});
+  var f=document.getElementById('footer'); if(f) f.textContent='لیگ ورزش‌ها • v1.5.7';
+  document.title=document.title.replace('v1.4.0','v1.5.7');
 }
 
 /* ---------- 6) جدول حذفی: اندازه توان ۲ (حداقل ۴) + استراحت تصادفی ---------- */
@@ -2480,7 +2480,7 @@ function bracketFix(){
 var _render=render;
 render=function(){_render();decorate();bracketFix();fixTexts();};
 var _guide=openGuide;
-openGuide=function(){_guide();modalEl.innerHTML=modalEl.innerHTML.split(OLD).join(NEW).replace('v1.4.0','v1.5.5');};
+openGuide=function(){_guide();modalEl.innerHTML=modalEl.innerHTML.split(OLD).join(NEW).replace('v1.4.0','v1.5.7');};
 
 document.addEventListener('click',function(e){
   var el=e.target.closest('[data-action]'); if(!el) return;
@@ -2664,9 +2664,16 @@ function isCM(sp){return sp.mode==='cup'||sp.mode==='mixed';}
 function pts(sp,hg,ag){
   if(hg===ag) return [Number(sp.drawPoints)||0,Number(sp.drawPoints)||0];
   var w=hg>ag, lp=Number(sp.lossPoints)||0;
-  if(sp.scoreMode==='byScore'){var th=Number(sp.loserThreshold)||0,ls=w?ag:hg,r=ls<=th?sp.cleanWin:sp.closeWin;return w?[r.winner,r.loser]:[r.loser,r.winner];}
+  var mixed=sp.mode==='mixed';
+  if(mixed||sp.scoreMode==='byScore'){
+    // سیستم مختلط: برد پاک (بازنده ۰ گل/امتیاز) = ۳ و ۰ ؛ برد نزدیک = ۲ و ۱
+    var th=Number(sp.loserThreshold)||0, ls=w?ag:hg, byCfg=sp.scoreMode==='byScore';
+    var cw=byCfg&&sp.cleanWin?sp.cleanWin:{winner:3,loser:0}, cl=byCfg&&sp.closeWin?sp.closeWin:{winner:2,loser:1};
+    var r=ls<=th?cw:cl; return w?[Number(r.winner)||0,Number(r.loser)||0]:[Number(r.loser)||0,Number(r.winner)||0];
+  }
   return w?[Number(sp.winPoints)||0,lp]:[lp,Number(sp.winPoints)||0];
 }
+
 function calcStand(sp,sd,ids,ms){
   var m={};
   ids.forEach(function(id){var q=sd.teams.find(function(x){return x.id===id;});m[id]={id:id,name:q?q.name:'—',color:q?q.color:'#888',p:0,w:0,d:0,l:0,gf:0,ga:0,pts:0};});
@@ -2698,7 +2705,7 @@ function groupsPublic(sp,sd,admin){
       if(admin) return '<div class="rr-row '+(done?'played':'')+'" data-gid="'+m.id+'"><span class="rr-team home"><span>'+esc(h.name)+'</span><span class="tdot" style="background:'+esc(h.color)+'"></span></span><input class="rr-score" type="number" inputmode="numeric" min="0" max="99" value="'+(done?m.hg:'')+'" placeholder="–" data-gm="hg"><span class="rr-vs">−</span><input class="rr-score" type="number" inputmode="numeric" min="0" max="99" value="'+(done?m.ag:'')+'" placeholder="–" data-gm="ag"><span class="rr-team away"><span class="tdot" style="background:'+esc(a.color)+'"></span><span>'+esc(a.name)+'</span></span><div class="rr-actions"><button class="rr-btn save" data-action="gmSave" data-sport="'+sp.id+'" data-id="'+m.id+'">✓</button>'+(done?'<button class="rr-btn clear" data-action="gmClear" data-sport="'+sp.id+'" data-id="'+m.id+'">✕</button>':'')+'</div></div>';
       return done?'<div class="match"><div class="m-team a">'+dot(h.color)+'<span>'+esc(h.name)+'</span></div><div class="m-score"><span class="'+(m.hg>m.ag?'win':'')+'">'+num(m.hg)+'</span><span style="opacity:.4">-</span><span class="'+(m.ag>m.hg?'win':'')+'">'+num(m.ag)+'</span></div><div class="m-team b"><span>'+esc(a.name)+'</span>'+dot(a.color)+'</div></div>':'';
     }).join('');
-    return '<div class="section fade"><div class="section-title">🏟️ '+esc(g.name)+(sp.mode==='cup'?' <span style="font-weight:600;text-transform:none">(دو تیم برتر صعود می‌کنند)</span>':'')+'</div><div class="table-wrap"><table><thead><tr><th>رتبه</th><th>نام</th><th>بازی</th><th>برد</th><th>مساوی</th><th>باخت</th><th>زده</th><th>خورده</th><th>تفاضل</th><th>امتیاز</th></tr></thead><tbody>'+rows+'</tbody></table></div>'+(list?(admin?'<div class="rr-list" style="margin-top:10px">':'<div class="match-list" style="margin-top:10px">')+list+'</div>':'')+'</div>';
+    return '<div class="section fade">'+(gi===0&&sp.mode==='mixed'?'<div class="hint-box" style="margin-bottom:12px;font-size:.75rem">🎯 <b>نحوه امتیازدهی (سیستم مختلط):</b> برد پاک (بازنده ۰) ← برنده ۳ و بازنده ۰ • برد نزدیک ← برنده ۲ و بازنده ۱</div>':'')+'<div class="section-title">🏟️ '+esc(g.name)+(sp.mode==='cup'?' <span style="font-weight:600;text-transform:none">(دو تیم برتر صعود می‌کنند)</span>':'')+'</div><div class="table-wrap"><table><thead><tr><th>رتبه</th><th>نام</th><th>بازی</th><th>برد</th><th>مساوی</th><th>باخت</th><th>زده</th><th>خورده</th><th>تفاضل</th><th>امتیاز</th></tr></thead><tbody>'+rows+'</tbody></table></div>'+(list?(admin?'<div class="rr-list" style="margin-top:10px">':'<div class="match-list" style="margin-top:10px">')+list+'</div>':'')+'</div>';
   }).join('');
 }
 function koAdmin(sp,sd){
@@ -2745,11 +2752,11 @@ function pairsHtml(sp,sd,admin){
 }
 function setupCard(sp,sd,kind){
   var ids=groupIds(sp,sd), n=ids.length;
-  var h='<div class="card" style="margin-top:12px"><div class="section-title" style="margin:0 0 10px">🧩 گروه‌بندی</div><div class="hint-box"><b>'+num(n)+'</b> شرکت‌کننده برای گروه‌بندی'+(kind==='cup'?'. تعداد گروه‌ها و تعداد هر گروه را وارد کنید (حاصل‌ضرب باید برابر تعداد شرکت‌کننده‌ها باشد).':'. تعداد گروه‌ها را وارد کنید.')+'</div><div class="rule-card-grid" style="margin-bottom:10px"><div class="field"><label>تعداد گروه‌ها</label><input class="input" type="number" id="cupG" min="2" max="8" value="'+(ui.man?ui.man.g:2)+'"></div>'+(kind==='cup'?'<div class="field"><label>تعداد هر گروه</label><input class="input" type="number" id="cupN" min="2" max="20" value="'+(ui.man?ui.man.n:Math.max(2,Math.floor(n/2)))+'"></div>':'')+'</div>';
+  var h='<div class="card" style="margin-top:12px"><div class="section-title" style="margin:0 0 10px">🧩 گروه‌بندی</div><div class="hint-box"><b>'+num(n)+'</b> شرکت‌کننده برای گروه‌بندی'+(kind==='cup'?'. تعداد گروه‌ها و تعداد هر گروه را وارد کنید (حاصل‌ضرب باید برابر تعداد شرکت‌کننده‌ها باشد).':'. تعداد گروه‌ها را وارد کنید (۱ = همه برندگان در یک گروه).')+'</div><div class="rule-card-grid" style="margin-bottom:10px"><div class="field"><label>تعداد گروه‌ها</label><input class="input" type="number" id="cupG" min="'+(kind==='mixed'?1:2)+'" max="8" value="'+(ui.man?ui.man.g:2)+'"></div>'+(kind==='cup'?'<div class="field"><label>تعداد هر گروه</label><input class="input" type="number" id="cupN" min="2" max="20" value="'+(ui.man?ui.man.n:Math.max(2,Math.floor(n/2)))+'"></div>':'')+'</div>';
   if(ui.man&&ui.man.sid===sd.__k){
     var opts=function(sel){var o='';for(var i=0;i<ui.man.g;i++)o+='<option value="'+i+'"'+(i===sel?' selected':'')+'>گروه '+L8[i]+'</option>';return o;};
     h+='<div class="section-title" style="margin:6px 0">✋ چیدمان دستی</div>'+ids.map(function(id,i){return '<div class="manual-match-row" style="grid-template-columns:1fr 110px"><input class="input" readonly value="'+nm_(sd,id).replace(/<[^>]+>/g,'')+'"><select class="input" data-cm="'+id+'">'+opts(i%ui.man.g)+'</select></div>';}).join('')+'<div style="display:flex;gap:8px;margin-top:8px"><button class="btn primary" data-action="cupManualApply" data-sport="'+sp.id+'">✓ ثبت چیدمان</button><button class="btn" data-action="cupManualCancel">انصراف</button></div>';
-  } else h+='<div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn primary" data-action="cupRandom" data-sport="'+sp.id+'">🎲 قرعه‌کشی تصادفی</button><button class="btn" data-action="cupManualOpen" data-sport="'+sp.id+'">✋ چیدمان دستی</button></div>';
+  } else h+='<div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn primary" data-action="cupRandom" data-sport="'+sp.id+'">🎲 قرعه‌کشی تصادفی</button><button class="btn" data-action="cupManualOpen" data-sport="'+sp.id+'">✋ چیدمان دستی</button>'+(kind==='mixed'?'<button class="btn" data-action="mxOneGroup" data-sport="'+sp.id+'">👥 همه در یک گروه</button>':'')+'</div>';
   return h+'</div>';
 }
 function mixedSetup(sp,sd){
@@ -2842,11 +2849,17 @@ document.addEventListener('click',function(e){
   }
   else if(a==='cupRandom'||a==='cupManualOpen'){
     c=C(el); if(!c) return; var ids=groupIds(c.sp,c.sd), G=parseInt(document.getElementById('cupG').value,10)||0, nEl=document.getElementById('cupN'), N=nEl?(parseInt(nEl.value,10)||0):0;
-    if(G<2||G>8){toast('تعداد گروه‌ها بین ۲ تا ۸ باشد');return;}
+    var minG=c.sp.mode==='mixed'?1:2;
+    if(G<minG||G>8){toast('تعداد گروه‌ها بین '+num(minG)+' تا ۸ باشد');return;}
     if(c.sp.mode==='cup'){ if(N<2){toast('هر گروه حداقل ۲ تیم');return;} if(ids.length!==G*N){toast('تعداد شرکت‌کننده‌ها ('+num(ids.length)+') باید برابر '+num(G)+' × '+num(N)+' = '+num(G*N)+' باشد');return;} }
     else if(ids.length<2*G){toast('برای '+num(G)+' گروه حداقل '+num(2*G)+' برنده لازم است');return;}
     if(a==='cupRandom'){makeGroups(c.sd,randomAssign(ids,G));ui.man=null;save();render();toast('✅ گروه‌ها ساخته شد');}
     else{c.sd.__k=c.sp.currentSeasonId+gender;ui.man={g:G,n:N,sid:c.sd.__k};render();}
+  }
+  else if(a==='mxOneGroup'){
+    c=C(el); if(!c) return; var q1=qualifiers(c.sd);
+    if(q1.length<2){toast('حداقل ۲ برنده برای گروه لازم است');return;}
+    makeGroups(c.sd,[q1]);ui.man=null;save();render();toast('✅ همه برندگان در یک گروه قرار گرفتند');
   }
   else if(a==='cupManualCancel'){ui.man=null;render();}
   else if(a==='cupManualApply'){
