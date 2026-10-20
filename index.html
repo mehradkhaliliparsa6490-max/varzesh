@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#070b14">
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icon-192.png">
-<title>لیگ ورزش‌ها v1.5.9</title>
+<title>لیگ ورزش‌ها v1.6.0</title>
 <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
@@ -18,6 +18,8 @@ html[data-theme="forest"]{--bg-1:#0a1a0f;--bg-2:#0f2b18;--surface:rgba(34,197,94
 html[data-theme="neon"]{--bg-1:#0a0416;--bg-2:#1a0b2e;--surface:rgba(236,72,153,.08);--surface-2:rgba(236,72,153,.14);--border:rgba(236,72,153,.25);--text:#fce7f3;--muted:#f9a8d4;--accent:#ec4899;--accent-2:#a855f7;--danger:#fb7185;--panel:#1a0b2e;--panel-2:#12071f;--modal-bg:linear-gradient(165deg,#1a0b2e,#12071f);--shadow:0 22px 55px rgba(0,0,0,.6);--ring:rgba(236,72,153,.3)}
 html[data-theme="candy"]{--bg-1:#fef7f8;--bg-2:#fce7f3;--surface:rgba(255,255,255,.85);--surface-2:rgba(255,255,255,.98);--border:rgba(244,114,182,.2);--text:#831843;--muted:#be185d;--accent:#ec4899;--accent-2:#f472b6;--danger:#dc2626;--panel:#fff;--panel-2:#fdf2f8;--modal-bg:linear-gradient(165deg,#fff,#fdf2f8);--shadow:0 18px 45px rgba(244,114,182,.15);--ring:rgba(236,72,153,.18)}
 html[data-theme="mono"]{--bg-1:#0a0a0a;--bg-2:#171717;--surface:rgba(255,255,255,.05);--surface-2:rgba(255,255,255,.1);--border:rgba(255,255,255,.15);--text:#f5f5f5;--muted:#a3a3a3;--accent:#e5e5e5;--accent-2:#737373;--danger:#ef4444;--panel:#1a1a1a;--panel-2:#111;--modal-bg:linear-gradient(165deg,#1a1a1a,#111);--shadow:0 22px 55px rgba(0,0,0,.7);--ring:rgba(229,229,229,.2)}
+html[data-theme="royal"]{--bg-1:#0e0a1f;--bg-2:#1a1238;--surface:rgba(250,204,21,.06);--surface-2:rgba(250,204,21,.12);--border:rgba(250,204,21,.2);--text:#fdf6e3;--muted:#d6c27a;--accent:#facc15;--accent-2:#a78bfa;--danger:#f87171;--panel:#171233;--panel-2:#110d29;--modal-bg:linear-gradient(165deg,#171233,#110d29);--shadow:0 22px 55px rgba(0,0,0,.55);--ring:rgba(250,204,21,.25)}
+html[data-theme="royal"] body{background-image:radial-gradient(1000px 620px at 12% -12%,rgba(250,204,21,.13),transparent 60%),radial-gradient(900px 520px at 92% -5%,rgba(167,139,250,.16),transparent 58%),linear-gradient(160deg,var(--bg-1),var(--bg-2))}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html,body{min-height:100%}
 body{font-family:'Vazirmatn',ui-sans-serif,system-ui,sans-serif;color:var(--text);background-color:var(--bg-1);background-image:radial-gradient(1000px 620px at 12% -12%,rgba(74,222,128,.16),transparent 60%),radial-gradient(900px 520px at 92% -5%,rgba(34,211,238,.14),transparent 58%),linear-gradient(160deg,var(--bg-1),var(--bg-2));background-attachment:fixed;min-height:100vh;-webkit-font-smoothing:antialiased;overflow-x:hidden}
@@ -267,6 +269,7 @@ input[type=number]{-moz-appearance:textfield;text-align:center;font-weight:700}
 .theme-preview-neon{background:linear-gradient(135deg,#0a0416,#ec4899);border:1px solid rgba(236,72,153,.5)}
 .theme-preview-candy{background:linear-gradient(135deg,#fef7f8,#ec4899);border:1px solid rgba(236,72,153,.5)}
 .theme-preview-mono{background:linear-gradient(135deg,#0a0a0a,#a3a3a3);border:1px solid rgba(255,255,255,.3)}
+.theme-preview-royal{background:linear-gradient(135deg,#0e0a1f,#facc15);border:1px solid rgba(250,204,21,.5)}
 .server-selector{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px;margin-top:10px}
 .server-card{padding:14px 8px;border-radius:14px;border:2px solid var(--border);background:var(--surface-2);cursor:pointer;text-align:center;transition:.2s;position:relative}
 .server-card.active{border-color:var(--accent);background:linear-gradient(135deg,rgba(74,222,128,.15),rgba(34,211,238,.12))}
@@ -352,13 +355,13 @@ input[type=number]{-moz-appearance:textfield;text-align:center;font-weight:700}
     <div class="brand" data-action="goHome">
       <div class="logo">🏆</div>
       <div class="brand-text">
-        <h1 id="brandTitle">لیگ ورزش‌ها<span class="version-badge">v1.5.9</span></h1>
+        <h1 id="brandTitle">لیگ ورزش‌ها<span class="version-badge">v1.6.0</span></h1>
         <p id="brandSub">مدیریت نتایج مسابقات</p>
       </div>
     </div>
     <div class="top-actions">
       <button class="icon-btn" data-action="openFeedback" id="feedbackTopBtn" title="انتقادات و پیشنهادات">💬<span class="notif-badge" id="fbBadge" style="display:none">0</span></button>
-      <button class="icon-btn" data-action="openGuide" id="guideBtn">❓</button>
+      <button class="icon-btn" data-action="openGuide" id="guideBtn" title="تغییرات نسخه">🆕</button>
       <button class="icon-btn" data-action="openSettings" id="settingsBtn">⚙️</button>
     </div>
   </header>
@@ -372,7 +375,7 @@ input[type=number]{-moz-appearance:textfield;text-align:center;font-weight:700}
   <div class="status-bar" id="statusBar"></div>
   <nav class="tabs" id="tabs" style="display:none"></nav>
   <main id="view"></main>
-  <div class="footer" id="footer">لیگ ورزش‌ها • v1.5.9</div>
+  <div class="footer" id="footer">لیگ ورزش‌ها • v1.6.0</div>
 </div>
 
 <button class="debug-toggle" id="debugToggle" title="Debug">🐞</button>
@@ -426,7 +429,7 @@ const ADMIN_KEY = 'sports-league-admin-session';
 const SERVER_SEL_KEY = 'sports-league-server';
 const CLIENT_ID_KEY = 'sports-league-client-id';
 const FB_SEEN_KEY = 'sports-league-fb-seen';
-const VERSION = 'v1.5.9';
+const VERSION = 'v1.6.0';
 const MAX_MEMBERS = 15;
 
 const SUPABASE_URL = 'https://lwpyainlxrthddlockia.supabase.co';
@@ -440,6 +443,7 @@ if(!_myClientId){ _myClientId = 'c-' + Math.random().toString(36).slice(2, 12); 
 
 let userPrefs = { theme:'dark', lang:'fa', debugEnabled:false, firstVisitDone:false };
 try { const r = localStorage.getItem(USER_PREFS_KEY); if(r) Object.assign(userPrefs, JSON.parse(r)); } catch(e){}
+userPrefs.lang = 'fa';
 const saveUserPrefs = () => { try { localStorage.setItem(USER_PREFS_KEY, JSON.stringify(userPrefs)); } catch(e){} };
 
 let authed = false;
@@ -461,7 +465,7 @@ const I18N = {
     enterAdmin:'ورود به پنل مدیریت', exitAdmin:'خروج از مدیریت',
     tabTable:'جدول', tabBracket:'جدول حذفی', tabMatches:'بازی‌ها', tabAdmin:'مدیریت', tabNews:'اخبار',
     tabFeedback:'انتقادات و پیشنهادات',
-    settings:'تنظیمات', theme:'تم', dark:'تیره', light:'روشن', ocean:'اقیانوس', sunset:'غروب', forest:'جنگل', neon:'نئون', candy:'آب‌نباتی', mono:'تک‌رنگ',
+    settings:'تنظیمات', theme:'تم', dark:'تیره', light:'روشن', ocean:'اقیانوس', sunset:'غروب', forest:'جنگل', neon:'نئون', candy:'آب‌نباتی', mono:'تک‌رنگ', royal:'سلطنتی',
     language:'زبان', close:'بستن', save:'ذخیره', cancel:'انصراف',
     rank:'رتبه', team:'نام', played:'بازی', won:'برد', drawn:'مساوی', lost:'باخت',
     scored:'زده', conceded:'خورده', gd:'تفاضل', points:'امتیاز', score:'امتیاز',
@@ -481,7 +485,7 @@ const I18N = {
     allowDraw:'مساوی مجاز؟', yes:'بله', no:'خیر',
     activated:'فعال شد', deactivated:'غیرفعال شد', sportUpdated:'ذخیره شد',
     pickWinner:'برنده رو انتخاب کن', draw:'مساوی',
-    guide:'راهنما', dangerZone:'منطقه خطر', deleteAllData:'پاک کردن کل اطلاعات',
+    guide:'تغییرات نسخه', dangerZone:'منطقه خطر', deleteAllData:'پاک کردن کل اطلاعات',
     deleteAllDataHint:'همه چیز پاک می‌شه', confirmDeleteAll:'⚠️ مطمئنی؟', confirmDeleteAll2:'آخرین هشدار!',
     allDataDeleted:'همه اطلاعات پاک شد',
     mode:'حالت مسابقه', modeLeague:'لیگ', modeKnockout:'حذفی',
@@ -990,8 +994,7 @@ function themeCardFull(id, cls, name){
 function openFirstVisit(){
   openModal(
     '<div class="first-visit"><h2>🎉 ' + esc(t('welcomeTitle')) + '</h2><p>' + esc(t('welcomeText')) + '</p>' +
-    '<div style="text-align:start;margin-bottom:20px"><div class="section-title" style="text-transform:none">🌐 ' + esc(t('chooseLang')) + '</div><div class="lang-grid"><div class="lang-card ' + (userPrefs.lang==='fa'?'active':'') + '" data-action="setFirstLang" data-val="fa"><span class="flag">🇮🇷</span><span class="name">فارسی</span></div><div class="lang-card ' + (userPrefs.lang==='en'?'active':'') + '" data-action="setFirstLang" data-val="en"><span class="flag">🌐</span><span class="name">English</span></div></div></div>' +
-    '<div style="text-align:start;margin-bottom:20px"><div class="section-title" style="text-transform:none">🎨 ' + esc(t('chooseTheme')) + '</div><div class="theme-grid">' + themeCard('dark','theme-preview-dark',t('dark')) + themeCard('light','theme-preview-light',t('light')) + themeCard('ocean','theme-preview-ocean',t('ocean')) + themeCard('sunset','theme-preview-sunset',t('sunset')) + themeCard('forest','theme-preview-forest',t('forest')) + themeCard('neon','theme-preview-neon',t('neon')) + themeCard('candy','theme-preview-candy',t('candy')) + themeCard('mono','theme-preview-mono',t('mono')) + '</div></div>' +
+    '<div style="text-align:start;margin-bottom:20px"><div class="section-title" style="text-transform:none">🎨 ' + esc(t('chooseTheme')) + '</div><div class="theme-grid">' + themeCard('dark','theme-preview-dark',t('dark')) + themeCard('light','theme-preview-light',t('light')) + themeCard('ocean','theme-preview-ocean',t('ocean')) + themeCard('sunset','theme-preview-sunset',t('sunset')) + themeCard('forest','theme-preview-forest',t('forest')) + themeCard('neon','theme-preview-neon',t('neon')) + themeCard('candy','theme-preview-candy',t('candy')) + themeCard('mono','theme-preview-mono',t('mono')) + themeCard('royal','theme-preview-royal',t('royal')) + '</div></div>' +
     '<button class="btn primary block" data-action="finishFirstVisit">✓ ' + esc(t('continueBtn')) + '</button></div>'
   );
 }
@@ -1001,8 +1004,7 @@ function openSettings(){
   const theme = userPrefs.theme, lang = userPrefs.lang;
   let html = '<div class="modal-head"><h2>⚙️ ' + esc(t('settings')) + '</h2><button class="icon-btn sm" data-action="closeModal">✕</button></div>';
   html += '<div class="section-title" style="text-transform:none;color:var(--accent)">⚙️ ' + esc(t('generalSettings')) + '</div>';
-  html += '<div class="set-row" style="flex-direction:column;align-items:stretch"><div class="lbl">🎨 ' + t('theme') + '</div><div class="theme-grid">' + themeCardFull('dark','theme-preview-dark',t('dark')) + themeCardFull('light','theme-preview-light',t('light')) + themeCardFull('ocean','theme-preview-ocean',t('ocean')) + themeCardFull('sunset','theme-preview-sunset',t('sunset')) + themeCardFull('forest','theme-preview-forest',t('forest')) + themeCardFull('neon','theme-preview-neon',t('neon')) + themeCardFull('candy','theme-preview-candy',t('candy')) + themeCardFull('mono','theme-preview-mono',t('mono')) + '</div></div>';
-  html += '<div class="set-row"><div class="lbl">🌐 ' + t('language') + '</div><div class="seg"><button data-action="setLang" data-val="fa" class="' + (lang==='fa'?'active':'') + '">فارسی</button><button data-action="setLang" data-val="en" class="' + (lang==='en'?'active':'') + '">English</button></div></div>';
+  html += '<div class="set-row" style="flex-direction:column;align-items:stretch"><div class="lbl">🎨 ' + t('theme') + '</div><div class="theme-grid">' + themeCardFull('dark','theme-preview-dark',t('dark')) + themeCardFull('light','theme-preview-light',t('light')) + themeCardFull('ocean','theme-preview-ocean',t('ocean')) + themeCardFull('sunset','theme-preview-sunset',t('sunset')) + themeCardFull('forest','theme-preview-forest',t('forest')) + themeCardFull('neon','theme-preview-neon',t('neon')) + themeCardFull('candy','theme-preview-candy',t('candy')) + themeCardFull('mono','theme-preview-mono',t('mono')) + themeCardFull('royal','theme-preview-royal',t('royal')) + '</div></div>';
   html += '<div class="set-row"><div><div class="lbl">🐞 ' + t('debugMode') + '</div><div class="hint">' + t('debugHint') + '</div></div><button type="button" class="toggle ' + (userPrefs.debugEnabled?'on':'') + '" data-action="toggleUserDebug"></button></div>';
   const servers = state.settings.servers || [];
   html += '<div class="set-row" style="flex-direction:column;align-items:stretch"><div class="lbl" style="margin-bottom:6px">🌐 ' + t('chooseServer') + '</div><div class="server-selector">' + servers.map(s => '<div class="server-card ' + (s.id===currentServerId?'active':'') + '" data-action="switchServer" data-id="' + s.id + '">' + (s.password ? '<span class="lock">🔒</span>' : '') + '<span class="icon">' + (s.icon||'🟢') + '</span><div class="name">' + esc(s.name) + '</div></div>').join('') + '</div></div>';
@@ -1541,7 +1543,7 @@ function renderAdminScore(sp){
       const key = p.a.id + '|' + p.b.id;
       const res = sd.winners[key] || null;
       const isA = res && res.winner === 'a', isB = res && res.winner === 'b', isD = res && res.winner === 'draw';
-      return '<div class="wr-row ' + (res?'played':'') + '"><span class="wr-name home"><span>' + esc(p.a.name) + '</span><span class="tdot" style="background:' + esc(p.a.color) + '"></span></span><div class="wr-choice"><button class="wr-chip ' + (isA?'on':'') + '" data-action="pickWinner" data-sport="' + sp.id + '" data-a="' + p.a.id + '" data-b="' + p.b.id + '" data-w="a">' + (isA?'🏆':'🏳️') + '</button>' + (sp.allowDraw ? '<button class="wr-chip ' + (isD?'on-draw':'') + '" data-action="pickWinner" data-sport="' + sp.id + '" data-a="' + p.a.id + '" data-b="' + p.b.id + '" data-w="draw">🤝</button>' : '') + '<button class="wr-chip ' + (isB?'on':'') + '" data-action="pickWinner" data-sport="' + sp.id + '" data-a="' + p.a.id + '" data-b="' + p.b.id + '" data-w="b">' + (isB?'🏆':'🏳️') + '</button></div><span class="wr-name away"><span class="tdot" style="background:' + esc(p.b.color) + '"></span><span>' + esc(p.b.name) + '</span></span><div class="rr-actions">' + (res ? '<button class="rr-btn clear" data-action="clearWinner" data-sport="' + sp.id + '" data-key="' + key + '">✕</button>' : '') + '</div></div>';
+      return '<div class="wr-row ' + (res?'played':'') + '"><span class="wr-name home"><span>' + esc(p.a.name) + '</span><span class="tdot" style="background:' + esc(p.a.color) + '"></span></span><div class="wr-choice"><button class="wr-chip ' + (isA?'on':'') + '" data-action="pickWinner" data-sport="' + sp.id + '" data-a="' + p.a.id + '" data-b="' + p.b.id + '" data-w="a">' + (isA?'☑':'☐') + '</button>' + (sp.allowDraw ? '<button class="wr-chip ' + (isD?'on-draw':'') + '" data-action="pickWinner" data-sport="' + sp.id + '" data-a="' + p.a.id + '" data-b="' + p.b.id + '" data-w="draw">🤝</button>' : '') + '<button class="wr-chip ' + (isB?'on':'') + '" data-action="pickWinner" data-sport="' + sp.id + '" data-a="' + p.a.id + '" data-b="' + p.b.id + '" data-w="b">' + (isB?'☑':'☐') + '</button></div><span class="wr-name away"><span class="tdot" style="background:' + esc(p.b.color) + '"></span><span>' + esc(p.b.name) + '</span></span><div class="rr-actions">' + (res ? '<button class="rr-btn clear" data-action="clearWinner" data-sport="' + sp.id + '" data-key="' + key + '">✕</button>' : '') + '</div></div>';
     }
     return '<div class="rr-row ' + (p.matchId?'played':'') + '"><span class="rr-team home"><span>' + esc(p.a.name) + '</span><span class="tdot" style="background:' + esc(p.a.color) + '"></span></span><input class="rr-score" type="number" inputmode="numeric" min="0" max="' + (sp.maxScore||99) + '" value="' + (p.hg!==''?p.hg:'') + '" placeholder="–" data-score="hg" data-sport="' + sp.id + '"><span class="rr-vs">−</span><input class="rr-score" type="number" inputmode="numeric" min="0" max="' + (sp.maxScore||99) + '" value="' + (p.ag!==''?p.ag:'') + '" placeholder="–" data-score="ag" data-sport="' + sp.id + '"><span class="rr-team away"><span class="tdot" style="background:' + esc(p.b.color) + '"></span><span>' + esc(p.b.name) + '</span></span><div class="rr-actions"><button class="rr-btn save" data-action="savePair" data-sport="' + sp.id + '" data-a="' + p.a.id + '" data-b="' + p.b.id + '">✓</button>' + (p.matchId?'<button class="rr-btn clear" data-action="clearPair" data-sport="' + sp.id + '" data-id="' + p.matchId + '">✕</button>':'') + '</div></div>';
   }).join('') : '<p style="color:var(--muted);font-size:.85rem;padding:10px 0">' + t('needTwoTeams') + '</p>';
@@ -1559,7 +1561,7 @@ function renderAdminWinner(sp){
   const playedCount = pairs.filter(p => p.res).length;
   const rows = pairs.length ? pairs.map(p => {
     const r = p.res, isA = r && r.winner === 'a', isB = r && r.winner === 'b', isD = r && r.winner === 'draw';
-    return '<div class="wr-row ' + (r?'played':'') + '"><span class="wr-name home"><span>' + esc(p.a.name) + '</span><span class="tdot" style="background:' + esc(p.a.color) + '"></span></span><div class="wr-choice"><button class="wr-chip ' + (isA?'on':'') + '" data-action="pickWinner" data-sport="' + sp.id + '" data-a="' + p.a.id + '" data-b="' + p.b.id + '" data-w="a">' + (isA?'🏆':'🏳️') + '</button>' + (sp.allowDraw ? '<button class="wr-chip ' + (isD?'on-draw':'') + '" data-action="pickWinner" data-sport="' + sp.id + '" data-a="' + p.a.id + '" data-b="' + p.b.id + '" data-w="draw">🤝</button>' : '') + '<button class="wr-chip ' + (isB?'on':'') + '" data-action="pickWinner" data-sport="' + sp.id + '" data-a="' + p.a.id + '" data-b="' + p.b.id + '" data-w="b">' + (isB?'🏆':'🏳️') + '</button></div><span class="wr-name away"><span class="tdot" style="background:' + esc(p.b.color) + '"></span><span>' + esc(p.b.name) + '</span></span><div class="rr-actions">' + (r ? '<button class="rr-btn clear" data-action="clearWinner" data-sport="' + sp.id + '" data-key="' + p.key + '">✕</button>' : '') + '</div></div>';
+    return '<div class="wr-row ' + (r?'played':'') + '"><span class="wr-name home"><span>' + esc(p.a.name) + '</span><span class="tdot" style="background:' + esc(p.a.color) + '"></span></span><div class="wr-choice"><button class="wr-chip ' + (isA?'on':'') + '" data-action="pickWinner" data-sport="' + sp.id + '" data-a="' + p.a.id + '" data-b="' + p.b.id + '" data-w="a">' + (isA?'☑':'☐') + '</button>' + (sp.allowDraw ? '<button class="wr-chip ' + (isD?'on-draw':'') + '" data-action="pickWinner" data-sport="' + sp.id + '" data-a="' + p.a.id + '" data-b="' + p.b.id + '" data-w="draw">🤝</button>' : '') + '<button class="wr-chip ' + (isB?'on':'') + '" data-action="pickWinner" data-sport="' + sp.id + '" data-a="' + p.a.id + '" data-b="' + p.b.id + '" data-w="b">' + (isB?'☑':'☐') + '</button></div><span class="wr-name away"><span class="tdot" style="background:' + esc(p.b.color) + '"></span><span>' + esc(p.b.name) + '</span></span><div class="rr-actions">' + (r ? '<button class="rr-btn clear" data-action="clearWinner" data-sport="' + sp.id + '" data-key="' + p.key + '">✕</button>' : '') + '</div></div>';
   }).join('') : '<p style="color:var(--muted);font-size:.85rem;padding:10px 0">' + t('needTwoTeams') + '</p>';
   return '<div class="section fade"><div class="section-title">🔐 ' + t('adminPanel') + '<span style="margin-inline-start:auto;font-weight:600;text-transform:none">' + num(playedCount) + ' / ' + num(pairs.length) + '</span></div>' + teamListBlock(sp) + '<div class="card"><div class="section-title" style="margin:0 0 12px">🏆 ' + t('pickWinner') + '</div><div>' + rows + '</div></div></div>';
 }
@@ -2058,7 +2060,7 @@ function openPalette(sportId, teamId){
 }
 
 function openGuide(){
-  openModal('<div class="modal-head"><h2>❓ ' + t('guide') + '</h2><button class="icon-btn sm" data-action="closeModal">✕</button></div><div style="padding:10px 0"><h3 style="font-size:.9rem;font-weight:800;margin-bottom:8px">🏆 v1.5.9</h3><p style="font-size:.8rem;color:var(--muted);line-height:1.8">۸ تم، ۲ زبان، ۳ سرور، فصل‌ها، وبلاگ با تصویر، جدول حذفی، انتقادات و پیشنهادات</p></div><div style="padding:10px 0;border-top:1px solid var(--border)"><h3 style="font-size:.9rem;font-weight:800;margin-bottom:8px">💬 انتقادات و پیشنهادات</h3><p style="font-size:.8rem;color:var(--muted);line-height:1.8">می‌تونی با اسم، عنوان و متن، نظر یا انتقادت رو ثبت کنی. مدیر اون‌ها رو می‌بینه.</p></div><button class="btn block" data-action="closeModal" style="margin-top:16px">' + t('close') + '</button>');
+  openModal('<div class="modal-head"><h2>❓ ' + t('guide') + '</h2><button class="icon-btn sm" data-action="closeModal">✕</button></div><div style="padding:10px 0"><h3 style="font-size:.9rem;font-weight:800;margin-bottom:8px">🏆 v1.6.0</h3><p style="font-size:.8rem;color:var(--muted);line-height:1.8">۸ تم، ۲ زبان، ۳ سرور، فصل‌ها، وبلاگ با تصویر، جدول حذفی، انتقادات و پیشنهادات</p></div><div style="padding:10px 0;border-top:1px solid var(--border)"><h3 style="font-size:.9rem;font-weight:800;margin-bottom:8px">💬 انتقادات و پیشنهادات</h3><p style="font-size:.8rem;color:var(--muted);line-height:1.8">می‌تونی با اسم، عنوان و متن، نظر یا انتقادت رو ثبت کنی. مدیر اون‌ها رو می‌بینه.</p></div><button class="btn block" data-action="closeModal" style="margin-top:16px">' + t('close') + '</button>');
 }
 
 /* ============ DEBUG PANEL ============ */
@@ -2193,9 +2195,9 @@ document.addEventListener('keydown', e => {
   DEBUG.ok('Ready');
 })();
 </script>
-<!-- v1.5.9: این بلوک را قبل از </body> و بعد از اسکریپت اصلی index.html بچسبانید -->
+<!-- v1.6.0: این بلوک را قبل از </body> و بعد از اسکریپت اصلی index.html بچسبانید -->
 <script>
-/* لیگ ورزش‌ها — افزونه v1.5.9 */
+/* لیگ ورزش‌ها — افزونه v1.6.0 */
 (function(){
 var gender='men';
 var G={men:'آقایان',women:'بانوان'};
@@ -2455,9 +2457,9 @@ function decorate(){
 function fixTexts(){
   var tb=document.getElementById('feedbackTopBtn'); if(tb) tb.title=NEW;
   var ab=document.querySelector('#feedbackActionBtn span:last-child'); if(ab) ab.textContent=NEW;
-  document.querySelectorAll('.version-badge').forEach(function(b){b.textContent='v1.5.9';});
-  var f=document.getElementById('footer'); if(f) f.textContent='لیگ ورزش‌ها • v1.5.9';
-  document.title=document.title.replace('v1.4.0','v1.5.9');
+  document.querySelectorAll('.version-badge').forEach(function(b){b.textContent='v1.6.0';});
+  var f=document.getElementById('footer'); if(f) f.textContent='لیگ ورزش‌ها • v1.6.0';
+  document.title=document.title.replace('v1.4.0','v1.6.0');
 }
 
 /* ---------- 6) جدول حذفی: اندازه توان ۲ (حداقل ۴) + استراحت تصادفی ---------- */
@@ -2500,8 +2502,6 @@ function bracketFix(){
 
 var _render=render;
 render=function(){_render();decorate();bracketFix();fixTexts();};
-var _guide=openGuide;
-openGuide=function(){_guide();modalEl.innerHTML=modalEl.innerHTML.split(OLD).join(NEW).replace('v1.4.0','v1.5.9');};
 
 document.addEventListener('click',function(e){
   var el=e.target.closest('[data-action]'); if(!el) return;
@@ -2956,6 +2956,60 @@ render=function(){_render8();bracketThird();};
 var st8=document.createElement('style');
 st8.textContent='.adm-row,.adm-add{display:grid;grid-template-columns:1fr 1fr auto;gap:6px}';
 document.head.appendChild(st8);
+
+/* ---------- 9) نسخه 1.6.0 ---------- */
+/* 9-a) شطرنج و ورزش‌های «فقط برنده»: انتخاب برنده با تیک */
+function tickify(){
+  if(currentView!=='sport'||!authed||currentTab!=='admin') return;
+  var sp=getSport(currentSportId); if(!sp||sp.type!=='winner') return;
+  document.querySelectorAll('#view .bracket-match').forEach(function(row){
+    var inp=row.querySelector('[data-bracket=hg],[data-third=hg],[data-man=hg]'); if(!inp) return;
+    var kind=inp.hasAttribute('data-bracket')?'ko':inp.hasAttribute('data-third')?'third':'man';
+    var ta=row.querySelector('.bm-team.a'), tb=row.querySelector('.bm-team.b'); if(!ta||!tb) return;
+    var wa=ta.classList.contains('winner'), wb=tb.classList.contains('winner');
+    var na=ta.innerText.trim(), nb=tb.innerText.trim();
+    var can=!inp.disabled&&!/استراحت|در انتظار/.test(na+' '+nb);
+    var at=' data-sport="'+sp.id+'"'+(kind==='ko'?' data-round="'+inp.dataset.round+'" data-match="'+inp.dataset.match+'"':kind==='man'?' data-id="'+row.dataset.mid+'"':'');
+    var btn=function(w,on,nm){return '<button class="wr-chip '+(on?'on':'')+'" data-action="tickWin" data-kind="'+kind+'" data-w="'+w+'"'+at+(can?'':' disabled')+'>'+(on?'☑ ':'☐ ')+esc(nm)+'</button>';};
+    row.style.cssText='display:flex;gap:10px;justify-content:center;align-items:center;flex-wrap:wrap';
+    row.innerHTML=btn('a',wa,na)+'<span class="bm-sep">vs</span>'+btn('b',wb,nb)+(kind==='man'?'<button class="rr-btn clear" data-action="manDel"'+at+'>✕</button>':'');
+  });
+}
+function toggleWin(m,w){
+  if(m.winner===w){m.winner=null;m.hg=m.ag=null;}
+  else{m.winner=w;m.hg=w==='a'?1:0;m.ag=w==='a'?0:1;}
+}
+document.addEventListener('click',function(e){
+  var el=e.target.closest('[data-action=tickWin]'); if(!el||el.disabled) return;
+  var sp=getSport(el.dataset.sport); if(!sp) return; var sd=getCurrentSeason(sp), k=el.dataset.kind, w=el.dataset.w;
+  if(k==='ko'){
+    var ri=parseInt(el.dataset.round,10), m=sd.bracket[ri].matches.find(function(x){return x.id===el.dataset.match;}); if(!m) return;
+    toggleWin(m,w);
+    for(var r=ri+1;r<sd.bracket.length;r++) sd.bracket[r].matches.forEach(function(x){x.a=null;x.b=null;x.hg=null;x.ag=null;x.winner=null;});
+    sd.champion=null; propagateBracket(sd);
+  } else if(k==='third'){ if(!sd.third) return; toggleWin(sd.third,w); }
+  else { var mm2=(sd.manualMatches||[]).find(function(x){return x.id===el.dataset.id;}); if(!mm2) return; toggleWin(mm2,w); }
+  save(); render();
+});
+var _r9=render;
+render=function(){_r9();tickify();};
+
+/* 9-b) تغییرات نسخه */
+var LOG=[
+ ['v1.6.0',['شطرنج و ورزش‌های «فقط برنده»: انتخاب برنده با تیک','حذف گزینه زبان انگلیسی','تم جدید «سلطنتی»','«راهنما» به «تغییرات نسخه» تبدیل شد']],
+ ['v1.5.9',['نام فصل در گزارش کامل یک‌بار و برجسته نمایش داده می‌شود و بعد از آن فقط نام ورزش‌ها']],
+ ['v1.5.8',['انتخاب فصل در «گزارش کامل همه ورزش‌ها (PDF)»']],
+ ['v1.5.7',['امتیازدهی حالت مختلط: برد پاک ۳ و ۰، برد نزدیک ۲ و ۱']],
+ ['v1.5.6',['امکان قرار دادن برندگان حالت مختلط در یک گروه']],
+ ['v1.5.5',['نام کاربری اجباری برای مدیران','حالت‌های جام و مختلط','بازی رده‌بندی (سوم و چهارم)','تنظیمات هر رشته برای هر فصل','ثبت نتیجه در جدول دستی','اولویت زودتر رسیدن در تساوی دارت و تیراندازی','پیام‌های انتقادات فقط برای مدیران قابل مشاهده است','ساخت خبر فقط برای مدیران']],
+ ['v1.5.0',['قالب بانوان و آقایان در هر فصل','نام فصل مسابقات','۵ نمره دارت و تیراندازی و خروجی PDF','جدول حذفی توان ۲ با استراحت تصادفی','چند مدیر هم‌زمان','نصب برنامه (PWA)']]
+];
+openGuide=function(){
+  var h=LOG.map(function(v,i){return '<div style="padding:10px 0;'+(i?'border-top:1px solid var(--border)':'')+'"><h3 style="font-size:.9rem;font-weight:800;margin-bottom:6px">🏷️ '+v[0]+(i===0?' <span style="font-size:.65rem;color:var(--accent)">(نسخه فعلی)</span>':'')+'</h3><ul style="font-size:.8rem;color:var(--muted);line-height:1.9;padding-inline-start:18px">'+v[1].map(function(x){return '<li>'+esc(x)+'</li>';}).join('')+'</ul></div>';}).join('');
+  openModal('<div class="modal-head"><h2>🆕 تغییرات نسخه</h2><button class="icon-btn sm" data-action="closeModal">✕</button></div><div style="max-height:60vh;overflow-y:auto">'+h+'</div><button class="btn block" data-action="closeModal" style="margin-top:14px">'+t('close')+'</button>');
+};
+var gb=document.getElementById('guideBtn'); if(gb){gb.textContent='🆕';gb.title='تغییرات نسخه';}
+I18N.fa.guide='تغییرات نسخه';
 
 /* ---------- 7) PWA: manifest + service worker ---------- */
 (function(){
