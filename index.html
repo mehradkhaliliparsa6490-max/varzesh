@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#070b14">
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icon-192.png">
-<title>لیگ ورزش‌ها v1.6.0</title>
+<title>لیگ ورزش‌ها v1.6.1</title>
 <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
@@ -355,7 +355,7 @@ input[type=number]{-moz-appearance:textfield;text-align:center;font-weight:700}
     <div class="brand" data-action="goHome">
       <div class="logo">🏆</div>
       <div class="brand-text">
-        <h1 id="brandTitle">لیگ ورزش‌ها<span class="version-badge">v1.6.0</span></h1>
+        <h1 id="brandTitle">لیگ ورزش‌ها<span class="version-badge">v1.6.1</span></h1>
         <p id="brandSub">مدیریت نتایج مسابقات</p>
       </div>
     </div>
@@ -375,7 +375,7 @@ input[type=number]{-moz-appearance:textfield;text-align:center;font-weight:700}
   <div class="status-bar" id="statusBar"></div>
   <nav class="tabs" id="tabs" style="display:none"></nav>
   <main id="view"></main>
-  <div class="footer" id="footer">لیگ ورزش‌ها • v1.6.0</div>
+  <div class="footer" id="footer">لیگ ورزش‌ها • v1.6.1</div>
 </div>
 
 <button class="debug-toggle" id="debugToggle" title="Debug">🐞</button>
@@ -429,7 +429,7 @@ const ADMIN_KEY = 'sports-league-admin-session';
 const SERVER_SEL_KEY = 'sports-league-server';
 const CLIENT_ID_KEY = 'sports-league-client-id';
 const FB_SEEN_KEY = 'sports-league-fb-seen';
-const VERSION = 'v1.6.0';
+const VERSION = 'v1.6.1';
 const MAX_MEMBERS = 15;
 
 const SUPABASE_URL = 'https://lwpyainlxrthddlockia.supabase.co';
@@ -2060,7 +2060,7 @@ function openPalette(sportId, teamId){
 }
 
 function openGuide(){
-  openModal('<div class="modal-head"><h2>❓ ' + t('guide') + '</h2><button class="icon-btn sm" data-action="closeModal">✕</button></div><div style="padding:10px 0"><h3 style="font-size:.9rem;font-weight:800;margin-bottom:8px">🏆 v1.6.0</h3><p style="font-size:.8rem;color:var(--muted);line-height:1.8">۸ تم، ۲ زبان، ۳ سرور، فصل‌ها، وبلاگ با تصویر، جدول حذفی، انتقادات و پیشنهادات</p></div><div style="padding:10px 0;border-top:1px solid var(--border)"><h3 style="font-size:.9rem;font-weight:800;margin-bottom:8px">💬 انتقادات و پیشنهادات</h3><p style="font-size:.8rem;color:var(--muted);line-height:1.8">می‌تونی با اسم، عنوان و متن، نظر یا انتقادت رو ثبت کنی. مدیر اون‌ها رو می‌بینه.</p></div><button class="btn block" data-action="closeModal" style="margin-top:16px">' + t('close') + '</button>');
+  openModal('<div class="modal-head"><h2>❓ ' + t('guide') + '</h2><button class="icon-btn sm" data-action="closeModal">✕</button></div><div style="padding:10px 0"><h3 style="font-size:.9rem;font-weight:800;margin-bottom:8px">🏆 v1.6.1</h3><p style="font-size:.8rem;color:var(--muted);line-height:1.8">۸ تم، ۲ زبان، ۳ سرور، فصل‌ها، وبلاگ با تصویر، جدول حذفی، انتقادات و پیشنهادات</p></div><div style="padding:10px 0;border-top:1px solid var(--border)"><h3 style="font-size:.9rem;font-weight:800;margin-bottom:8px">💬 انتقادات و پیشنهادات</h3><p style="font-size:.8rem;color:var(--muted);line-height:1.8">می‌تونی با اسم، عنوان و متن، نظر یا انتقادت رو ثبت کنی. مدیر اون‌ها رو می‌بینه.</p></div><button class="btn block" data-action="closeModal" style="margin-top:16px">' + t('close') + '</button>');
 }
 
 /* ============ DEBUG PANEL ============ */
@@ -2195,9 +2195,9 @@ document.addEventListener('keydown', e => {
   DEBUG.ok('Ready');
 })();
 </script>
-<!-- v1.6.0: این بلوک را قبل از </body> و بعد از اسکریپت اصلی index.html بچسبانید -->
+<!-- v1.6.1: این بلوک را قبل از </body> و بعد از اسکریپت اصلی index.html بچسبانید -->
 <script>
-/* لیگ ورزش‌ها — افزونه v1.6.0 */
+/* لیگ ورزش‌ها — افزونه v1.6.1 */
 (function(){
 var gender='men';
 var G={men:'آقایان',women:'بانوان'};
@@ -2457,9 +2457,9 @@ function decorate(){
 function fixTexts(){
   var tb=document.getElementById('feedbackTopBtn'); if(tb) tb.title=NEW;
   var ab=document.querySelector('#feedbackActionBtn span:last-child'); if(ab) ab.textContent=NEW;
-  document.querySelectorAll('.version-badge').forEach(function(b){b.textContent='v1.6.0';});
-  var f=document.getElementById('footer'); if(f) f.textContent='لیگ ورزش‌ها • v1.6.0';
-  document.title=document.title.replace('v1.4.0','v1.6.0');
+  document.querySelectorAll('.version-badge').forEach(function(b){b.textContent='v1.6.1';});
+  var f=document.getElementById('footer'); if(f) f.textContent='لیگ ورزش‌ها • v1.6.1';
+  document.title=document.title.replace('v1.4.0','v1.6.1');
 }
 
 /* ---------- 6) جدول حذفی: اندازه توان ۲ (حداقل ۴) + استراحت تصادفی ---------- */
@@ -2996,6 +2996,7 @@ render=function(){_r9();tickify();};
 
 /* 9-b) تغییرات نسخه */
 var LOG=[
+ ['v1.6.1',['چیدمان دستی شرکت‌کنندگان در جدول حذفی']],
  ['v1.6.0',['شطرنج و ورزش‌های «فقط برنده»: انتخاب برنده با تیک','حذف گزینه زبان انگلیسی','تم جدید «سلطنتی»','«راهنما» به «تغییرات نسخه» تبدیل شد']],
  ['v1.5.9',['نام فصل در گزارش کامل یک‌بار و برجسته نمایش داده می‌شود و بعد از آن فقط نام ورزش‌ها']],
  ['v1.5.8',['انتخاب فصل در «گزارش کامل همه ورزش‌ها (PDF)»']],
@@ -3010,6 +3011,50 @@ openGuide=function(){
 };
 var gb=document.getElementById('guideBtn'); if(gb){gb.textContent='🆕';gb.title='تغییرات نسخه';}
 I18N.fa.guide='تغییرات نسخه';
+
+/* ---------- 10) چیدمان دستی جدول حذفی ---------- */
+function koSize(n){var z=4;while(z<n)z*=2;return z;}
+function koManualCard(sp){
+  var sd=getCurrentSeason(sp), n=sd.teams.length;
+  if(n<2) return '';
+  var size=koSize(n), m1=size/2, key=sp.currentSeasonId+gender;
+  var h='<div class="card" style="margin-top:12px"><div class="section-title" style="margin:0 0 10px">✋ چیدمان دستی جدول</div>';
+  if(ui.ko!==key) return h+'<p style="color:var(--muted);font-size:.8rem;margin-bottom:10px">جایگاه هر شرکت‌کننده را در جدول '+num(size)+' نفره خودتان تعیین کنید (جای خالی = استراحت).</p><button class="btn primary block" data-action="koManualOpen" data-sport="'+sp.id+'">✋ شروع چیدمان دستی</button></div>';
+  var old=(sd.bracket&&sd.bracket[0]&&sd.bracket[0].matches.length===m1)?sd.bracket[0].matches:null;
+  var opts=function(sel){return '<option value="">— استراحت —</option>'+sd.teams.map(function(x){return '<option value="'+x.id+'"'+(x.id===sel?' selected':'')+'>'+esc(x.name)+'</option>';}).join('');};
+  var rows='';
+  for(var i=0;i<m1;i++){
+    var a,b;
+    if(old){a=old[i].a;b=old[i].b;} else {a=sd.teams[2*i]?sd.teams[2*i].id:'';b=sd.teams[2*i+1]?sd.teams[2*i+1].id:'';}
+    rows+='<div class="manual-match-row" style="grid-template-columns:auto 1fr auto 1fr"><b style="font-size:.75rem;color:var(--muted)">'+num(i+1)+'</b><select class="input" data-ks="'+i+'a">'+opts(a)+'</select><span class="rr-vs">vs</span><select class="input" data-ks="'+i+'b">'+opts(b)+'</select></div>';
+  }
+  return h+'<div class="hint-box" style="font-size:.75rem">جدول <b>'+num(size)+'</b> نفره • '+num(n)+' شرکت‌کننده • '+num(size-n)+' جای خالی (استراحت). برندگان بازی‌های ۱ و ۲، ۳ و ۴ و ... در دور بعد به هم می‌رسند. هر شرکت‌کننده فقط یک‌بار و هر بازی حداکثر یک استراحت می‌تواند داشته باشد.</div>'+rows+'<div style="display:flex;gap:8px;margin-top:10px"><button class="btn primary" data-action="koManualApply" data-sport="'+sp.id+'">✓ ساخت جدول با این چیدمان</button><button class="btn" data-action="koManualCancel">انصراف</button></div></div>';
+}
+var _rab=renderAdminBracket;
+renderAdminBracket=function(sp){return _rab(sp)+koManualCard(sp);};
+document.addEventListener('click',function(e){
+  var el=e.target.closest('[data-action]'); if(!el) return; var a=el.dataset.action;
+  if(a==='koManualOpen'){var sp=getSport(el.dataset.sport);if(!sp)return;ui.ko=sp.currentSeasonId+gender;render();}
+  else if(a==='koManualCancel'){ui.ko=null;render();}
+  else if(a==='koManualApply'){
+    var sp2=getSport(el.dataset.sport); if(!sp2) return; var sd=getCurrentSeason(sp2), n=sd.teams.length, m1=koSize(n)/2;
+    var used={}, r1=[];
+    for(var i=0;i<m1;i++){
+      var A=document.querySelector('[data-ks="'+i+'a"]').value, B=document.querySelector('[data-ks="'+i+'b"]').value;
+      if(!A&&!B){toast('بازی '+num(i+1)+' نمی‌تواند هر دو جای خالی باشد');return;}
+      if(A&&A===B){toast('در بازی '+num(i+1)+' یک نفر دو بار انتخاب شده است');return;}
+      [A,B].forEach(function(id){if(id)used[id]=(used[id]||0)+1;});
+      r1.push({id:uid(),a:A||null,b:B||null,hg:null,ag:null,winner:(A&&!B)?'a':((!A&&B)?'b':null)});
+    }
+    var dup=Object.keys(used).filter(function(k){return used[k]>1;});
+    if(dup.length){var tm=sd.teams.find(function(x){return x.id===dup[0];});toast('«'+(tm?tm.name:'')+'» بیش از یک‌بار در جدول است');return;}
+    if(Object.keys(used).length!==n){toast('همه '+num(n)+' شرکت‌کننده باید در جدول قرار بگیرند');return;}
+    var played=sd.bracket&&sd.bracket.some(function(r){return r.matches.some(function(m){return m.hg!=null;});});
+    if(played&&!confirm(t('confirmRegenerate'))) return;
+    sd.bracket=buildRounds(r1);sd.champion=null;sd.third=null;propagateBracket(sd);
+    ui.ko=null;save();render();toast('🏆 '+t('bracketGenerated'));
+  }
+});
 
 /* ---------- 7) PWA: manifest + service worker ---------- */
 (function(){
