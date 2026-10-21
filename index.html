@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#070b14">
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icon-192.png">
-<title>لیگ ورزش‌ها v1.6.1</title>
+<title>لیگ ورزش‌ها v1.6.2</title>
 <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
@@ -355,7 +355,7 @@ input[type=number]{-moz-appearance:textfield;text-align:center;font-weight:700}
     <div class="brand" data-action="goHome">
       <div class="logo">🏆</div>
       <div class="brand-text">
-        <h1 id="brandTitle">لیگ ورزش‌ها<span class="version-badge">v1.6.1</span></h1>
+        <h1 id="brandTitle">لیگ ورزش‌ها<span class="version-badge">v1.6.2</span></h1>
         <p id="brandSub">مدیریت نتایج مسابقات</p>
       </div>
     </div>
@@ -375,7 +375,7 @@ input[type=number]{-moz-appearance:textfield;text-align:center;font-weight:700}
   <div class="status-bar" id="statusBar"></div>
   <nav class="tabs" id="tabs" style="display:none"></nav>
   <main id="view"></main>
-  <div class="footer" id="footer">لیگ ورزش‌ها • v1.6.1</div>
+  <div class="footer" id="footer">لیگ ورزش‌ها • v1.6.2</div>
 </div>
 
 <button class="debug-toggle" id="debugToggle" title="Debug">🐞</button>
@@ -429,7 +429,7 @@ const ADMIN_KEY = 'sports-league-admin-session';
 const SERVER_SEL_KEY = 'sports-league-server';
 const CLIENT_ID_KEY = 'sports-league-client-id';
 const FB_SEEN_KEY = 'sports-league-fb-seen';
-const VERSION = 'v1.6.1';
+const VERSION = 'v1.6.2';
 const MAX_MEMBERS = 15;
 
 const SUPABASE_URL = 'https://lwpyainlxrthddlockia.supabase.co';
@@ -2060,7 +2060,7 @@ function openPalette(sportId, teamId){
 }
 
 function openGuide(){
-  openModal('<div class="modal-head"><h2>❓ ' + t('guide') + '</h2><button class="icon-btn sm" data-action="closeModal">✕</button></div><div style="padding:10px 0"><h3 style="font-size:.9rem;font-weight:800;margin-bottom:8px">🏆 v1.6.1</h3><p style="font-size:.8rem;color:var(--muted);line-height:1.8">۸ تم، ۲ زبان، ۳ سرور، فصل‌ها، وبلاگ با تصویر، جدول حذفی، انتقادات و پیشنهادات</p></div><div style="padding:10px 0;border-top:1px solid var(--border)"><h3 style="font-size:.9rem;font-weight:800;margin-bottom:8px">💬 انتقادات و پیشنهادات</h3><p style="font-size:.8rem;color:var(--muted);line-height:1.8">می‌تونی با اسم، عنوان و متن، نظر یا انتقادت رو ثبت کنی. مدیر اون‌ها رو می‌بینه.</p></div><button class="btn block" data-action="closeModal" style="margin-top:16px">' + t('close') + '</button>');
+  openModal('<div class="modal-head"><h2>❓ ' + t('guide') + '</h2><button class="icon-btn sm" data-action="closeModal">✕</button></div><div style="padding:10px 0"><h3 style="font-size:.9rem;font-weight:800;margin-bottom:8px">🏆 v1.6.2</h3><p style="font-size:.8rem;color:var(--muted);line-height:1.8">۸ تم، ۲ زبان، ۳ سرور، فصل‌ها، وبلاگ با تصویر، جدول حذفی، انتقادات و پیشنهادات</p></div><div style="padding:10px 0;border-top:1px solid var(--border)"><h3 style="font-size:.9rem;font-weight:800;margin-bottom:8px">💬 انتقادات و پیشنهادات</h3><p style="font-size:.8rem;color:var(--muted);line-height:1.8">می‌تونی با اسم، عنوان و متن، نظر یا انتقادت رو ثبت کنی. مدیر اون‌ها رو می‌بینه.</p></div><button class="btn block" data-action="closeModal" style="margin-top:16px">' + t('close') + '</button>');
 }
 
 /* ============ DEBUG PANEL ============ */
@@ -2195,9 +2195,9 @@ document.addEventListener('keydown', e => {
   DEBUG.ok('Ready');
 })();
 </script>
-<!-- v1.6.1: این بلوک را قبل از </body> و بعد از اسکریپت اصلی index.html بچسبانید -->
+<!-- v1.6.2: این بلوک را قبل از </body> و بعد از اسکریپت اصلی index.html بچسبانید -->
 <script>
-/* لیگ ورزش‌ها — افزونه v1.6.1 */
+/* لیگ ورزش‌ها — افزونه v1.6.2 */
 (function(){
 var gender='men';
 var G={men:'آقایان',women:'بانوان'};
@@ -2452,14 +2452,14 @@ function decorate(){
   var old=view.querySelector('.season-bar'); if(old) old.remove();
   var chips=sp.seasons.map(function(sn){return '<div class="season-chip '+(sn.id===sp.currentSeasonId?'active':'')+'" data-action="switchSeason" data-sport="'+sp.id+'" data-season="'+sn.id+'">'+esc(sn.name)+'</div>';}).join('');
   var adm=authed?'<div class="season-chip" data-action="addSeason" data-sport="'+sp.id+'">＋ فصل جدید</div><div class="season-chip" data-action="renameSeason" data-sport="'+sp.id+'">✏️ نام فصل</div>':'';
-  hdr.insertAdjacentHTML('afterend','<div class="gender-bar"><button class="gender-btn '+(gender==='women'?'on':'')+'" data-action="setGender" data-val="women">👩 بانوان</button><button class="gender-btn '+(gender==='men'?'on':'')+'" data-action="setGender" data-val="men">👨 آقایان</button></div><div class="season-bar">'+chips+adm+'</div><button class="btn block" data-action="exportPdf" data-sport="'+sp.id+'" style="margin-bottom:12px">📄 خروجی PDF نتایج و مسابقات</button>');
+  hdr.insertAdjacentHTML('afterend','<div class="gender-bar"><button class="gender-btn '+(gender==='women'?'on':'')+'" data-action="setGender" data-val="women">👩 بانوان</button><button class="gender-btn '+(gender==='men'?'on':'')+'" data-action="setGender" data-val="men">👨 آقایان</button></div><div class="season-bar">'+chips+adm+'</div><button class="btn block" data-action="exportPdf" data-sport="'+sp.id+'" style="margin-bottom:12px">📄 خروجی PDF نتایج و مسابقات</button>'+(authed?'<button class="btn block" data-action="exportFx" data-sport="'+sp.id+'" style="margin-bottom:12px">🗓️ برنامه بازی‌ها (PDF) — ویژه برگزارکنندگان</button>':''));
 }
 function fixTexts(){
   var tb=document.getElementById('feedbackTopBtn'); if(tb) tb.title=NEW;
   var ab=document.querySelector('#feedbackActionBtn span:last-child'); if(ab) ab.textContent=NEW;
-  document.querySelectorAll('.version-badge').forEach(function(b){b.textContent='v1.6.1';});
-  var f=document.getElementById('footer'); if(f) f.textContent='لیگ ورزش‌ها • v1.6.1';
-  document.title=document.title.replace('v1.4.0','v1.6.1');
+  document.querySelectorAll('.version-badge').forEach(function(b){b.textContent='v1.6.2';});
+  var f=document.getElementById('footer'); if(f) f.textContent='لیگ ورزش‌ها • v1.6.2';
+  document.title=document.title.replace('v1.4.0','v1.6.2');
 }
 
 /* ---------- 6) جدول حذفی: اندازه توان ۲ (حداقل ۴) + استراحت تصادفی ---------- */
@@ -2996,6 +2996,7 @@ render=function(){_r9();tickify();};
 
 /* 9-b) تغییرات نسخه */
 var LOG=[
+ ['v1.6.2',['برنامه بازی‌ها (PDF) ویژه برگزارکنندگان: فهرست همه بازی‌ها تا پایان مسابقات','اصلاح «جدول دستی»: گزینه همان‌لحظه پس از انتخاب «حذفی» نمایش داده می‌شود و تیم دوم به‌طور پیش‌فرض متفاوت انتخاب می‌شود']],
  ['v1.6.1',['چیدمان دستی شرکت‌کنندگان در جدول حذفی']],
  ['v1.6.0',['شطرنج و ورزش‌های «فقط برنده»: انتخاب برنده با تیک','حذف گزینه زبان انگلیسی','تم جدید «سلطنتی»','«راهنما» به «تغییرات نسخه» تبدیل شد']],
  ['v1.5.9',['نام فصل در گزارش کامل یک‌بار و برجسته نمایش داده می‌شود و بعد از آن فقط نام ورزش‌ها']],
@@ -3055,6 +3056,204 @@ document.addEventListener('click',function(e){
     ui.ko=null;save();render();toast('🏆 '+t('bracketGenerated'));
   }
 });
+
+/* ---------- 11) برنامه بازی‌ها (ویژه برگزارکنندگان) ---------- */
+var reportKind='res';
+function rrSchedule(ids){
+  var a=ids.slice(); if(a.length%2) a.push(null);
+  var n=a.length, rounds=[];
+  for(var r=0;r<n-1;r++){
+    var ms=[]; for(var i=0;i<n/2;i++){var x=a[i],y=a[n-1-i]; if(x&&y) ms.push([x,y]);}
+    rounds.push(ms); a.splice(1,0,a.pop());
+  }
+  return rounds;
+}
+function resScore(sd,list,x,y){
+  var m=(list||[]).find(function(q){return (q.home===x&&q.away===y)||(q.home===y&&q.away===x);});
+  if(!m||m.hg==null) return '';
+  return m.home===x?num(m.hg)+' − '+num(m.ag):num(m.ag)+' − '+num(m.hg);
+}
+function resWin(sd,x,y){
+  var W=sd.winners||{}, w=W[x+'|'+y]||W[y+'|'+x]; if(!w) return '';
+  if(w.winner==='draw') return 'مساوی';
+  return '🏆 '+tn(sd,w.winner==='a'?w.a:w.b);
+}
+function fxTable(rows){
+  return '<table class="fx"><thead><tr><th>بازی</th><th>تیم اول</th><th>تیم دوم</th><th>زمان / مکان</th><th>نتیجه</th></tr></thead><tbody>'+rows.map(function(r){
+    if(r.title) return '<tr class="fxr"><td colspan="5">'+r.title+'</td></tr>';
+    return '<tr><td>'+(r.n?num(r.n):'—')+'</td><td class="n">'+r.a+'</td><td class="n">'+r.b+'</td><td class="blank"></td><td class="res">'+(r.res||'')+'</td></tr>';
+  }).join('')+'</tbody></table>';
+}
+function rrRows(sd,ids,ctr,resFn){
+  var rows=[];
+  rrSchedule(ids).forEach(function(ms,ri){
+    rows.push({title:'دور '+num(ri+1)});
+    ms.forEach(function(p){rows.push({n:++ctr.n,a:tn(sd,p[0]),b:tn(sd,p[1]),res:resFn(p[0],p[1])});});
+  });
+  return rows;
+}
+function koRender(rounds,ctr,thirdRes){
+  var nums=[], out='', last=rounds.length-1;
+  rounds.forEach(function(rd,ri){
+    nums[ri]=[]; var rows=[];
+    if(ri===last&&last>=1){
+      var sm=rounds[last-1].ms;
+      if(sm.length===2&&nums[last-1][0]&&nums[last-1][1]){
+        var n3=++ctr.n;
+        out+=ttl('🥉 بازی رده‌بندی (سوم و چهارم)')+fxTable([{n:n3,a:'بازنده بازی '+num(nums[last-1][0]),b:'بازنده بازی '+num(nums[last-1][1]),res:thirdRes||''}]);
+      }
+    }
+    rd.ms.forEach(function(m,i){
+      if(m.bye){nums[ri][i]=0;rows.push({n:0,a:m.a||m.b,b:'<i>استراحت</i>',res:'صعود مستقیم'});return;}
+      var n=++ctr.n; nums[ri][i]=n;
+      var a=m.a||(ri>0&&nums[ri-1][2*i]?'برنده بازی '+num(nums[ri-1][2*i]):'—');
+      var b=m.b||(ri>0&&nums[ri-1][2*i+1]?'برنده بازی '+num(nums[ri-1][2*i+1]):'—');
+      rows.push({n:n,a:a,b:b,res:m.res||''});
+    });
+    out+=ttl('🏁 '+esc(rd.name))+fxTable(rows);
+  });
+  return out;
+}
+function realRounds(sd){
+  return sd.bracket.map(function(rd){return {name:rd.name,ms:rd.matches.map(function(m){
+    var bye=!!m.winner&&(!m.a||!m.b);
+    return {a:m.a?tn(sd,m.a):null,b:m.b?tn(sd,m.b):null,bye:bye,res:(!bye&&m.hg!=null)?num(m.hg)+' − '+num(m.ag):''};
+  })};});
+}
+function virtualCupRounds(G){
+  var f=[],s=[]; for(var g=0;g<G;g++){f.push('نفر اول گروه '+L8[g]);s.push('نفر دوم گروه '+L8[g]);}
+  var A=[],B=[]; for(var k=0;k<G;k+=2){A.push({a:f[k],b:s[k+1]});B.push({a:f[k+1],b:s[k]});}
+  var r1=A.concat(B), rounds=[{name:RN[r1.length]||'دور ۱',ms:r1.map(function(x){return {a:x.a,b:x.b,bye:false};})}], c=r1.length/2, ri=2;
+  while(c>=1){var ms=[];for(var q=0;q<c;q++)ms.push({a:null,b:null,bye:false});rounds.push({name:RN[c]||'دور '+num(ri),ms:ms});c/=2;ri++;}
+  return rounds;
+}
+function groupsFx(sp,sd,ctr){
+  var out='';
+  sd.cup.groups.forEach(function(g,gi){
+    var ms=sd.cup.matches.filter(function(m){return m.g===gi;});
+    out+=ttl('🏟️ '+esc(g.name)+' — '+num(g.ids.length)+' تیم')+fxTable(rrRows(sd,g.ids,ctr,function(x,y){return resScore(sd,ms,x,y);}));
+  });
+  return out;
+}
+function fixtureBody(sp,sd){
+  var ids=sd.teams.map(function(x){return x.id;}), ctr={n:0};
+  if(sp.type==='solo'){
+    return ttl('📝 برگه ثبت نمرات (۵ نمره)')+tbl(['ردیف','نام شرکت‌کننده','۱','۲','۳','۴','۵','جمع'],sd.teams.map(function(x,i){return '<tr><td>'+num(i+1)+'</td><td class="n">'+esc(x.name)+'</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>';}),'fx');
+  }
+  if(sp.type==='rank'){
+    return ttl('📝 فهرست شرکت‌کنندگان')+tbl(['ردیف','نام شرکت‌کننده','رتبه'],sd.teams.map(function(x,i){return '<tr><td>'+num(i+1)+'</td><td class="n">'+esc(x.name)+'</td><td class="blank"></td></tr>';}),'fx');
+  }
+  var ko=sp.mode==='knockout';
+  if(ko&&sp.customBracketMode){
+    var R=fixRounds(sd), l=mm(sd); if(!l.length) return empty('هنوز مسابقه‌ای در جدول دستی ثبت نشده است');
+    var out='';
+    for(var r=1;r<=R;r++){
+      var rows=l.filter(function(m){return m.round===r;}).map(function(m){
+        if(!m.b) return {n:0,a:tn(sd,m.a),b:'<i>استراحت</i>',res:'صعود مستقیم'};
+        return {n:++ctr.n,a:tn(sd,m.a),b:tn(sd,m.b),res:m.hg!=null?num(m.hg)+' − '+num(m.ag):''};
+      });
+      if(rows.length) out+=ttl('🏁 دور '+num(r))+fxTable(rows);
+    }
+    return out;
+  }
+  if(ko){
+    if(!sd.bracket||!sd.bracket.length) return empty('جدول حذفی هنوز ساخته نشده است');
+    var tr=(sd.third&&sd.third.hg!=null)?num(sd.third.hg)+' − '+num(sd.third.ag):'';
+    return koRender(realRounds(sd),ctr,tr);
+  }
+  if(sp.mode==='cup'){
+    if(!sd.cup) return empty('گروه‌بندی هنوز انجام نشده است');
+    var h=groupsFx(sp,sd,ctr), G=sd.cup.groups.length;
+    var tr2=(sd.third&&sd.third.hg!=null)?num(sd.third.hg)+' − '+num(sd.third.ag):'';
+    if(sd.bracket) return h+koRender(realRounds(sd),ctr,tr2);
+    if([2,4,8].indexOf(G)<0) return h;
+    return h+'<div class="rp-empty" style="margin:12px 0">برنامه دور حذفی (بر اساس صعود دو تیم برتر هر گروه؛ نفر اول هر گروه با نفر دوم گروه دیگر)</div>'+koRender(virtualCupRounds(G),ctr,'');
+  }
+  if(sp.mode==='mixed'){
+    var pairs=(sd.mx&&sd.mx.pairs)||[], out2='';
+    if(!pairs.length) return empty('جفت‌های مرحله حذفی هنوز مشخص نشده است');
+    out2+=ttl('⚔️ مرحله حذفی (برندگان وارد گروه‌ها می‌شوند)')+fxTable(pairs.map(function(p){
+      if(!p.b) return {n:0,a:tn(sd,p.a),b:'<i>استراحت</i>',res:'صعود مستقیم'};
+      return {n:++ctr.n,a:tn(sd,p.a),b:tn(sd,p.b),res:p.winner?num(p.hg)+' − '+num(p.ag):''};
+    }));
+    out2+=sd.cup?groupsFx(sp,sd,ctr):'<div class="rp-empty" style="margin:12px 0">پس از پایان مرحله حذفی، برندگان در گروه‌ها قرار می‌گیرند و بازی‌های گروهی در همین برنامه مشخص می‌شود.</div>';
+    return out2;
+  }
+  if(ids.length<2) return empty('حداقل ۲ شرکت‌کننده لازم است');
+  var fn=sp.type==='winner'?function(x,y){return resWin(sd,x,y);}:function(x,y){return resScore(sd,sd.matches,x,y)||resWin(sd,x,y);};
+  return ttl('📋 برنامه بازی‌ها (هر شرکت‌کننده با همه)')+fxTable(rrRows(sd,ids,ctr,fn));
+}
+function fxSection(sp,gen,noSeason){
+  var keep=gender; gender=gen;
+  try{
+    var sd=getCurrentSeason(sp); if(!sd.teams.length) return null;
+    var sn=sp.seasons.find(function(x){return x.id===sp.currentSeasonId;})||{name:''};
+    return {sn:sn.name,html:'<section class="rp-sec"><div class="rp-head'+(noSeason?' ns':'')+'">'+(noSeason?'':'<div class="rp-season">فصل مسابقات: '+esc(sn.name)+'</div>')+'<div class="rp-sport">'+esc(sp.icon)+' '+esc(sp.name)+' — '+G[gen]+'</div><div class="rp-fxlabel">🗓️ برنامه بازی‌ها</div></div>'+fixtureBody(sp,sd)+'</section>'};
+  } finally { gender=keep; }
+}
+function exportFixtures(id){
+  var sp=getSport(id); if(!sp) return;
+  var s=fxSection(sp,gender); if(!s){toast('شرکت‌کننده‌ای ثبت نشده است');return;}
+  doPrint(s.html,'برنامه بازی‌ها - '+sp.name+' - '+s.sn+' - '+G[gender]);
+}
+var _exAll=exportAll;
+exportAll=function(kind){
+  reportKind=kind||'res';
+  _exAll();
+  var h=modalEl.querySelector('.modal-head h2');
+  if(h&&reportKind==='fx') h.textContent='🗓️ برنامه بازی‌ها — انتخاب فصل';
+};
+var _runAll=runAll;
+runAll=function(name){
+  if(reportKind!=='fx') return _runAll(name);
+  var keepSec=section, keepTitle='گزارش کامل مسابقات';
+  section=fxSection;
+  try{ _runAll(name); } finally { section=keepSec; }
+};
+var _rsh2=renderSportsHome;
+renderSportsHome=function(){
+  var h=_rsh2();
+  if(!authed||!activeSports().length) return h;
+  return h+'<div style="margin-top:8px"><button class="btn block" data-action="exportFxAll">🗓️ برنامه کامل بازی‌های همه ورزش‌ها (PDF) — ویژه برگزارکنندگان</button></div>';
+};
+document.addEventListener('click',function(e){
+  var el=e.target.closest('[data-action]'); if(!el) return; var a=el.dataset.action;
+  if(a==='exportFx') exportFixtures(el.dataset.sport);
+  else if(a==='exportFxAll') exportAll('fx');
+});
+var stF=document.createElement('style');
+stF.textContent='@media print{'+
+'.rp-fxlabel{font-size:16px;font-weight:800;margin-top:8px;color:#0f2a55}'+
+'#printArea table.fx{font-size:13px}'+
+'#printArea table.fx td.blank{height:30px}'+
+'#printArea table.fx td.res{font-weight:800;color:#0b4a8f!important;white-space:nowrap}'+
+'#printArea table.fx tr.fxr td{background:#e8f1fb!important;font-weight:800;color:#10285a!important;text-align:right}'+
+'}';
+document.head.appendChild(stF);
+
+/* ---------- 12) اصلاح «جدول دستی» ---------- */
+var _osc2=openSportConfig;
+openSportConfig=function(id){
+  _osc2(id);
+  var sp=getSport(id), f=document.getElementById('sportCfgForm'); if(!sp||!f) return;
+  var setBtn=f.querySelector('[data-action=setMode]');
+  if(setBtn&&!f.querySelector('[data-action=toggleCustomBracket]')){
+    setBtn.closest('.set-row').insertAdjacentHTML('afterend','<div class="set-row" id="cbRow" style="display:none"><div><div class="lbl">🛠️ جدول دستی</div><div class="hint">خودت تعیین کن کی با کی بازی کند</div></div><button type="button" class="toggle '+(sp.customBracketMode?'on':'')+'" data-action="toggleCustomBracket"></button></div>');
+    var tg=f.querySelector('[data-action=toggleCustomBracket]'); tg.addEventListener('click',function(){tg.classList.toggle('on');});
+  }
+  f.querySelectorAll('[data-action=setMode]').forEach(function(b){
+    b.addEventListener('click',function(){var r=f.querySelector('#cbRow'); if(r) r.style.display=b.dataset.val==='knockout'?'':'none';});
+  });
+  f.addEventListener('submit',function(){
+    if(sp.mode!=='knockout'&&sp.customBracketMode){sp.customBracketMode=false;sp.seasonCfg=sp.seasonCfg||{};sp.seasonCfg[sp.currentSeasonId]=snap(sp);save();}
+  });
+};
+function fixMM(){
+  var h=document.getElementById('mmHome'), a=document.getElementById('mmAway');
+  if(h&&a&&a.options.length>1&&h.value===a.value) a.selectedIndex=1;
+}
+var _r12=render;
+render=function(){_r12();fixMM();};
 
 /* ---------- 7) PWA: manifest + service worker ---------- */
 (function(){
