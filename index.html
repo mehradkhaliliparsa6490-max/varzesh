@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#070b14">
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icon-192.png">
-<title>لیگ ورزش‌ها v1.6.2</title>
+<title>لیگ ورزش‌ها v1.6.3</title>
 <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
@@ -355,7 +355,7 @@ input[type=number]{-moz-appearance:textfield;text-align:center;font-weight:700}
     <div class="brand" data-action="goHome">
       <div class="logo">🏆</div>
       <div class="brand-text">
-        <h1 id="brandTitle">لیگ ورزش‌ها<span class="version-badge">v1.6.2</span></h1>
+        <h1 id="brandTitle">لیگ ورزش‌ها<span class="version-badge">v1.6.3</span></h1>
         <p id="brandSub">مدیریت نتایج مسابقات</p>
       </div>
     </div>
@@ -375,7 +375,7 @@ input[type=number]{-moz-appearance:textfield;text-align:center;font-weight:700}
   <div class="status-bar" id="statusBar"></div>
   <nav class="tabs" id="tabs" style="display:none"></nav>
   <main id="view"></main>
-  <div class="footer" id="footer">لیگ ورزش‌ها • v1.6.2</div>
+  <div class="footer" id="footer">لیگ ورزش‌ها • v1.6.3</div>
 </div>
 
 <button class="debug-toggle" id="debugToggle" title="Debug">🐞</button>
@@ -429,7 +429,7 @@ const ADMIN_KEY = 'sports-league-admin-session';
 const SERVER_SEL_KEY = 'sports-league-server';
 const CLIENT_ID_KEY = 'sports-league-client-id';
 const FB_SEEN_KEY = 'sports-league-fb-seen';
-const VERSION = 'v1.6.2';
+const VERSION = 'v1.6.3';
 const MAX_MEMBERS = 15;
 
 const SUPABASE_URL = 'https://lwpyainlxrthddlockia.supabase.co';
@@ -2060,7 +2060,7 @@ function openPalette(sportId, teamId){
 }
 
 function openGuide(){
-  openModal('<div class="modal-head"><h2>❓ ' + t('guide') + '</h2><button class="icon-btn sm" data-action="closeModal">✕</button></div><div style="padding:10px 0"><h3 style="font-size:.9rem;font-weight:800;margin-bottom:8px">🏆 v1.6.2</h3><p style="font-size:.8rem;color:var(--muted);line-height:1.8">۸ تم، ۲ زبان، ۳ سرور، فصل‌ها، وبلاگ با تصویر، جدول حذفی، انتقادات و پیشنهادات</p></div><div style="padding:10px 0;border-top:1px solid var(--border)"><h3 style="font-size:.9rem;font-weight:800;margin-bottom:8px">💬 انتقادات و پیشنهادات</h3><p style="font-size:.8rem;color:var(--muted);line-height:1.8">می‌تونی با اسم، عنوان و متن، نظر یا انتقادت رو ثبت کنی. مدیر اون‌ها رو می‌بینه.</p></div><button class="btn block" data-action="closeModal" style="margin-top:16px">' + t('close') + '</button>');
+  openModal('<div class="modal-head"><h2>❓ ' + t('guide') + '</h2><button class="icon-btn sm" data-action="closeModal">✕</button></div><div style="padding:10px 0"><h3 style="font-size:.9rem;font-weight:800;margin-bottom:8px">🏆 v1.6.3</h3><p style="font-size:.8rem;color:var(--muted);line-height:1.8">۸ تم، ۲ زبان، ۳ سرور، فصل‌ها، وبلاگ با تصویر، جدول حذفی، انتقادات و پیشنهادات</p></div><div style="padding:10px 0;border-top:1px solid var(--border)"><h3 style="font-size:.9rem;font-weight:800;margin-bottom:8px">💬 انتقادات و پیشنهادات</h3><p style="font-size:.8rem;color:var(--muted);line-height:1.8">می‌تونی با اسم، عنوان و متن، نظر یا انتقادت رو ثبت کنی. مدیر اون‌ها رو می‌بینه.</p></div><button class="btn block" data-action="closeModal" style="margin-top:16px">' + t('close') + '</button>');
 }
 
 /* ============ DEBUG PANEL ============ */
@@ -2195,9 +2195,9 @@ document.addEventListener('keydown', e => {
   DEBUG.ok('Ready');
 })();
 </script>
-<!-- v1.6.2: این بلوک را قبل از </body> و بعد از اسکریپت اصلی index.html بچسبانید -->
+<!-- v1.6.3: این بلوک را قبل از </body> و بعد از اسکریپت اصلی index.html بچسبانید -->
 <script>
-/* لیگ ورزش‌ها — افزونه v1.6.2 */
+/* لیگ ورزش‌ها — افزونه v1.6.3 */
 (function(){
 var gender='men';
 var G={men:'آقایان',women:'بانوان'};
@@ -2457,9 +2457,9 @@ function decorate(){
 function fixTexts(){
   var tb=document.getElementById('feedbackTopBtn'); if(tb) tb.title=NEW;
   var ab=document.querySelector('#feedbackActionBtn span:last-child'); if(ab) ab.textContent=NEW;
-  document.querySelectorAll('.version-badge').forEach(function(b){b.textContent='v1.6.2';});
-  var f=document.getElementById('footer'); if(f) f.textContent='لیگ ورزش‌ها • v1.6.2';
-  document.title=document.title.replace('v1.4.0','v1.6.2');
+  document.querySelectorAll('.version-badge').forEach(function(b){b.textContent='v1.6.3';});
+  var f=document.getElementById('footer'); if(f) f.textContent='لیگ ورزش‌ها • v1.6.3';
+  document.title=document.title.replace('v1.4.0','v1.6.3');
 }
 
 /* ---------- 6) جدول حذفی: اندازه توان ۲ (حداقل ۴) + استراحت تصادفی ---------- */
@@ -2777,7 +2777,7 @@ function pairsHtml(sp,sd,admin){
 function setupCard(sp,sd,kind){
   var ids=groupIds(sp,sd), n=ids.length;
   var h='<div class="card" style="margin-top:12px"><div class="section-title" style="margin:0 0 10px">🧩 گروه‌بندی</div><div class="hint-box"><b>'+num(n)+'</b> شرکت‌کننده برای گروه‌بندی'+(kind==='cup'?'. تعداد گروه‌ها و تعداد هر گروه را وارد کنید (حاصل‌ضرب باید برابر تعداد شرکت‌کننده‌ها باشد).':'. تعداد گروه‌ها را وارد کنید (۱ = همه برندگان در یک گروه).')+'</div><div class="rule-card-grid" style="margin-bottom:10px"><div class="field"><label>تعداد گروه‌ها</label><input class="input" type="number" id="cupG" min="'+(kind==='mixed'?1:2)+'" max="8" value="'+(ui.man?ui.man.g:2)+'"></div>'+(kind==='cup'?'<div class="field"><label>تعداد هر گروه</label><input class="input" type="number" id="cupN" min="2" max="20" value="'+(ui.man?ui.man.n:Math.max(2,Math.floor(n/2)))+'"></div>':'')+'</div>';
-  if(ui.man&&ui.man.sid===sd.__k){
+  if(ui.man&&ui.man.sid===ckey(sp)){
     var opts=function(sel){var o='';for(var i=0;i<ui.man.g;i++)o+='<option value="'+i+'"'+(i===sel?' selected':'')+'>گروه '+L8[i]+'</option>';return o;};
     h+='<div class="section-title" style="margin:6px 0">✋ چیدمان دستی</div>'+ids.map(function(id,i){return '<div class="manual-match-row" style="grid-template-columns:1fr 110px"><input class="input" readonly value="'+nm_(sd,id).replace(/<[^>]+>/g,'')+'"><select class="input" data-cm="'+id+'">'+opts(i%ui.man.g)+'</select></div>';}).join('')+'<div style="display:flex;gap:8px;margin-top:8px"><button class="btn primary" data-action="cupManualApply" data-sport="'+sp.id+'">✓ ثبت چیدمان</button><button class="btn" data-action="cupManualCancel">انصراف</button></div>';
   } else h+='<div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn primary" data-action="cupRandom" data-sport="'+sp.id+'">🎲 قرعه‌کشی تصادفی</button><button class="btn" data-action="cupManualOpen" data-sport="'+sp.id+'">✋ چیدمان دستی</button>'+(kind==='mixed'?'<button class="btn" data-action="mxOneGroup" data-sport="'+sp.id+'">👥 همه در یک گروه</button>':'')+'</div>';
@@ -2806,10 +2806,10 @@ function cmPublic(sp){
   return h;
 }
 function cmAdmin(sp){
-  var sd=getCurrentSeason(sp); sd.__k=sp.currentSeasonId+gender;
+  var sd=getCurrentSeason(sp);
   var h='<div class="section fade"><div class="section-title">🔐 '+t('adminPanel')+' — '+G[gender]+' — '+(sp.mode==='cup'?'جام':'سیستم مختلط')+'</div>'+teamListBlock(sp);
   if(sp.mode==='mixed'){
-    if(!sd.cup) h+=mixedSetup(sp,sd);
+    if(!sd.cup) h+=mixedSetup(sp,sd)+mixedEditor(sp,sd);
     else h+='<div class="card" style="margin-top:12px">'+pairsHtml(sp,sd,false)+'</div>';
     var q=qualifiers(sd), allDone=sd.mx&&sd.mx.pairs.length&&q.length===sd.mx.pairs.length;
     if(!sd.cup&&allDone) h+=setupCard(sp,sd,'mixed');
@@ -2817,7 +2817,7 @@ function cmAdmin(sp){
     h+=setupCard(sp,sd,'cup');
   }
   if(sd.cup){
-    h+='<div style="display:flex;gap:8px;flex-wrap:wrap;margin:12px 0"><button class="btn danger" data-action="cupReset" data-sport="'+sp.id+'">🗑️ بازنشانی گروه‌ها</button>'+(sp.mode==='cup'?'<button class="btn primary" data-action="cupKO" data-sport="'+sp.id+'">🏆 '+(sd.bracket?'ساخت دوباره دور حذفی':'ساخت دور حذفی از ۲ تیم برتر هر گروه')+'</button>':'')+'</div>'+groupsPublic(sp,sd,true);
+    h+='<div style="display:flex;gap:8px;flex-wrap:wrap;margin:12px 0"><button class="btn danger" data-action="cupReset" data-sport="'+sp.id+'">🗑️ بازنشانی گروه‌ها</button>'+(sp.mode==='cup'?'<button class="btn primary" data-action="cupKO" data-sport="'+sp.id+'">🏆 '+(sd.bracket?'ساخت دوباره دور حذفی':'ساخت دور حذفی از ۲ تیم برتر هر گروه')+'</button>':'')+'</div>'+groupEditor(sp,sd)+groupsPublic(sp,sd,true);
     if(sd.bracket) h+='<div class="card"><div class="section-title" style="margin:0 0 10px">🏆 دور حذفی</div>'+koAdmin(sp,sd)+'</div>';
   }
   return h+'</div>';
@@ -2878,7 +2878,7 @@ document.addEventListener('click',function(e){
     if(c.sp.mode==='cup'){ if(N<2){toast('هر گروه حداقل ۲ تیم');return;} if(ids.length!==G*N){toast('تعداد شرکت‌کننده‌ها ('+num(ids.length)+') باید برابر '+num(G)+' × '+num(N)+' = '+num(G*N)+' باشد');return;} }
     else if(ids.length<2*G){toast('برای '+num(G)+' گروه حداقل '+num(2*G)+' برنده لازم است');return;}
     if(a==='cupRandom'){makeGroups(c.sd,randomAssign(ids,G));ui.man=null;save();render();toast('✅ گروه‌ها ساخته شد');}
-    else{c.sd.__k=c.sp.currentSeasonId+gender;ui.man={g:G,n:N,sid:c.sd.__k};render();}
+    else{ui.man={g:G,n:N,sid:ckey(c.sp)};render();}
   }
   else if(a==='mxOneGroup'){
     c=C(el); if(!c) return; var q1=qualifiers(c.sd);
@@ -2996,7 +2996,7 @@ render=function(){_r9();tickify();};
 
 /* 9-b) تغییرات نسخه */
 var LOG=[
- ['v1.6.2',['برنامه بازی‌ها (PDF) ویژه برگزارکنندگان: فهرست همه بازی‌ها تا پایان مسابقات','اصلاح «جدول دستی»: گزینه همان‌لحظه پس از انتخاب «حذفی» نمایش داده می‌شود و تیم دوم به‌طور پیش‌فرض متفاوت انتخاب می‌شود']],
+ ['v1.6.3',['برنامه بازی‌ها (PDF) ویژه برگزارکنندگان: فهرست همه بازی‌ها تا پایان مسابقات','اصلاح «جدول دستی»: گزینه همان‌لحظه پس از انتخاب «حذفی» نمایش داده می‌شود و تیم دوم به‌طور پیش‌فرض متفاوت انتخاب می‌شود']],
  ['v1.6.1',['چیدمان دستی شرکت‌کنندگان در جدول حذفی']],
  ['v1.6.0',['شطرنج و ورزش‌های «فقط برنده»: انتخاب برنده با تیک','حذف گزینه زبان انگلیسی','تم جدید «سلطنتی»','«راهنما» به «تغییرات نسخه» تبدیل شد']],
  ['v1.5.9',['نام فصل در گزارش کامل یک‌بار و برجسته نمایش داده می‌شود و بعد از آن فقط نام ورزش‌ها']],
@@ -3013,47 +3013,125 @@ openGuide=function(){
 var gb=document.getElementById('guideBtn'); if(gb){gb.textContent='🆕';gb.title='تغییرات نسخه';}
 I18N.fa.guide='تغییرات نسخه';
 
-/* ---------- 10) چیدمان دستی جدول حذفی ---------- */
+/* ---------- 10) ویرایش چیدمان شرکت‌کنندگان (باز بعد از ساخت جدول) ---------- */
+function ckey(sp){return sp.id+':'+sp.currentSeasonId+':'+gender;}
 function koSize(n){var z=4;while(z<n)z*=2;return z;}
-function koManualCard(sp){
-  var sd=getCurrentSeason(sp), n=sd.teams.length;
-  if(n<2) return '';
-  var size=koSize(n), m1=size/2, key=sp.currentSeasonId+gender;
-  var h='<div class="card" style="margin-top:12px"><div class="section-title" style="margin:0 0 10px">✋ چیدمان دستی جدول</div>';
-  if(ui.ko!==key) return h+'<p style="color:var(--muted);font-size:.8rem;margin-bottom:10px">جایگاه هر شرکت‌کننده را در جدول '+num(size)+' نفره خودتان تعیین کنید (جای خالی = استراحت).</p><button class="btn primary block" data-action="koManualOpen" data-sport="'+sp.id+'">✋ شروع چیدمان دستی</button></div>';
-  var old=(sd.bracket&&sd.bracket[0]&&sd.bracket[0].matches.length===m1)?sd.bracket[0].matches:null;
+var EDNOTE='🔴 قرمز = شرکت‌کننده تکراری • 🟡 زرد = شرکت‌کننده‌ای که در جدول قرار ندارد';
+function slotEditor(sp,sd,kind,slots,title,note,cancel){
   var opts=function(sel){return '<option value="">— استراحت —</option>'+sd.teams.map(function(x){return '<option value="'+x.id+'"'+(x.id===sel?' selected':'')+'>'+esc(x.name)+'</option>';}).join('');};
-  var rows='';
-  for(var i=0;i<m1;i++){
-    var a,b;
-    if(old){a=old[i].a;b=old[i].b;} else {a=sd.teams[2*i]?sd.teams[2*i].id:'';b=sd.teams[2*i+1]?sd.teams[2*i+1].id:'';}
-    rows+='<div class="manual-match-row" style="grid-template-columns:auto 1fr auto 1fr"><b style="font-size:.75rem;color:var(--muted)">'+num(i+1)+'</b><select class="input" data-ks="'+i+'a">'+opts(a)+'</select><span class="rr-vs">vs</span><select class="input" data-ks="'+i+'b">'+opts(b)+'</select></div>';
-  }
-  return h+'<div class="hint-box" style="font-size:.75rem">جدول <b>'+num(size)+'</b> نفره • '+num(n)+' شرکت‌کننده • '+num(size-n)+' جای خالی (استراحت). برندگان بازی‌های ۱ و ۲، ۳ و ۴ و ... در دور بعد به هم می‌رسند. هر شرکت‌کننده فقط یک‌بار و هر بازی حداکثر یک استراحت می‌تواند داشته باشد.</div>'+rows+'<div style="display:flex;gap:8px;margin-top:10px"><button class="btn primary" data-action="koManualApply" data-sport="'+sp.id+'">✓ ساخت جدول با این چیدمان</button><button class="btn" data-action="koManualCancel">انصراف</button></div></div>';
+  var rows=slots.map(function(s,i){return '<div class="manual-match-row" style="grid-template-columns:auto 1fr auto 1fr"><b style="font-size:.75rem;color:var(--muted)">'+num(i+1)+'</b><select class="input ks" data-ks="'+i+'a">'+opts(s.a)+'</select><span class="rr-vs">vs</span><select class="input ks" data-ks="'+i+'b">'+opts(s.b)+'</select></div>';}).join('');
+  var chips=sd.teams.map(function(x){return '<span class="ed-chip" data-tid="'+x.id+'">'+esc(x.name)+'</span>';}).join('');
+  return '<div class="card" style="margin-top:12px" data-edwrap="'+kind+'"><div class="section-title" style="margin:0 0 10px">'+title+'</div><div class="hint-box" style="font-size:.75rem">'+note+'<br>'+EDNOTE+'</div><div class="ed-strip">'+chips+'</div>'+rows+'<div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap"><button class="btn primary" data-action="edApply" data-kind="'+kind+'" data-sport="'+sp.id+'">✓ ثبت تغییرات</button>'+(cancel?'<button class="btn" data-action="koManualCancel">انصراف</button>':'')+'</div></div>';
+}
+function koEditorCard(sp){
+  var sd=getCurrentSeason(sp), n=sd.teams.length; if(n<2) return '';
+  var size=koSize(n), m1=size/2, b0=sd.bracket&&sd.bracket[0]&&sd.bracket[0].matches;
+  if(b0&&b0.length===m1) return slotEditor(sp,sd,'ko',b0.map(function(m){return {a:m.a||'',b:m.b||''};}),'✏️ ویرایش چیدمان شرکت‌کنندگان (دور اول)','جایگاه هر شرکت‌کننده را تغییر دهید و «ثبت تغییرات» را بزنید. برندگان بازی‌های ۱ و ۲، ۳ و ۴ و ... در دور بعد به هم می‌رسند.');
+  if(ui.ko!==ckey(sp)) return '<div class="card" style="margin-top:12px"><div class="section-title" style="margin:0 0 10px">✋ چیدمان دستی جدول</div><p style="color:var(--muted);font-size:.8rem;margin-bottom:10px">'+(b0?'جدول فعلی با تعداد شرکت‌کنندگان هم‌خوانی ندارد. ':'')+'جایگاه هر شرکت‌کننده را در جدول '+num(size)+' نفره خودتان تعیین کنید (جای خالی = استراحت).</p><button class="btn primary block" data-action="koManualOpen" data-sport="'+sp.id+'">✋ شروع چیدمان دستی</button></div>';
+  var slots=[];for(var i=0;i<m1;i++)slots.push({a:sd.teams[2*i]?sd.teams[2*i].id:'',b:sd.teams[2*i+1]?sd.teams[2*i+1].id:''});
+  return slotEditor(sp,sd,'ko',slots,'✋ چیدمان دستی جدول','جدول '+num(size)+' نفره • '+num(n)+' شرکت‌کننده • '+num(size-n)+' جای خالی (استراحت).',true);
 }
 var _rab=renderAdminBracket;
-renderAdminBracket=function(sp){return _rab(sp)+koManualCard(sp);};
+renderAdminBracket=function(sp){return _rab(sp)+koEditorCard(sp);};
+function mixedEditor(sp,sd){
+  var pairs=(sd.mx&&sd.mx.pairs)||[]; if(!pairs.length||sd.cup) return '';
+  return slotEditor(sp,sd,'mx',pairs.map(function(p){return {a:p.a,b:p.b||''};}),'✏️ ویرایش جفت‌های مرحله حذفی','تیم‌های هر بازی را تغییر دهید. نتیجه بازی‌هایی که جفتشان تغییر نکند حفظ می‌شود.');
+}
+function groupEditor(sp,sd){
+  var c=sd.cup; if(!c) return '';
+  var ids=groupIds(sp,sd), cur={}; c.groups.forEach(function(g,gi){g.ids.forEach(function(id){cur[id]=gi;});});
+  var rows=ids.map(function(id){
+    var o='';for(var i=0;i<c.groups.length;i++)o+='<option value="'+i+'"'+(cur[id]===i?' selected':'')+'>'+esc(c.groups[i].name)+'</option>';
+    return '<div class="manual-match-row" style="grid-template-columns:1fr 130px"><input class="input" readonly value="'+nm_(sd,id).replace(/<[^>]+>/g,'')+'"><select class="input" data-cg="'+id+'">'+o+'</select></div>';
+  }).join('');
+  return '<div class="card" style="margin:12px 0"><div class="section-title" style="margin:0 0 10px">✏️ ویرایش گروه‌ها</div><div class="hint-box" style="font-size:.75rem">گروه هر شرکت‌کننده را تغییر دهید. نتیجه بازی‌هایی که هم‌گروهی‌هایشان تغییر نکند حفظ می‌شود؛ دور حذفی ساخته‌شده پاک می‌شود.</div>'+rows+'<button class="btn primary block" data-action="cgApply" data-sport="'+sp.id+'" style="margin-top:10px">✓ ثبت تغییرات گروه‌ها</button></div>';
+}
+function regroup(sd,assign){
+  var old={};(sd.cup.matches||[]).forEach(function(m){if(m.hg!=null)old[[m.home,m.away].sort().join('|')]=m;});
+  makeGroups(sd,assign);
+  sd.cup.matches.forEach(function(m){var o=old[[m.home,m.away].sort().join('|')];if(o){if(o.home===m.home){m.hg=o.hg;m.ag=o.ag;}else{m.hg=o.ag;m.ag=o.hg;}}});
+}
+function edRecolor(){
+  document.querySelectorAll('[data-edwrap]').forEach(function(w){
+    var cnt={},sel=w.querySelectorAll('select.ks');
+    sel.forEach(function(s){if(s.value)cnt[s.value]=(cnt[s.value]||0)+1;});
+    sel.forEach(function(s){s.classList.toggle('ed-dup',!!s.value&&cnt[s.value]>1);});
+    w.querySelectorAll('.ed-chip').forEach(function(c){var n=cnt[c.dataset.tid]||0;c.classList.toggle('ed-miss',n===0);c.classList.toggle('ed-dup',n>1);});
+  });
+}
+function markTeamBoxes(){
+  if(currentView!=='sport'||currentTab!=='admin') return;
+  var sp=getSport(currentSportId); if(!sp||sp.type==='solo'||sp.type==='rank') return;
+  var sd=getCurrentSeason(sp), cnt=null, add=function(id){if(id)cnt[id]=(cnt[id]||0)+1;};
+  if(sp.mode==='knockout'&&!sp.customBracketMode){if(sd.bracket&&sd.bracket[0]){cnt={};sd.bracket[0].matches.forEach(function(m){add(m.a);add(m.b);});}}
+  else if(sp.mode==='cup'){if(sd.cup){cnt={};sd.cup.groups.forEach(function(g){g.ids.forEach(add);});}}
+  else if(sp.mode==='mixed'&&!sd.cup){if(sd.mx&&sd.mx.pairs.length){cnt={};sd.mx.pairs.forEach(function(p){add(p.a);add(p.b);});}}
+  document.querySelectorAll('#view input[data-rename]').forEach(function(i){
+    var n=cnt?(cnt[i.dataset.rename]||0):1;
+    i.classList.toggle('ed-miss',!!cnt&&n===0);i.classList.toggle('ed-dup',!!cnt&&n>1);
+  });
+}
+document.addEventListener('change',function(e){if(e.target.classList&&e.target.classList.contains('ks'))edRecolor();});
+function readSlots(wrap,count){
+  var out=[];for(var i=0;i<count;i++){out.push({a:wrap.querySelector('[data-ks="'+i+'a"]').value,b:wrap.querySelector('[data-ks="'+i+'b"]').value});}
+  return out;
+}
+function validSlots(sd,slots,needAll){
+  var used={};
+  for(var i=0;i<slots.length;i++){
+    var s=slots[i];
+    if(!s.a&&!s.b){toast('بازی '+num(i+1)+' نمی‌تواند هر دو جای خالی باشد');return false;}
+    if(s.a&&s.a===s.b){toast('در بازی '+num(i+1)+' یک نفر دو بار انتخاب شده است');return false;}
+    [s.a,s.b].forEach(function(id){if(id)used[id]=(used[id]||0)+1;});
+  }
+  var dup=Object.keys(used).filter(function(k){return used[k]>1;});
+  if(dup.length){var tm=sd.teams.find(function(x){return x.id===dup[0];});toast('🔴 «'+(tm?tm.name:'')+'» بیش از یک‌بار در جدول است');return false;}
+  if(needAll){var miss=sd.teams.filter(function(x){return !used[x.id];});if(miss.length){toast('🟡 «'+miss[0].name+'» در جدول قرار ندارد');return false;}}
+  return true;
+}
 document.addEventListener('click',function(e){
   var el=e.target.closest('[data-action]'); if(!el) return; var a=el.dataset.action;
-  if(a==='koManualOpen'){var sp=getSport(el.dataset.sport);if(!sp)return;ui.ko=sp.currentSeasonId+gender;render();}
+  if(a==='koManualOpen'){var sp=getSport(el.dataset.sport);if(!sp)return;ui.ko=ckey(sp);render();}
   else if(a==='koManualCancel'){ui.ko=null;render();}
-  else if(a==='koManualApply'){
-    var sp2=getSport(el.dataset.sport); if(!sp2) return; var sd=getCurrentSeason(sp2), n=sd.teams.length, m1=koSize(n)/2;
-    var used={}, r1=[];
-    for(var i=0;i<m1;i++){
-      var A=document.querySelector('[data-ks="'+i+'a"]').value, B=document.querySelector('[data-ks="'+i+'b"]').value;
-      if(!A&&!B){toast('بازی '+num(i+1)+' نمی‌تواند هر دو جای خالی باشد');return;}
-      if(A&&A===B){toast('در بازی '+num(i+1)+' یک نفر دو بار انتخاب شده است');return;}
-      [A,B].forEach(function(id){if(id)used[id]=(used[id]||0)+1;});
-      r1.push({id:uid(),a:A||null,b:B||null,hg:null,ag:null,winner:(A&&!B)?'a':((!A&&B)?'b':null)});
+  else if(a==='edApply'){
+    var sp2=getSport(el.dataset.sport); if(!sp2) return; var sd=getCurrentSeason(sp2), wrap=el.closest('[data-edwrap]');
+    if(el.dataset.kind==='ko'){
+      var m1=koSize(sd.teams.length)/2, slots=readSlots(wrap,m1);
+      if(!validSlots(sd,slots,true)) return;
+      var old=(sd.bracket&&sd.bracket[0]&&sd.bracket[0].matches.length===m1)?sd.bracket[0].matches:null;
+      var r1=slots.map(function(s,i){
+        var m={id:uid(),a:s.a||null,b:s.b||null,hg:null,ag:null,winner:(s.a&&!s.b)?'a':((!s.a&&s.b)?'b':null)};
+        if(old&&old[i].a===m.a&&old[i].b===m.b){m.hg=old[i].hg;m.ag=old[i].ag;m.winner=old[i].winner;}
+        return m;
+      });
+      if(old&&r1.every(function(m,i){return old[i].a===m.a&&old[i].b===m.b;})){toast('تغییری برای ثبت وجود ندارد');return;}
+      var played=sd.bracket&&sd.bracket.some(function(r){return r.matches.some(function(m){return m.hg!=null;});});
+      if(played&&!confirm('نتیجه بازی‌های تغییر‌یافته و دورهای بعد پاک می‌شود. ادامه می‌دهید؟')) return;
+      sd.bracket=buildRounds(r1);sd.champion=null;sd.third=null;propagateBracket(sd);
+      ui.ko=null;save();render();toast('✅ چیدمان جدول به‌روز شد');
+    } else if(el.dataset.kind==='mx'){
+      var pairs=sd.mx.pairs, sl=readSlots(wrap,pairs.length);
+      if(!validSlots(sd,sl,true)) return;
+      var changed=false;
+      var np=sl.map(function(s,i){
+        var o=pairs[i];
+        if(o.a===s.a&&(o.b||'')===s.b) return o;
+        changed=true;
+        return {id:uid(),a:s.a||s.b,b:(s.a&&s.b)?s.b:null,hg:null,ag:null,winner:(s.a&&s.b)?null:'a'};
+      });
+      if(!changed){toast('تغییری برای ثبت وجود ندارد');return;}
+      sd.mx.pairs=np;save();render();toast('✅ جفت‌ها به‌روز شد');
     }
-    var dup=Object.keys(used).filter(function(k){return used[k]>1;});
-    if(dup.length){var tm=sd.teams.find(function(x){return x.id===dup[0];});toast('«'+(tm?tm.name:'')+'» بیش از یک‌بار در جدول است');return;}
-    if(Object.keys(used).length!==n){toast('همه '+num(n)+' شرکت‌کننده باید در جدول قرار بگیرند');return;}
-    var played=sd.bracket&&sd.bracket.some(function(r){return r.matches.some(function(m){return m.hg!=null;});});
-    if(played&&!confirm(t('confirmRegenerate'))) return;
-    sd.bracket=buildRounds(r1);sd.champion=null;sd.third=null;propagateBracket(sd);
-    ui.ko=null;save();render();toast('🏆 '+t('bracketGenerated'));
+  }
+  else if(a==='cgApply'){
+    var sp3=getSport(el.dataset.sport); if(!sp3) return; var sd3=getCurrentSeason(sp3), c=sd3.cup; if(!c) return;
+    var as=c.groups.map(function(){return [];});
+    document.querySelectorAll('[data-cg]').forEach(function(s){as[parseInt(s.value,10)].push(s.dataset.cg);});
+    for(var k=0;k<as.length;k++) if(as[k].length<2){toast('هر گروه حداقل ۲ تیم داشته باشد');return;}
+    var same=c.groups.every(function(g,gi){return g.ids.length===as[gi].length&&g.ids.every(function(id){return as[gi].indexOf(id)>=0;});});
+    if(same){toast('تغییری برای ثبت وجود ندارد');return;}
+    if(sd3.bracket&&!confirm('دور حذفی ساخته‌شده پاک می‌شود. ادامه می‌دهید؟')) return;
+    regroup(sd3,as);save();render();toast('✅ گروه‌ها به‌روز شد');
   }
 });
 
@@ -3254,6 +3332,58 @@ function fixMM(){
 }
 var _r12=render;
 render=function(){_r12();fixMM();};
+
+/* ---------- 13) رفع باگ‌ها ---------- */
+I18N.fa.captainSet='سرگروه تعیین شد'; I18N.fa.maxMembers='به حداکثر تعداد اعضا رسیده‌اید';
+/* طناب‌کشی در حالت «انتخاب برنده»: جدول از نتایج برنده‌ها محاسبه شود */
+var _ss=standingsScore;
+standingsScore=function(sp){
+  if(sp.id==='tugwar'&&sp.tugwarWinnerMode) return standingsWinner(sp).map(function(r){return {id:r.id,name:r.name,color:r.color,p:r.p,w:r.w,d:r.d,l:r.l,gf:0,ga:0,gd:0,pts:r.pts};});
+  return _ss(sp);
+};
+/* پاک‌سازی ارجاع‌های معلق پس از حذف شرکت‌کننده */
+function sanitize(sp){
+  if(!sp||!sp.seasonsData||!sp.currentSeasonId) return;
+  ['','~w'].forEach(function(suf){
+    var sd=sp.seasonsData[sp.currentSeasonId+suf]; if(!sd||!sd.teams) return;
+    var has={};sd.teams.forEach(function(x){has[x.id]=1;});
+    ['soloRounds','soloTime','soloScores','ranks','teamMembers'].forEach(function(k){if(sd[k])Object.keys(sd[k]).forEach(function(id){if(!has[id])delete sd[k][id];});});
+    if(sd.manualMatches) sd.manualMatches=sd.manualMatches.filter(function(m){return has[m.a]&&(!m.b||has[m.b]);});
+    if(sd.cup){sd.cup.groups.forEach(function(g){g.ids=g.ids.filter(function(id){return has[id];});});sd.cup.matches=sd.cup.matches.filter(function(m){return has[m.home]&&has[m.away];});}
+    if(sd.mx&&sd.mx.pairs) sd.mx.pairs=sd.mx.pairs.filter(function(p){return has[p.a]&&(!p.b||has[p.b]);});
+  });
+}
+/* بازی رده‌بندی وقتی نیمه‌نهایی استراحت دارد وجود ندارد */
+var _tt=thirdTeams;
+thirdTeams=function(ms){
+  if(ms&&ms.some(function(m){return m.winner&&(!m.a||!m.b)&&m.hg==null&&(!m.a||!m.b);})) return null;
+  return _tt(ms);
+};
+/* پاکسازی HTML خبرها */
+var _rnd=renderNewsDetail;
+renderNewsDetail=function(){
+  var h=_rnd(), tp=document.createElement('template'); tp.innerHTML=h;
+  tp.content.querySelectorAll('script,style,object,embed,link,meta,form,base').forEach(function(n){n.remove();});
+  tp.content.querySelectorAll('*').forEach(function(n){
+    Array.prototype.slice.call(n.attributes).forEach(function(at){
+      var v=at.value.trim().toLowerCase();
+      if(/^on/i.test(at.name)||(/^(href|src|xlink:href|action|formaction)$/i.test(at.name)&&/^(javascript:|data:text\/html)/.test(v))) n.removeAttribute(at.name);
+    });
+    if(n.tagName==='IFRAME'&&!/^https:\/\//.test(n.getAttribute('src')||'')) n.remove();
+  });
+  var d=document.createElement('div'); d.appendChild(tp.content); return d.innerHTML;
+};
+var _ds2=deleteSeason;
+deleteSeason=function(sid,seid){
+  var sp=getSport(sid), before=sp?sp.seasons.length:0; _ds2(sid,seid);
+  if(sp&&sp.seasons.length<before&&sp.seasonCfg){delete sp.seasonCfg[seid];save();}
+};
+var _r13=render;
+render=function(){try{allSports().forEach(sanitize);}catch(e){}_r13();edRecolor();markTeamBoxes();};
+var st13=document.createElement('style');
+st13.textContent='.ed-strip{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0 12px}.ed-chip{padding:6px 12px;border-radius:10px;border:1px solid var(--border);background:var(--surface-2);font-size:.78rem;font-weight:700}'+
+'.ed-dup{border-color:#ef4444!important;background:rgba(239,68,68,.25)!important}.ed-miss{border-color:#facc15!important;background:rgba(250,204,21,.28)!important}';
+document.head.appendChild(st13);
 
 /* ---------- 7) PWA: manifest + service worker ---------- */
 (function(){
