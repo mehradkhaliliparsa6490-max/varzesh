@@ -1,6 +1,6 @@
-/* Service Worker — لیگ ورزش‌ها v1.5.0
+/* Service Worker — لیگ ورزش‌ها v1.7.2
    با هر تغییر در فایل‌ها، عدد VERSION را بالا ببرید. */
-const VERSION = 'v1.5.0';
+const VERSION = 'v1.7.2';
 const CACHE = 'league-' + VERSION;
 const SHELL = ['./', './index.html', './v150-patch.js', './manifest.json', './icon-192.png', './icon-512.png'];
 
