@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#070b14">
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icon-192.png">
-<title>لیگ ورزش‌ها v1.6.3</title>
+<title>لیگ ورزش‌ها v1.7.2</title>
 <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
@@ -159,7 +159,8 @@ input[type=number]{-moz-appearance:textfield;text-align:center;font-weight:700}
 .toggle::after{content:'';position:absolute;top:3px;inset-inline-start:3px;width:22px;height:22px;border-radius:50%;background:var(--muted);transition:.25s}
 .toggle.on{background:linear-gradient(135deg,var(--accent),var(--accent-2));border-color:transparent}
 .toggle.on::after{inset-inline-start:27px;background:#fff}
-.palette-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;padding:4px;margin-top:4px}
+.palette-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:9px;padding:4px;margin-top:4px}
+.dot,.tdot,.palette-color,.color-pick-btn{box-shadow:inset 0 0 0 1px rgba(128,128,128,.55)}
 .palette-color{width:100%;aspect-ratio:1;border-radius:14px;border:2px solid transparent;cursor:pointer;position:relative;padding:0}
 .palette-color.active{border-color:var(--text);transform:scale(1.05)}
 .palette-color.active::after{content:'✓';position:absolute;inset:0;display:grid;place-items:center;color:#fff;font-weight:900;font-size:1.4rem;text-shadow:0 2px 6px rgba(0,0,0,.55)}
@@ -355,7 +356,7 @@ input[type=number]{-moz-appearance:textfield;text-align:center;font-weight:700}
     <div class="brand" data-action="goHome">
       <div class="logo">🏆</div>
       <div class="brand-text">
-        <h1 id="brandTitle">لیگ ورزش‌ها<span class="version-badge">v1.6.3</span></h1>
+        <h1 id="brandTitle">لیگ ورزش‌ها<span class="version-badge">v1.7.2</span></h1>
         <p id="brandSub">مدیریت نتایج مسابقات</p>
       </div>
     </div>
@@ -375,7 +376,7 @@ input[type=number]{-moz-appearance:textfield;text-align:center;font-weight:700}
   <div class="status-bar" id="statusBar"></div>
   <nav class="tabs" id="tabs" style="display:none"></nav>
   <main id="view"></main>
-  <div class="footer" id="footer">لیگ ورزش‌ها • v1.6.3</div>
+  <div class="footer" id="footer">لیگ ورزش‌ها • v1.7.2</div>
 </div>
 
 <button class="debug-toggle" id="debugToggle" title="Debug">🐞</button>
@@ -422,14 +423,14 @@ window.addEventListener('error', e => DEBUG.err('Global', e.message));
 window.addEventListener('unhandledrejection', e => DEBUG.err('Promise', e.reason ? String(e.reason) : ''));
 
 /* ============ CONFIG ============ */
-const DEFAULT_ADMIN_PASS = 'Aa64906490';
+const DEFAULT_ADMIN_PASS = 'Aa123456';
 const STORAGE_KEY = 'sports-league-v16';
 const USER_PREFS_KEY = 'sports-league-user-prefs';
 const ADMIN_KEY = 'sports-league-admin-session';
 const SERVER_SEL_KEY = 'sports-league-server';
 const CLIENT_ID_KEY = 'sports-league-client-id';
 const FB_SEEN_KEY = 'sports-league-fb-seen';
-const VERSION = 'v1.6.3';
+const VERSION = 'v1.7.2';
 const MAX_MEMBERS = 15;
 
 const SUPABASE_URL = 'https://lwpyainlxrthddlockia.supabase.co';
@@ -446,9 +447,12 @@ try { const r = localStorage.getItem(USER_PREFS_KEY); if(r) Object.assign(userPr
 userPrefs.lang = 'fa';
 const saveUserPrefs = () => { try { localStorage.setItem(USER_PREFS_KEY, JSON.stringify(userPrefs)); } catch(e){} };
 
-let authed = false;
-try { if(localStorage.getItem(ADMIN_KEY) === 'yes') authed = true; } catch(e){}
-const saveAdminSession = () => { try { if(authed) localStorage.setItem(ADMIN_KEY, 'yes'); else localStorage.removeItem(ADMIN_KEY); } catch(e){} };
+let adminRole = '';
+try { const _r = localStorage.getItem(ADMIN_KEY); if(_r === 'main') adminRole = 'main'; else if(_r === 'general' || _r === 'yes') adminRole = 'general'; } catch(e){}
+let authed = !!adminRole;
+const isMain = () => authed && adminRole === 'main';
+let loginRole = 'general';
+const saveAdminSession = () => { try { if(authed) localStorage.setItem(ADMIN_KEY, adminRole || 'general'); else { adminRole = ''; localStorage.removeItem(ADMIN_KEY); } } catch(e){} };
 
 let _fbSeenCount = 0;
 try { _fbSeenCount = parseInt(localStorage.getItem(FB_SEEN_KEY), 10) || 0; } catch(e){}
@@ -564,7 +568,7 @@ const t = k => (I18N[userPrefs.lang] || I18N.fa)[k] || k;
 const isRTL = () => userPrefs.lang === 'fa';
 
 /* ============ SPORTS ============ */
-const COLORS = ['#4ade80','#22d3ee','#f59e0b','#f472b6','#a78bfa','#fb7185','#34d399','#60a5fa','#ef4444','#fb923c','#facc15','#a3e635','#2dd4bf','#818cf8','#e879f9'];
+const COLORS = ['#4ade80','#22d3ee','#f59e0b','#f472b6','#a78bfa','#fb7185','#34d399','#60a5fa','#ef4444','#fb923c','#facc15','#a3e635','#2dd4bf','#818cf8','#e879f9','#ffffff','#111111','#94a3b8','#6b7280','#78350f','#b45309','#1e3a8a','#0f766e','#166534','#7f1d1d','#9d174d','#5b21b6','#0ea5e9','#d946ef','#fde68a'];
 const DEFAULT_SPORTS = [
   { id:'football',   name:'فوتبال',         icon:'⚽', type:'score',  unit:'گل',   winPoints:3, drawPoints:1, allowDraw:true,  active:true },
   { id:'volleyball', name:'والیبال',        icon:'🏐', type:'score',  unit:'ست',   winPoints:3, drawPoints:0, allowDraw:false, active:false },
@@ -1006,9 +1010,12 @@ function openSettings(){
   html += '<div class="section-title" style="text-transform:none;color:var(--accent)">⚙️ ' + esc(t('generalSettings')) + '</div>';
   html += '<div class="set-row" style="flex-direction:column;align-items:stretch"><div class="lbl">🎨 ' + t('theme') + '</div><div class="theme-grid">' + themeCardFull('dark','theme-preview-dark',t('dark')) + themeCardFull('light','theme-preview-light',t('light')) + themeCardFull('ocean','theme-preview-ocean',t('ocean')) + themeCardFull('sunset','theme-preview-sunset',t('sunset')) + themeCardFull('forest','theme-preview-forest',t('forest')) + themeCardFull('neon','theme-preview-neon',t('neon')) + themeCardFull('candy','theme-preview-candy',t('candy')) + themeCardFull('mono','theme-preview-mono',t('mono')) + themeCardFull('royal','theme-preview-royal',t('royal')) + '</div></div>';
   html += '<div class="set-row"><div><div class="lbl">🐞 ' + t('debugMode') + '</div><div class="hint">' + t('debugHint') + '</div></div><button type="button" class="toggle ' + (userPrefs.debugEnabled?'on':'') + '" data-action="toggleUserDebug"></button></div>';
+  html += '<div class="set-row"><div><div class="lbl">🔊 صدای خوشحالی طرفداران</div><div class="hint">پخش صدا هنگام گل و برد تیم‌ها</div></div><button type="button" class="toggle ' + (userPrefs.sound !== false ? 'on' : '') + '" data-action="toggleSound"></button></div>';
+  html += '<div class="set-row"><div><div class="lbl">🎊 افکت کاغذ رنگی</div><div class="hint">نمایش کاغذ رنگی هنگام پایان و برد بازی</div></div><button type="button" class="toggle ' + (userPrefs.confetti !== false ? 'on' : '') + '" data-action="toggleConfetti"></button></div>';
+  html += '<div class="set-row"><div><div class="lbl">💬 پیام گل و نتیجه بازی</div><div class="hint">اعلان «a به b گل زد» و «a، b را برد»</div></div><button type="button" class="toggle ' + (userPrefs.goalMsg !== false ? 'on' : '') + '" data-action="toggleGoalMsg"></button></div>';
   const servers = state.settings.servers || [];
   html += '<div class="set-row" style="flex-direction:column;align-items:stretch"><div class="lbl" style="margin-bottom:6px">🌐 ' + t('chooseServer') + '</div><div class="server-selector">' + servers.map(s => '<div class="server-card ' + (s.id===currentServerId?'active':'') + '" data-action="switchServer" data-id="' + s.id + '">' + (s.password ? '<span class="lock">🔒</span>' : '') + '<span class="icon">' + (s.icon||'🟢') + '</span><div class="name">' + esc(s.name) + '</div></div>').join('') + '</div></div>';
-  html += '<div class="set-row"><div><div class="lbl">🔐 ' + t('adminPanel') + '</div><div class="hint">' + (authed ? 'شما مدیر هستید' : t('adminHint')) + '</div></div>';
+  html += '<div class="set-row"><div><div class="lbl">🔐 ' + t('adminPanel') + '</div><div class="hint">' + (authed ? (isMain() ? 'شما مدیر اصلی (admin) هستید' : 'شما مدیر سایت هستید') : t('adminHint')) + '</div></div>';
   const adminBusy = false;
   if(authed) html += '<button class="btn danger sm" data-action="adminLogout">🚪 ' + t('exitAdmin') + '</button>';
   else if(adminBusy) html += '<button class="btn sm" disabled title="' + esc(t('adminInSession')) + '">🔒 ' + t('adminInSessionHint') + '</button>';
@@ -1017,17 +1024,18 @@ function openSettings(){
   if(adminBusy) html += '<div class="hint-box" style="font-size:.75rem;margin-top:6px">🔒 ' + esc(t('adminInSession')) + '</div>';
   if(authed){
     html += '<div style="margin-top:20px;padding-top:16px;border-top:2px solid var(--border)"><div class="section-title" style="text-transform:none;color:var(--accent)">🔐 ' + t('adminSettings') + '</div>';
-    html += '<div style="margin-bottom:14px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><div class="lbl">🌐 ' + t('serversManagement') + '</div><button class="btn primary sm" data-action="addServer">＋ ' + t('addServer') + '</button></div><div class="server-selector">' + servers.map(s => '<div class="server-card"><span class="icon">' + (s.icon||'🟢') + '</span><div class="name">' + esc(s.name) + (s.password ? ' 🔒' : '') + '</div><div class="actions"><button data-action="editServer" data-id="' + s.id + '" title="✏️">✏️</button>' + (servers.length > 1 ? '<button data-action="deleteServer" data-id="' + s.id + '" title="🗑️">🗑️</button>' : '') + '</div></div>').join('') + '</div></div>';
+    if(isMain()) html += '<div style="margin-bottom:14px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><div class="lbl">🌐 ' + t('serversManagement') + '</div><button class="btn primary sm" data-action="addServer">＋ ' + t('addServer') + '</button></div><div class="server-selector">' + servers.map(s => '<div class="server-card"><span class="icon">' + (s.icon||'🟢') + '</span><div class="name">' + esc(s.name) + (s.password ? ' 🔒' : '') + '</div><div class="actions"><button data-action="editServer" data-id="' + s.id + '" title="✏️">✏️</button>' + (servers.length > 1 ? '<button data-action="deleteServer" data-id="' + s.id + '" title="🗑️">🗑️</button>' : '') + '</div></div>').join('') + '</div></div>';
     html += '<div class="set-row"><div><div class="lbl">🏢 ' + t('companyTheme') + '</div><div class="hint">' + t('companyThemeHint') + '</div></div><button type="button" class="toggle ' + (state.settings.companyTheme?'on':'') + '" data-action="toggleCompanyTheme"></button></div>';
-    html += '<div class="set-row" style="padding:10px 0"><button class="btn block" data-action="manageAdmins">👥 مدیران سایت (' + num((state.settings.admins||[]).length) + ')</button></div>';
+    if(isMain()) html += '<div class="set-row" style="padding:10px 0"><button class="btn block" data-action="manageAdmins">👥 مدیران سایت (' + num((state.settings.admins||[]).length) + ')</button></div>';
     html += '<div class="set-row"><div><div class="lbl">📰 ' + t('newsEnabled') + '</div><div class="hint">' + t('newsEnabledHint') + '</div></div><button type="button" class="toggle ' + (state.settings.newsEnabled?'on':'') + '" data-action="toggleNews"></button></div>';
     if(state.settings.newsEnabled){
       html += '<div class="set-row" style="padding:10px 0"><button class="btn block" data-action="manageTags">🏷️ ' + t('manageTags') + '</button></div>';
     }
     html += '<div class="set-row" style="padding:10px 0"><button class="btn block" data-action="openFeedbackInbox">💬 ' + t('feedbackInbox') + ' (' + num((state.feedback||[]).length) + ')</button></div>';
-    html += '<div class="set-row" style="padding:10px 0"><button class="btn block" data-action="changePassword">🔑 ' + t('changePassword') + '</button></div>';
+    if(isMain()) html += '<div class="set-row" style="padding:10px 0"><button class="btn block" data-action="changePassword">🔑 ' + t('changePassword') + '</button></div>';
+    if(isMain()) html += '<div class="set-row" style="padding:10px 0"><button class="btn block" data-action="backupData">💾 دریافت پشتیبان (Backup)</button></div>';
     html += '<div class="set-row" style="padding:10px 0"><button class="btn primary block" data-action="addCustomSport">＋ ' + t('addCustomSport') + '</button></div>';
-    html += '<div style="margin-top:16px;padding:14px;border:1px solid rgba(248,113,113,.3);border-radius:14px;background:rgba(248,113,113,.05)"><div class="lbl" style="color:var(--danger);margin-bottom:6px">⚠️ ' + t('resetOptions') + '</div><button class="btn danger-solid block" data-action="openResetOptions">🗑️ ' + t('deleteAllData') + '</button></div></div>';
+    if(isMain()) html += '<div style="margin-top:16px;padding:14px;border:1px solid rgba(248,113,113,.3);border-radius:14px;background:rgba(248,113,113,.05)"><div class="lbl" style="color:var(--danger);margin-bottom:6px">⚠️ ' + t('resetOptions') + '</div><button class="btn danger-solid block" data-action="openResetOptions">🗑️ ' + t('deleteAllData') + '</button></div></div>';
   }
   html += '<button class="btn block" data-action="closeModal" style="margin-top:16px">' + t('close') + '</button>';
   openModal(html);
@@ -1090,21 +1098,25 @@ function doReset(){
 
 /* ============ ADMIN AUTH ============ */
 function openPasswordModal(){
+  const main = loginRole === 'main';
   openModal(
-    '<div class="modal-head"><h2>🔐 ' + t('adminPanel') + '</h2><button class="icon-btn sm" data-action="closeModal">✕</button></div><p class="modal-sub">' + t('adminHint') + '</p><form id="pwForm"><div class="field" style="margin-bottom:10px"><label>نام کاربری</label><input class="input" type="text" id="pwUser" autocomplete="off" required style="text-align:center"></div><div class="field"><label>' + t('password') + '</label><input class="input" type="password" id="pwInput" autocomplete="off" placeholder="••••••••" style="text-align:center;letter-spacing:2px"></div><div class="err" id="pwErr"></div><button class="btn primary block" type="submit" style="margin-top:6px">' + t('login') + '</button><button class="btn block" type="button" data-action="closeModal" style="margin-top:9px">' + t('cancel') + '</button></form>'
+    '<div class="modal-head"><h2>🔐 ' + t('adminPanel') + '</h2><button class="icon-btn sm" data-action="closeModal">✕</button></div>' +
+    '<div class="seg" style="width:100%;margin-bottom:14px"><button type="button" data-action="loginRole" data-val="general" class="' + (!main?'active':'') + '" style="flex:1">👤 مدیر سایت</button><button type="button" data-action="loginRole" data-val="main" class="' + (main?'active':'') + '" style="flex:1">👑 admin</button></div>' +
+    '<form id="pwForm"><div class="field" style="margin-bottom:10px"><label>نام کاربری</label><input class="input" type="text" id="pwUser" autocomplete="off" ' + (main ? 'value="admin" readonly' : 'required') + ' style="text-align:center"></div>' +
+    '<div class="field"><label>' + t('password') + '</label><input class="input" type="password" id="pwInput" autocomplete="off" placeholder="••••••••" style="text-align:center;letter-spacing:2px"></div>' +
+    '<div class="err" id="pwErr"></div><button class="btn primary block" type="submit" style="margin-top:6px">' + t('login') + '</button><button class="btn block" type="button" data-action="closeModal" style="margin-top:9px">' + t('cancel') + '</button></form>'
   );
-  setTimeout(() => document.getElementById('pwInput')?.focus(), 120);
+  setTimeout(() => document.getElementById(main ? 'pwInput' : 'pwUser')?.focus(), 120);
   document.getElementById('pwForm').addEventListener('submit', e => {
     e.preventDefault();
     const val = document.getElementById('pwInput').value;
     const user = (document.getElementById('pwUser').value || '').trim().toLowerCase();
-    const admins = state.settings.admins || [];
-    const mainPass = state.settings.customPassword || DEFAULT_ADMIN_PASS;
-    const mainName = (state.settings.mainAdminName || 'admin').trim().toLowerCase();
-    const ok = !!user && ((user === mainName && val === mainPass) || admins.some(a => a.name.trim().toLowerCase() === user && a.pass === val));
-    if(ok){
-      authed = true; saveAdminSession();
-      save(); closeModal(); toast('✅ ' + t('adminPanel')); render(); openSettings();
+    let role = '';
+    if(main){ if(val === (state.settings.customPassword || DEFAULT_ADMIN_PASS)) role = 'main'; }
+    else if(user && (state.settings.admins || []).some(a => a.name.trim().toLowerCase() === user && a.pass === val)) role = 'general';
+    if(role){
+      authed = true; adminRole = role; saveAdminSession();
+      save(); closeModal(); toast('✅ ' + (role === 'main' ? 'ورود مدیر اصلی' : 'ورود مدیر سایت')); render(); openSettings();
     } else {
       const err = document.getElementById('pwErr'); err.textContent = t('wrongPassword');
       const f = modalEl.querySelector('form'); f.classList.remove('shake'); void f.offsetWidth; f.classList.add('shake');
@@ -2060,7 +2072,7 @@ function openPalette(sportId, teamId){
 }
 
 function openGuide(){
-  openModal('<div class="modal-head"><h2>❓ ' + t('guide') + '</h2><button class="icon-btn sm" data-action="closeModal">✕</button></div><div style="padding:10px 0"><h3 style="font-size:.9rem;font-weight:800;margin-bottom:8px">🏆 v1.6.3</h3><p style="font-size:.8rem;color:var(--muted);line-height:1.8">۸ تم، ۲ زبان، ۳ سرور، فصل‌ها، وبلاگ با تصویر، جدول حذفی، انتقادات و پیشنهادات</p></div><div style="padding:10px 0;border-top:1px solid var(--border)"><h3 style="font-size:.9rem;font-weight:800;margin-bottom:8px">💬 انتقادات و پیشنهادات</h3><p style="font-size:.8rem;color:var(--muted);line-height:1.8">می‌تونی با اسم، عنوان و متن، نظر یا انتقادت رو ثبت کنی. مدیر اون‌ها رو می‌بینه.</p></div><button class="btn block" data-action="closeModal" style="margin-top:16px">' + t('close') + '</button>');
+  openModal('<div class="modal-head"><h2>❓ ' + t('guide') + '</h2><button class="icon-btn sm" data-action="closeModal">✕</button></div><div style="padding:10px 0"><h3 style="font-size:.9rem;font-weight:800;margin-bottom:8px">🏆 v1.7.2</h3><p style="font-size:.8rem;color:var(--muted);line-height:1.8">۸ تم، ۲ زبان، ۳ سرور، فصل‌ها، وبلاگ با تصویر، جدول حذفی، انتقادات و پیشنهادات</p></div><div style="padding:10px 0;border-top:1px solid var(--border)"><h3 style="font-size:.9rem;font-weight:800;margin-bottom:8px">💬 انتقادات و پیشنهادات</h3><p style="font-size:.8rem;color:var(--muted);line-height:1.8">می‌تونی با اسم، عنوان و متن، نظر یا انتقادت رو ثبت کنی. مدیر اون‌ها رو می‌بینه.</p></div><button class="btn block" data-action="closeModal" style="margin-top:16px">' + t('close') + '</button>');
 }
 
 /* ============ DEBUG PANEL ============ */
@@ -2195,9 +2207,9 @@ document.addEventListener('keydown', e => {
   DEBUG.ok('Ready');
 })();
 </script>
-<!-- v1.6.3: این بلوک را قبل از </body> و بعد از اسکریپت اصلی index.html بچسبانید -->
+<!-- v1.7.2: این بلوک را قبل از </body> و بعد از اسکریپت اصلی index.html بچسبانید -->
 <script>
-/* لیگ ورزش‌ها — افزونه v1.6.3 */
+/* لیگ ورزش‌ها — افزونه v1.7.2 */
 (function(){
 var gender='men';
 var G={men:'آقایان',women:'بانوان'};
@@ -2419,7 +2431,7 @@ renderSportsHome=function(){
 function openAdmins(){
   var list=(state.settings.admins=state.settings.admins||[]);
   var rows=list.length?list.map(function(a){return '<div class="adm-row"><input class="input" value="'+esc(a.name)+'" data-adm-name="'+a.id+'" placeholder="نام کاربری" maxlength="30"><input class="input" value="'+esc(a.pass)+'" data-adm-pass="'+a.id+'" placeholder="رمز" maxlength="40"><button class="btn danger sm" data-action="delAdmin" data-id="'+a.id+'">✕</button></div>';}).join(''):'<p style="color:var(--muted);font-size:.85rem;text-align:center;padding:10px">هنوز مدیر اضافه‌ای ثبت نشده است.</p>';
-  openModal('<div class="modal-head"><h2>👥 مدیران سایت</h2><button class="icon-btn sm" data-action="closeModal">✕</button></div><p class="modal-sub">هر مدیر با نام کاربری و رمز خودش وارد می‌شود و همه امکانات مدیر را دارد. رمز اصلی سایت هم کار می‌کند و چند مدیر می‌توانند هم‌زمان وارد باشند.</p>'+rows+'<form id="addAdmForm" class="adm-add"><input class="input" id="newAdmName" placeholder="نام کاربری" maxlength="30"><input class="input" id="newAdmPass" placeholder="رمز (حداقل ۴ کاراکتر)" maxlength="40"><button class="btn primary" type="submit">＋ افزودن</button></form><button class="btn block" data-action="closeModal" style="margin-top:12px">'+t('close')+'</button>');
+  openModal('<div class="modal-head"><h2>👥 مدیران سایت</h2><button class="icon-btn sm" data-action="closeModal">✕</button></div><p class="modal-sub">مدیران سایت (عمومی) با نام کاربری و رمز خودشان وارد می‌شوند و اختیار محدودتری از مدیر اصلی (admin) دارند: نمی‌توانند مدیر اضافه یا حذف کنند، رمزها را تغییر دهند، اطلاعات را ریست کنند، سرور اضافه یا حذف کنند و پشتیبان بگیرند.</p>'+rows+'<form id="addAdmForm" class="adm-add"><input class="input" id="newAdmName" placeholder="نام کاربری" maxlength="30"><input class="input" id="newAdmPass" placeholder="رمز (حداقل ۴ کاراکتر)" maxlength="40"><button class="btn primary" type="submit">＋ افزودن</button></form><button class="btn block" data-action="closeModal" style="margin-top:12px">'+t('close')+'</button>');
   document.getElementById('addAdmForm').addEventListener('submit',function(e){
     e.preventDefault();
     var n=document.getElementById('newAdmName').value.trim(), p=document.getElementById('newAdmPass').value.trim();
@@ -2457,9 +2469,9 @@ function decorate(){
 function fixTexts(){
   var tb=document.getElementById('feedbackTopBtn'); if(tb) tb.title=NEW;
   var ab=document.querySelector('#feedbackActionBtn span:last-child'); if(ab) ab.textContent=NEW;
-  document.querySelectorAll('.version-badge').forEach(function(b){b.textContent='v1.6.3';});
-  var f=document.getElementById('footer'); if(f) f.textContent='لیگ ورزش‌ها • v1.6.3';
-  document.title=document.title.replace('v1.4.0','v1.6.3');
+  document.querySelectorAll('.version-badge').forEach(function(b){b.textContent='v1.7.2';});
+  var f=document.getElementById('footer'); if(f) f.textContent='لیگ ورزش‌ها • v1.7.2';
+  document.title=document.title.replace('v1.4.0','v1.7.2');
 }
 
 /* ---------- 6) جدول حذفی: اندازه توان ۲ (حداقل ۴) + استراحت تصادفی ---------- */
@@ -2940,17 +2952,6 @@ document.addEventListener('submit',function(e){
   sd.mx=sd.mx||{pairs:[]};sd.mx.pairs.push({id:uid(),a:A,b:B,hg:null,ag:null,winner:null});save();render();
 });
 
-/* 8-g) مدیر اصلی: نام کاربری قابل ویرایش */
-var _oa=openAdmins;
-openAdmins=function(){
-  _oa();
-  var sub=modalEl.querySelector('.modal-sub'); if(!sub) return;
-  sub.insertAdjacentHTML('afterend','<div class="field" style="margin-bottom:12px"><label>نام کاربری مدیر اصلی (با رمز اصلی سایت وارد می‌شود)</label><input class="input" id="mainAdminName" maxlength="30" value="'+esc(state.settings.mainAdminName||'admin')+'"></div>');
-  document.getElementById('mainAdminName').addEventListener('change',function(ev){
-    var v=ev.target.value.trim(); if(!v){ev.target.value=state.settings.mainAdminName||'admin';return;}
-    state.settings.mainAdminName=v;save();toast('✅ '+t('saved'));
-  });
-};
 var _render8=render;
 render=function(){_render8();bracketThird();};
 var st8=document.createElement('style');
@@ -2996,7 +2997,10 @@ render=function(){_r9();tickify();};
 
 /* 9-b) تغییرات نسخه */
 var LOG=[
- ['v1.6.3',['برنامه بازی‌ها (PDF) ویژه برگزارکنندگان: فهرست همه بازی‌ها تا پایان مسابقات','اصلاح «جدول دستی»: گزینه همان‌لحظه پس از انتخاب «حذفی» نمایش داده می‌شود و تیم دوم به‌طور پیش‌فرض متفاوت انتخاب می‌شود']],
+ ['v1.7.2',['اصلاح: گزینه پیش‌فرض پنجره ورود همیشه «مدیر سایت» است']],
+ ['v1.7.0',['نقش‌ها: مدیر اصلی (admin) و مدیر سایت با اختیار محدود؛ ورود با دو گزینه (پیش‌فرض: مدیر سایت)','رمز اولیه admin برابر Aa123456 و قابل تغییر؛ افزودن/حذف مدیر، تغییر رمزها، ریست اطلاعات، مدیریت سرورها و پشتیبان‌گیری فقط با مدیر اصلی','پخش زنده بازی‌ها: دایره سبز چشمک‌زن، به‌روزرسانی نتیجه، اعلان «گل زد» و «را برد» (۳ ثانیه، قابل کلیک)، صدای خوشحالی و کاغذ رنگی','تنظیمات هر کاربر برای خاموش کردن صدا، کاغذ رنگی و پیام گل','رنگ‌های جدید تیم‌ها از جمله سفید و سیاه','آپلود ویدیو از گالری در اخبار','چاپ هوشمند: نمایش کامل نام شرکت‌کنندگان در PDF']],
+ ['v1.6.3',['ویرایش چیدمان شرکت‌کنندگان بعد از ساخت جدول (حذفی، جام و مختلط)؛ شرکت‌کننده تکراری قرمز و خارج از جدول زرد','رفع باگ‌ها: جدول طناب‌کشی در حالت انتخاب برنده، ارجاع‌های معلق پس از حذف شرکت‌کننده، بازی رده‌بندی در جدول‌های کوچک، ایمن‌سازی متن اخبار']],
+ ['v1.6.2',['برنامه بازی‌ها (PDF) ویژه برگزارکنندگان: فهرست همه بازی‌ها تا پایان مسابقات','اصلاح «جدول دستی»']],
  ['v1.6.1',['چیدمان دستی شرکت‌کنندگان در جدول حذفی']],
  ['v1.6.0',['شطرنج و ورزش‌های «فقط برنده»: انتخاب برنده با تیک','حذف گزینه زبان انگلیسی','تم جدید «سلطنتی»','«راهنما» به «تغییرات نسخه» تبدیل شد']],
  ['v1.5.9',['نام فصل در گزارش کامل یک‌بار و برجسته نمایش داده می‌شود و بعد از آن فقط نام ورزش‌ها']],
@@ -3384,6 +3388,264 @@ var st13=document.createElement('style');
 st13.textContent='.ed-strip{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0 12px}.ed-chip{padding:6px 12px;border-radius:10px;border:1px solid var(--border);background:var(--surface-2);font-size:.78rem;font-weight:700}'+
 '.ed-dup{border-color:#ef4444!important;background:rgba(239,68,68,.25)!important}.ed-miss{border-color:#facc15!important;background:rgba(250,204,21,.28)!important}';
 document.head.appendChild(st13);
+
+/* ---------- 14) نقش‌ها، پشتیبان، پخش زنده، چاپ هوشمند، ویدیو ---------- */
+var MAINMSG='این بخش فقط در اختیار مدیر اصلی (admin) است';
+['openResetOptions','doReset','openAddServer','openEditServer','deleteServer','openChangePassword'].forEach(function(n){
+  var o=window[n]; if(typeof o!=='function') return;
+  window[n]=function(){ if(!isMain()){toast(MAINMSG);return;} return o.apply(this,arguments); };
+});
+var _oaG=openAdmins;
+openAdmins=function(){if(!isMain()){toast(MAINMSG);return;}return _oaG.apply(this,arguments);};
+function backupData(){
+  if(!isMain()){toast(MAINMSG);return;}
+  var pack={app:'league',version:'v1.7.2',date:new Date().toISOString(),state:state};
+  var blob=new Blob([JSON.stringify(pack)],{type:'application/json'}), a=document.createElement('a');
+  a.href=URL.createObjectURL(blob); a.download='league-backup-'+new Date().toISOString().slice(0,10)+'.json';
+  document.body.appendChild(a); a.click();
+  setTimeout(function(){URL.revokeObjectURL(a.href);a.remove();},800);
+  toast('✅ فایل پشتیبان دریافت شد');
+}
+
+/* ===== پخش زنده ===== */
+var LV={prev:null,t0:Date.now(),sounds:0,confetti:0,banners:0};
+function plain(sd,id){var x=sd.teams.find(function(q){return q.id===id;});return x?x.name:'—';}
+function liveList(sp,sd){
+  var o=[];
+  (sd.matches||[]).forEach(function(m){o.push({k:'L:'+m.id,m:m,h:m.home,a:m.away,ko:false});});
+  if(sd.cup&&sd.cup.matches) sd.cup.matches.forEach(function(m){o.push({k:'G:'+m.id,m:m,h:m.home,a:m.away,ko:false});});
+  if(sd.bracket) sd.bracket.forEach(function(r){r.matches.forEach(function(m){o.push({k:'K:'+m.id,m:m,h:m.a,a:m.b,ko:true});});});
+  if(sd.third) o.push({k:'T',m:sd.third,h:sd.third.a,a:sd.third.b,ko:true});
+  (sd.manualMatches||[]).forEach(function(m){o.push({k:'M:'+m.id,m:m,h:m.a,a:m.b,ko:true});});
+  if(sd.mx&&sd.mx.pairs) sd.mx.pairs.forEach(function(m){o.push({k:'P:'+m.id,m:m,h:m.a,a:m.b,ko:true});});
+  return o.filter(function(x){return x.h&&x.a;});
+}
+function liveItems(sp,sd){return liveList(sp,sd).filter(function(x){return x.m.live&&!(x.ko&&x.m.winner);});}
+function hasLive(sp){
+  var r=false;
+  ['','~w'].forEach(function(suf){var sd=sp.seasonsData&&sp.seasonsData[sp.currentSeasonId+suf]; if(sd&&sd.teams&&liveItems(sp,sd).length) r=true;});
+  return r;
+}
+function snapAll(){
+  var s={};
+  allSports().forEach(function(sp){
+    if(sp.type!=='score'||!sp.seasonsData) return;
+    [['men',''],['women','~w']].forEach(function(g){
+      var sd=sp.seasonsData[sp.currentSeasonId+g[1]]; if(!sd||!sd.teams) return;
+      liveList(sp,sd).forEach(function(x){
+        if(x.m.live||x.m.fin) s[sp.id+'|'+g[0]+'|'+x.k]={live:!!x.m.live,fin:x.m.fin||0,hg:x.m.hg||0,ag:x.m.ag||0,sp:sp.id,gen:g[0],k:x.k,h:plain(sd,x.h),a:plain(sd,x.a)};
+      });
+    });
+  });
+  return s;
+}
+var AC=null;
+function audioCtx(){if(!AC){var C=window.AudioContext||window.webkitAudioContext;if(C){try{AC=new C();}catch(e){}}}return AC;}
+['click','touchstart','keydown'].forEach(function(ev){document.addEventListener(ev,function(){var c=audioCtx();if(c&&c.state==='suspended')c.resume();},{passive:true});});
+function cheer(big){
+  if(userPrefs.sound===false) return;
+  var c=audioCtx(); if(!c||c.state!=='running') return;
+  var dur=big?2.4:1.1, now=c.currentTime, n=Math.floor(c.sampleRate*dur), buf=c.createBuffer(1,n,c.sampleRate), d=buf.getChannelData(0);
+  for(var i=0;i<n;i++) d[i]=(Math.random()*2-1)*(0.6+0.4*Math.sin(i/c.sampleRate*38));
+  var src=c.createBufferSource(); src.buffer=buf;
+  var bp=c.createBiquadFilter(); bp.type='bandpass'; bp.frequency.value=1500; bp.Q.value=0.7;
+  var g=c.createGain(); g.gain.setValueAtTime(0,now); g.gain.linearRampToValueAtTime(big?0.5:0.38,now+0.18); g.gain.exponentialRampToValueAtTime(0.001,now+dur);
+  src.connect(bp); bp.connect(g); g.connect(c.destination); src.start(now);
+  [0,0.14,0.28].forEach(function(dl,i){
+    var o=c.createOscillator(), og=c.createGain(); o.type='triangle';
+    o.frequency.setValueAtTime(420+i*90,now+dl); o.frequency.exponentialRampToValueAtTime(900+i*120,now+dl+0.5);
+    og.gain.setValueAtTime(0,now+dl); og.gain.linearRampToValueAtTime(0.1,now+dl+0.08); og.gain.exponentialRampToValueAtTime(0.001,now+dl+0.6);
+    o.connect(og); og.connect(c.destination); o.start(now+dl); o.stop(now+dl+0.65);
+  });
+}
+function confetti(){
+  if(userPrefs.confetti===false) return;
+  if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var cv=document.createElement('canvas'); cv.style.cssText='position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:640';
+  cv.width=innerWidth; cv.height=innerHeight; document.body.appendChild(cv);
+  var cx=cv.getContext('2d'), cols=['#f87171','#fbbf24','#4ade80','#22d3ee','#a78bfa','#f472b6','#ffffff'], ps=[];
+  for(var i=0;i<150;i++) ps.push({x:Math.random()*cv.width,y:-20-Math.random()*cv.height*0.4,w:6+Math.random()*6,h:8+Math.random()*8,vx:(Math.random()-0.5)*3,vy:2+Math.random()*4,r:Math.random()*6,vr:(Math.random()-0.5)*0.3,c:cols[i%cols.length]});
+  var t0=performance.now();
+  (function f(t){
+    var el=t-t0; cx.clearRect(0,0,cv.width,cv.height);
+    ps.forEach(function(p){p.x+=p.vx;p.y+=p.vy;p.r+=p.vr;cx.save();cx.translate(p.x,p.y);cx.rotate(p.r);cx.fillStyle=p.c;cx.globalAlpha=Math.max(0,1-el/2800);cx.fillRect(-p.w/2,-p.h/2,p.w,p.h);cx.restore();});
+    if(el<2800) requestAnimationFrame(f); else cv.remove();
+  })(t0);
+}
+function inResults(){return currentView==='sports'||currentView==='sport'||currentView==='admin';}
+function showBanner(text,info){
+  var b=document.getElementById('liveBanner');
+  if(!b){b=document.createElement('div');b.id='liveBanner';document.body.appendChild(b);}
+  b.textContent=text; b._info=info; b.className='lv-banner show'; LV.banners++;
+  clearTimeout(b._t); b._t=setTimeout(function(){b.className='lv-banner';},3000);
+}
+function goLive(info){
+  var sp=getSport(info.sp); if(!sp) return;
+  gender=info.gen; closeModal(); currentView='sport'; currentSportId=sp.id; currentTab='matches'; currentNewsId=null; currentFbId=null;
+  render();
+  setTimeout(function(){var el=document.querySelector('[data-lk="'+info.k+'"]'); if(el){el.scrollIntoView({behavior:'smooth',block:'center'});el.classList.add('lv-flash');}},80);
+  window.scrollTo({top:0});
+}
+function fireEvent(ev){
+  if(!inResults()) return;
+  if(userPrefs.goalMsg!==false) showBanner(ev.text,ev);
+  LV.sounds++; cheer(ev.type==='win');
+  if(ev.type==='win'){LV.confetti++;confetti();}
+}
+function liveTick(){
+  var cur=snapAll();
+  if(LV.prev&&Date.now()-LV.t0>4000){
+    Object.keys(cur).forEach(function(k){
+      var p=LV.prev[k],c=cur[k]; if(!p) return;
+      if(p.live&&!c.live&&c.fin&&c.fin!==p.fin){
+        var ev={sp:c.sp,gen:c.gen,k:c.k,live:false};
+        if(c.hg>c.ag){ev.type='win';ev.text=c.h+'، '+c.a+' را برد';}
+        else if(c.ag>c.hg){ev.type='win';ev.text=c.a+'، '+c.h+' را برد';}
+        else{ev.type='draw';ev.text='بازی '+c.h+' و '+c.a+' مساوی شد';}
+        fireEvent(ev);
+      } else if(p.live&&c.live){
+        if(c.hg>p.hg) fireEvent({type:'goal',sp:c.sp,gen:c.gen,k:c.k,live:true,text:'🎊 '+c.h+' به '+c.a+' گل زد 🎊'});
+        else if(c.ag>p.ag) fireEvent({type:'goal',sp:c.sp,gen:c.gen,k:c.k,live:true,text:'🎊 '+c.a+' به '+c.h+' گل زد 🎊'});
+      }
+    });
+  }
+  LV.prev=cur;
+}
+function liveCardHtml(sp,sd,admin){
+  var items=liveItems(sp,sd); if(!items.length) return '';
+  var rows=items.map(function(x){
+    var hn=tn(sd,x.h), an=tn(sd,x.a), at=' data-sport="'+sp.id+'" data-k="'+x.k+'"';
+    var ctl=admin?'<div class="lv-ctl"><button class="btn sm" data-action="liveGoal"'+at+' data-side="h" data-d="1">＋ '+hn+'</button><button class="btn sm" data-action="liveGoal"'+at+' data-side="a" data-d="1">＋ '+an+'</button><button class="rr-btn" title="کم کردن" data-action="liveGoal"'+at+' data-side="h" data-d="-1">−</button><button class="rr-btn" title="کم کردن" data-action="liveGoal"'+at+' data-side="a" data-d="-1">−</button><button class="btn primary sm" data-action="liveEnd"'+at+'>🏁 پایان بازی</button><button class="btn danger sm" data-action="liveCancel"'+at+'>⏹ لغو</button></div>':'';
+    return '<div class="live-row" data-lk="'+x.k+'"><div class="lv-main"><span class="live-dot"></span><span class="lv-t">'+hn+'</span><span class="lv-s">'+num(x.m.hg||0)+' − '+num(x.m.ag||0)+'</span><span class="lv-t">'+an+'</span></div>'+ctl+'</div>';
+  }).join('');
+  return '<div class="card live-card"><div class="section-title" style="margin:0 0 6px"><span class="live-dot"></span> در حال اجرا — '+G[gender]+'</div>'+rows+'</div>';
+}
+function liveButtons(sp,sd,view){
+  var add=function(row,attrs){var a=row.querySelector('.rr-actions');if(a)a.insertAdjacentHTML('afterbegin','<button class="rr-btn live-start" title="شروع پخش زنده" data-action="liveStart" data-sport="'+sp.id+'" '+attrs+'>🟢</button>');};
+  var find=function(k){return liveList(sp,sd).find(function(x){return x.k===k;});};
+  view.querySelectorAll('.rr-row').forEach(function(row){
+    var sv=row.querySelector('[data-action=savePair]');
+    if(sv){var a=sv.dataset.a,b=sv.dataset.b,ex=(sd.matches||[]).find(function(m){return (m.home===a&&m.away===b)||(m.home===b&&m.away===a);});
+      if(ex&&ex.live) return; add(row,'data-k="'+(ex?'L:'+ex.id:'')+'" data-a="'+a+'" data-b="'+b+'"'); return;}
+    if(row.dataset.gid){var it=find('G:'+row.dataset.gid); if(it&&!it.m.live) add(row,'data-k="G:'+row.dataset.gid+'"');}
+  });
+  view.querySelectorAll('.bracket-match').forEach(function(row){
+    var k=null, i1=row.querySelector('[data-bracket=hg]');
+    if(i1&&!i1.disabled) k='K:'+i1.dataset.match;
+    else if(row.querySelector('[data-man=hg]')&&row.dataset.mid) k='M:'+row.dataset.mid;
+    else if(row.querySelector('[data-mp=hg]')&&row.dataset.pid) k='P:'+row.dataset.pid;
+    else if(row.querySelector('[data-third=hg]')) k='T';
+    if(!k) return; var it=find(k); if(it&&!it.m.live&&!it.m.winner) add(row,'data-k="'+k+'"');
+  });
+}
+function liveDecorate(){
+  document.querySelectorAll('.sport-card[data-id]').forEach(function(c){
+    var sp=getSport(c.dataset.id); if(sp&&sp.type==='score'&&hasLive(sp)){var n=c.querySelector('.sport-name');if(n)n.insertAdjacentHTML('beforeend','<span class="live-dot" title="در حال اجرا"></span>');}
+  });
+  if(currentView!=='sport') return;
+  var sp=getSport(currentSportId); if(!sp||sp.type!=='score') return;
+  var sd=getCurrentSeason(sp), view=document.getElementById('view'), hdr=view.querySelector('.sport-header');
+  if(hasLive(sp)){
+    var tab=document.querySelector('.tab[data-tab=matches]'); if(tab) tab.insertAdjacentHTML('beforeend','<span class="live-dot"></span>');
+    var h2=hdr&&hdr.querySelector('h2'); if(h2) h2.insertAdjacentHTML('beforeend','<span class="live-dot"></span>');
+  }
+  var card=liveCardHtml(sp,sd,authed); if(card&&hdr) hdr.insertAdjacentHTML('afterend',card);
+  if(authed&&currentTab==='admin') liveButtons(sp,sd,view);
+}
+document.addEventListener('click',function(e){
+  var bn=e.target.closest&&e.target.closest('#liveBanner');
+  if(bn&&bn._info){var inf=bn._info;bn.className='lv-banner';clearTimeout(bn._t);goLive(inf);return;}
+  var el=e.target.closest('[data-action]'); if(!el) return; var a=el.dataset.action;
+  if(a==='backupData'){backupData();}
+  else if(a==='toggleSound'){userPrefs.sound=(userPrefs.sound===false);saveUserPrefs();openSettings();if(userPrefs.sound!==false)cheer(false);}
+  else if(a==='toggleConfetti'){userPrefs.confetti=(userPrefs.confetti===false);saveUserPrefs();openSettings();}
+  else if(a==='toggleGoalMsg'){userPrefs.goalMsg=(userPrefs.goalMsg===false);saveUserPrefs();openSettings();}
+  else if(a==='adminLogin'){loginRole='general';}
+  else if(a==='loginRole'){loginRole=el.dataset.val;openPasswordModal();}
+  else if(a==='liveStart'||a==='liveGoal'||a==='liveEnd'||a==='liveCancel'){
+    if(!authed) return; var sp=getSport(el.dataset.sport); if(!sp) return; var sd=getCurrentSeason(sp), k=el.dataset.k, m, it;
+    if(a==='liveStart'){
+      if(!k){m={id:uid(),home:el.dataset.a,away:el.dataset.b,hg:0,ag:0,auto:true};sd.matches.push(m);}
+      else{it=liveList(sp,sd).find(function(x){return x.k===k;}); if(!it) return; m=it.m; if(it.ko&&m.winner){toast('این بازی پایان یافته است');return;} m.prev={hg:m.hg==null?null:m.hg,ag:m.ag==null?null:m.ag}; if(m.hg==null){m.hg=0;m.ag=0;}}
+      m.live=true;m.fin=0;save();render();toast('🟢 پخش زنده شروع شد');return;
+    }
+    it=liveList(sp,sd).find(function(x){return x.k===k;}); if(!it) return; m=it.m;
+    if(a==='liveGoal'){
+      var f=el.dataset.side==='h'?'hg':'ag'; m[f]=Math.max(0,(m[f]||0)+parseInt(el.dataset.d,10)); if(m.hg==null)m.hg=0; if(m.ag==null)m.ag=0; save();render();
+    } else if(a==='liveEnd'){
+      var hg=m.hg||0,ag=m.ag||0;
+      if(it.ko){ if(hg===ag){toast(t('knockoutNoDraw'));return;} m.winner=hg>ag?'a':'b'; m.hg=hg;m.ag=ag; }
+      m.live=false;m.fin=Date.now();delete m.prev;delete m.auto;
+      if(sd.bracket&&k.charAt(0)==='K') propagateBracket(sd);
+      save();render();
+    } else {
+      if(m.auto){ sd.matches=sd.matches.filter(function(x){return x!==m;}); }
+      else if(m.prev){ m.hg=m.prev.hg; m.ag=m.prev.ag; }
+      m.live=false; delete m.prev; save();render();
+    }
+  }
+});
+
+/* ===== چاپ هوشمند ===== */
+doPrint=function(html,ttlText){
+  area.innerHTML=html+'<div class="rp-foot">🏆 لیگ ورزش‌ها • تاریخ گزارش: '+new Date().toLocaleDateString('fa-IR')+'</div>';
+  area.querySelectorAll('td.n,td.n1,td.n2').forEach(function(c){var L=c.textContent.length;if(L>34)c.classList.add('xl');else if(L>22)c.classList.add('lg');});
+  var old=document.title; document.title=ttlText;
+  var back=function(){document.title=old;window.removeEventListener('afterprint',back);};
+  window.addEventListener('afterprint',back);
+  var go=function(){window.print();}, fr=document.fonts&&document.fonts.ready;
+  if(fr) Promise.race([fr,new Promise(function(r){setTimeout(r,1500);})]).then(function(){setTimeout(go,60);}); else setTimeout(go,80);
+};
+
+/* ===== ویدیو از گالری برای اخبار ===== */
+function uploadVideo(file){
+  return new Promise(function(res,rej){
+    if(!/^video\//.test(file.type)) return rej(new Error('یک فایل ویدیویی انتخاب کنید'));
+    toast('⏳ در حال آپلود ویدیو...');
+    var inline=function(){
+      if(file.size>3*1024*1024) return rej(new Error('حجم ویدیو بیش از ۳ مگابایت است. در Supabase یک Bucket عمومی با نام media بسازید یا از «لینک ویدیو» استفاده کنید'));
+      var r=new FileReader(); r.onload=function(){res(r.result);}; r.onerror=function(){rej(new Error('خطا در خواندن فایل'));}; r.readAsDataURL(file);
+    };
+    if(supabaseClient&&supabaseClient.storage){
+      var ext=(file.name.split('.').pop()||'mp4').replace(/[^a-z0-9]/gi,''), path='news/'+Date.now()+'-'+Math.random().toString(36).slice(2,8)+'.'+ext;
+      supabaseClient.storage.from('media').upload(path,file,{contentType:file.type,upsert:false}).then(function(r){
+        if(r.error){inline();return;} res(supabaseClient.storage.from('media').getPublicUrl(path).data.publicUrl);
+      }).catch(inline);
+    } else inline();
+  });
+}
+var _onf=openNewsForm;
+openNewsForm=function(id){
+  _onf(id);
+  var tb=modalEl.querySelector('.editor-toolbar'); if(!tb) return;
+  tb.insertAdjacentHTML('beforeend','<button type="button" class="editor-btn" id="nfAddVid">🎬 ویدیو از گالری</button><input type="file" accept="video/*" id="nfVidInput" style="display:none">');
+  var inp=document.getElementById('nfVidInput');
+  document.getElementById('nfAddVid').addEventListener('click',function(){inp.click();});
+  inp.addEventListener('change',function(){
+    var f=inp.files[0]; if(!f) return;
+    uploadVideo(f).then(function(url){
+      var ed=document.getElementById('nfContent'), v=document.createElement('video');
+      v.src=url; v.controls=true; v.setAttribute('playsinline',''); ed.appendChild(v); ed.appendChild(document.createElement('br')); toast('✅ ویدیو اضافه شد');
+    }).catch(function(e){toast(e.message||'خطا در آپلود ویدیو');});
+    inp.value='';
+  });
+};
+
+var _r14=render;
+render=function(){_r14();liveDecorate();liveTick();};
+window.__lg.LV=LV;
+var st14=document.createElement('style');
+st14.textContent='.live-dot{display:inline-block;width:10px;height:10px;border-radius:50%;background:#22c55e;margin-inline:5px;vertical-align:middle;animation:livepulse 1.2s infinite}'+
+'@keyframes livepulse{0%{box-shadow:0 0 0 0 rgba(34,197,94,.75);opacity:1}70%{box-shadow:0 0 0 9px rgba(34,197,94,0);opacity:.5}100%{box-shadow:0 0 0 0 rgba(34,197,94,0);opacity:1}}'+
+'.live-card{margin-bottom:12px;border-color:rgba(34,197,94,.45)}.live-row{padding:10px 0;border-top:1px solid var(--border)}.live-row:first-of-type{border-top:0}'+
+'.lv-main{display:flex;align-items:center;justify-content:center;gap:10px;font-weight:800;flex-wrap:wrap}.lv-s{font-size:1.2rem;color:var(--accent);padding:2px 12px;border-radius:10px;background:var(--surface-2)}'+
+'.lv-ctl{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-top:8px}.lv-flash{animation:lvflash 1.4s ease 2}@keyframes lvflash{50%{background:rgba(34,197,94,.22)}}'+
+'.lv-banner{position:fixed;top:12px;left:50%;transform:translate(-50%,-160%);z-index:650;max-width:92vw;padding:12px 20px;border-radius:16px;background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#062017;font-weight:800;font-size:.92rem;box-shadow:0 12px 30px rgba(0,0,0,.4);cursor:pointer;opacity:0;pointer-events:none;transition:transform .3s,opacity .3s;text-align:center}'+
+'.lv-banner.show{transform:translate(-50%,0);opacity:1;pointer-events:auto}';
+document.head.appendChild(st14);
+var stP=document.createElement('style');
+stP.textContent='@media print{#printArea table{overflow:visible!important}#printArea th,#printArea td{white-space:normal!important;overflow-wrap:anywhere;word-break:normal;line-height:1.7}#printArea td.lg{font-size:12.5px}#printArea td.xl{font-size:11.5px}#printArea table.st td.n{min-width:26%}}';
+document.head.appendChild(stP);
 
 /* ---------- 7) PWA: manifest + service worker ---------- */
 (function(){
