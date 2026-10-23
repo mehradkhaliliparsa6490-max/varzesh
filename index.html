@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#070b14">
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icon-192.png">
-<title>لیگ ورزش‌ها v1.7.2</title>
+<title>لیگ ورزش‌ها v1.7.3</title>
 <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
@@ -356,7 +356,7 @@ input[type=number]{-moz-appearance:textfield;text-align:center;font-weight:700}
     <div class="brand" data-action="goHome">
       <div class="logo">🏆</div>
       <div class="brand-text">
-        <h1 id="brandTitle">لیگ ورزش‌ها<span class="version-badge">v1.7.2</span></h1>
+        <h1 id="brandTitle">لیگ ورزش‌ها<span class="version-badge">v1.7.3</span></h1>
         <p id="brandSub">مدیریت نتایج مسابقات</p>
       </div>
     </div>
@@ -376,7 +376,7 @@ input[type=number]{-moz-appearance:textfield;text-align:center;font-weight:700}
   <div class="status-bar" id="statusBar"></div>
   <nav class="tabs" id="tabs" style="display:none"></nav>
   <main id="view"></main>
-  <div class="footer" id="footer">لیگ ورزش‌ها • v1.7.2</div>
+  <div class="footer" id="footer">لیگ ورزش‌ها • v1.7.3</div>
 </div>
 
 <button class="debug-toggle" id="debugToggle" title="Debug">🐞</button>
@@ -430,7 +430,7 @@ const ADMIN_KEY = 'sports-league-admin-session';
 const SERVER_SEL_KEY = 'sports-league-server';
 const CLIENT_ID_KEY = 'sports-league-client-id';
 const FB_SEEN_KEY = 'sports-league-fb-seen';
-const VERSION = 'v1.7.2';
+const VERSION = 'v1.7.3';
 const MAX_MEMBERS = 15;
 
 const SUPABASE_URL = 'https://lwpyainlxrthddlockia.supabase.co';
@@ -1533,9 +1533,9 @@ function teamListBlock(sp){
   const sd = getCurrentSeason(sp);
   const rows = sd.teams.length ? sd.teams.map(tm => {
     const mc = (sd.teamMembers && sd.teamMembers[tm.id] || []).length;
-    return '<div class="team-row"><button class="color-pick-btn" data-action="openPalette" data-sport="' + sp.id + '" data-id="' + tm.id + '" style="background:' + esc(tm.color) + '"></button><input class="input" value="' + esc(tm.name) + '" maxlength="24" data-rename="' + tm.id + '" data-sport="' + sp.id + '">' + (sp.showMembers ? '<button data-action="openMembers" data-sport="' + sp.id + '" data-id="' + tm.id + '" style="width:42px;height:42px;border-radius:12px;border:1px solid var(--border);background:var(--surface-2);font-size:16px;cursor:pointer;position:relative;display:grid;place-items:center">👥' + (mc > 0 ? '<span style="position:absolute;top:-4px;inset-inline-end:-4px;min-width:18px;height:18px;padding:0 4px;border-radius:9px;background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#062017;font-size:.62rem;font-weight:800;display:grid;place-items:center">' + num(mc) + '</span>' : '') + '</button>' : '') + '<button class="btn danger sm" data-action="delTeam" data-sport="' + sp.id + '" data-id="' + tm.id + '">✕</button></div>';
+    return '<div class="team-row"><button class="color-pick-btn" data-action="openPalette" data-sport="' + sp.id + '" data-id="' + tm.id + '" style="background:' + esc(tm.color) + '"></button><input class="input" value="' + esc(tm.name) + '" data-rename="' + tm.id + '" data-sport="' + sp.id + '">' + (sp.showMembers ? '<button data-action="openMembers" data-sport="' + sp.id + '" data-id="' + tm.id + '" style="width:42px;height:42px;border-radius:12px;border:1px solid var(--border);background:var(--surface-2);font-size:16px;cursor:pointer;position:relative;display:grid;place-items:center">👥' + (mc > 0 ? '<span style="position:absolute;top:-4px;inset-inline-end:-4px;min-width:18px;height:18px;padding:0 4px;border-radius:9px;background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#062017;font-size:.62rem;font-weight:800;display:grid;place-items:center">' + num(mc) + '</span>' : '') + '</button>' : '') + '<button class="btn danger sm" data-action="delTeam" data-sport="' + sp.id + '" data-id="' + tm.id + '">✕</button></div>';
   }).join('') : '<p style="color:var(--muted);font-size:.85rem;padding:8px 0">' + t('noTeams') + '</p>';
-  return '<div class="card" style="margin-bottom:14px"><div class="section-title" style="margin:0 0 12px">👥 ' + t('teams') + '</div><form class="row-form" id="teamForm" data-sport="' + sp.id + '"><input class="input" id="teamNameInput" maxlength="24" placeholder="' + t('teamName') + '"><button class="btn primary" type="submit">＋ ' + t('add') + '</button></form><div>' + rows + '</div></div>';
+  return '<div class="card" style="margin-bottom:14px"><div class="section-title" style="margin:0 0 12px">👥 ' + t('teams') + '</div><form class="row-form" id="teamForm" data-sport="' + sp.id + '"><input class="input" id="teamNameInput" placeholder="' + t('teamName') + '"><button class="btn primary" type="submit">＋ ' + t('add') + '</button></form><div>' + rows + '</div></div>';
 }
 
 function renderAdminScore(sp){
@@ -1582,7 +1582,7 @@ function renderAdminSolo(sp){
   const sd = getCurrentSeason(sp);
   const rows = sd.teams.length ? sd.teams.map(tm => {
     const val = sd.soloScores[tm.id];
-    return '<div class="solo-row"><button class="color-pick-btn" data-action="openPalette" data-sport="' + sp.id + '" data-id="' + tm.id + '" style="background:' + esc(tm.color) + '"></button><input class="input" value="' + esc(tm.name) + '" maxlength="24" data-rename="' + tm.id + '" data-sport="' + sp.id + '"><input class="solo-score-input" type="number" inputmode="numeric" min="0" max="9999" value="' + (val != null ? val : '') + '" placeholder="' + t('score') + '" data-solo-score="' + tm.id + '" data-sport="' + sp.id + '"><button class="btn danger sm" data-action="delTeam" data-sport="' + sp.id + '" data-id="' + tm.id + '">✕</button></div>';
+    return '<div class="solo-row"><button class="color-pick-btn" data-action="openPalette" data-sport="' + sp.id + '" data-id="' + tm.id + '" style="background:' + esc(tm.color) + '"></button><input class="input" value="' + esc(tm.name) + '" data-rename="' + tm.id + '" data-sport="' + sp.id + '"><input class="solo-score-input" type="number" inputmode="numeric" min="0" max="9999" value="' + (val != null ? val : '') + '" placeholder="' + t('score') + '" data-solo-score="' + tm.id + '" data-sport="' + sp.id + '"><button class="btn danger sm" data-action="delTeam" data-sport="' + sp.id + '" data-id="' + tm.id + '">✕</button></div>';
   }).join('') : '<p style="color:var(--muted);font-size:.85rem;padding:8px 0">' + t('noTeams') + '</p>';
   return '<div class="section fade"><div class="section-title">🔐 ' + t('adminPanel') + '</div>' + teamListBlock(sp) + '<div class="card"><div class="section-title" style="margin:0 0 12px">📈 ' + t('score') + '</div><div>' + rows + '</div></div></div>';
 }
@@ -1591,7 +1591,7 @@ function renderAdminRank(sp){
   const sd = getCurrentSeason(sp);
   const rows = sd.teams.length ? sd.teams.map(tm => {
     const val = sd.ranks[tm.id];
-    return '<div class="solo-row"><button class="color-pick-btn" data-action="openPalette" data-sport="' + sp.id + '" data-id="' + tm.id + '" style="background:' + esc(tm.color) + '"></button><input class="input" value="' + esc(tm.name) + '" maxlength="24" data-rename="' + tm.id + '" data-sport="' + sp.id + '"><input class="solo-score-input" type="number" inputmode="numeric" min="1" max="99" value="' + (val != null ? val : '') + '" placeholder="۱" data-solo-rank="' + tm.id + '" data-sport="' + sp.id + '"><button class="btn danger sm" data-action="delTeam" data-sport="' + sp.id + '" data-id="' + tm.id + '">✕</button></div>';
+    return '<div class="solo-row"><button class="color-pick-btn" data-action="openPalette" data-sport="' + sp.id + '" data-id="' + tm.id + '" style="background:' + esc(tm.color) + '"></button><input class="input" value="' + esc(tm.name) + '" data-rename="' + tm.id + '" data-sport="' + sp.id + '"><input class="solo-score-input" type="number" inputmode="numeric" min="1" max="99" value="' + (val != null ? val : '') + '" placeholder="۱" data-solo-rank="' + tm.id + '" data-sport="' + sp.id + '"><button class="btn danger sm" data-action="delTeam" data-sport="' + sp.id + '" data-id="' + tm.id + '">✕</button></div>';
   }).join('') : '<p style="color:var(--muted);font-size:.85rem;padding:8px 0">' + t('noTeams') + '</p>';
   return '<div class="section fade"><div class="section-title">🔐 ' + t('adminPanel') + '</div>' + teamListBlock(sp) + '<div class="card"><div class="section-title" style="margin:0 0 12px">🥇 ' + t('rank') + '</div><div>' + rows + '</div></div></div>';
 }
@@ -2047,8 +2047,8 @@ function openMembers(sportId, teamId){
   if(!sd.teamMembers) sd.teamMembers = {};
   const ms = sd.teamMembers[teamId] || [];
   const canAdd = ms.length < MAX_MEMBERS;
-  const rows = ms.length ? ms.map(m => '<div class="mm-row ' + (m.isCaptain && sp.showCaptain ? 'is-captain' : '') + '"><span class="dot" style="background:' + esc(tm.color) + '"></span><input class="mm-name-input" value="' + esc(m.name) + '" maxlength="30" data-member-rename="' + m.id + '" data-team="' + teamId + '" data-sport="' + sportId + '"><div class="mm-actions">' + (sp.showCaptain ? '<button class="mm-btn cap-toggle ' + (m.isCaptain?'on':'') + '" data-action="toggleCaptain" data-sport="' + sportId + '" data-team="' + teamId + '" data-member="' + m.id + '">⭐</button>' : '') + '<button class="mm-btn del" data-action="delMember" data-sport="' + sportId + '" data-team="' + teamId + '" data-member="' + m.id + '">✕</button></div></div>').join('') : '<div style="text-align:center;padding:20px;color:var(--muted);font-size:.82rem">' + t('noMembers') + '</div>';
-  openModal('<div class="modal-head"><h2>👥 ' + t('manageMembers') + '</h2><button class="icon-btn sm" data-action="closeModal">✕</button></div><p class="modal-sub"><b style="color:' + esc(tm.color) + '">●</b> ' + esc(tm.name) + '</p><div>' + rows + '</div><div style="font-size:.72rem;color:var(--muted);font-weight:700;text-align:center;margin:8px 0">' + num(ms.length) + ' / ' + num(MAX_MEMBERS) + '</div>' + (canAdd ? '<form id="addMemberForm" data-sport="' + sportId + '" data-team="' + teamId + '" style="display:grid;grid-template-columns:1fr auto;gap:10px;margin-top:14px"><input class="input" id="memberNameInput" maxlength="30" placeholder="' + t('memberName') + '"><button class="btn primary" type="submit">＋ ' + t('addMember') + '</button></form>' : '') + '<button class="btn block" data-action="closeModal" style="margin-top:10px">' + t('close') + '</button>');
+  const rows = ms.length ? ms.map(m => '<div class="mm-row ' + (m.isCaptain && sp.showCaptain ? 'is-captain' : '') + '"><span class="dot" style="background:' + esc(tm.color) + '"></span><input class="mm-name-input" value="' + esc(m.name) + '" data-member-rename="' + m.id + '" data-team="' + teamId + '" data-sport="' + sportId + '"><div class="mm-actions">' + (sp.showCaptain ? '<button class="mm-btn cap-toggle ' + (m.isCaptain?'on':'') + '" data-action="toggleCaptain" data-sport="' + sportId + '" data-team="' + teamId + '" data-member="' + m.id + '">⭐</button>' : '') + '<button class="mm-btn del" data-action="delMember" data-sport="' + sportId + '" data-team="' + teamId + '" data-member="' + m.id + '">✕</button></div></div>').join('') : '<div style="text-align:center;padding:20px;color:var(--muted);font-size:.82rem">' + t('noMembers') + '</div>';
+  openModal('<div class="modal-head"><h2>👥 ' + t('manageMembers') + '</h2><button class="icon-btn sm" data-action="closeModal">✕</button></div><p class="modal-sub"><b style="color:' + esc(tm.color) + '">●</b> ' + esc(tm.name) + '</p><div>' + rows + '</div><div style="font-size:.72rem;color:var(--muted);font-weight:700;text-align:center;margin:8px 0">' + num(ms.length) + ' / ' + num(MAX_MEMBERS) + '</div>' + (canAdd ? '<form id="addMemberForm" data-sport="' + sportId + '" data-team="' + teamId + '" style="display:grid;grid-template-columns:1fr auto;gap:10px;margin-top:14px"><input class="input" id="memberNameInput" placeholder="' + t('memberName') + '"><button class="btn primary" type="submit">＋ ' + t('addMember') + '</button></form>' : '') + '<button class="btn block" data-action="closeModal" style="margin-top:10px">' + t('close') + '</button>');
   const form = document.getElementById('addMemberForm');
   if(form) form.addEventListener('submit', e => {
     e.preventDefault();
@@ -2072,7 +2072,7 @@ function openPalette(sportId, teamId){
 }
 
 function openGuide(){
-  openModal('<div class="modal-head"><h2>❓ ' + t('guide') + '</h2><button class="icon-btn sm" data-action="closeModal">✕</button></div><div style="padding:10px 0"><h3 style="font-size:.9rem;font-weight:800;margin-bottom:8px">🏆 v1.7.2</h3><p style="font-size:.8rem;color:var(--muted);line-height:1.8">۸ تم، ۲ زبان، ۳ سرور، فصل‌ها، وبلاگ با تصویر، جدول حذفی، انتقادات و پیشنهادات</p></div><div style="padding:10px 0;border-top:1px solid var(--border)"><h3 style="font-size:.9rem;font-weight:800;margin-bottom:8px">💬 انتقادات و پیشنهادات</h3><p style="font-size:.8rem;color:var(--muted);line-height:1.8">می‌تونی با اسم، عنوان و متن، نظر یا انتقادت رو ثبت کنی. مدیر اون‌ها رو می‌بینه.</p></div><button class="btn block" data-action="closeModal" style="margin-top:16px">' + t('close') + '</button>');
+  openModal('<div class="modal-head"><h2>❓ ' + t('guide') + '</h2><button class="icon-btn sm" data-action="closeModal">✕</button></div><div style="padding:10px 0"><h3 style="font-size:.9rem;font-weight:800;margin-bottom:8px">🏆 v1.7.3</h3><p style="font-size:.8rem;color:var(--muted);line-height:1.8">۸ تم، ۲ زبان، ۳ سرور، فصل‌ها، وبلاگ با تصویر، جدول حذفی، انتقادات و پیشنهادات</p></div><div style="padding:10px 0;border-top:1px solid var(--border)"><h3 style="font-size:.9rem;font-weight:800;margin-bottom:8px">💬 انتقادات و پیشنهادات</h3><p style="font-size:.8rem;color:var(--muted);line-height:1.8">می‌تونی با اسم، عنوان و متن، نظر یا انتقادت رو ثبت کنی. مدیر اون‌ها رو می‌بینه.</p></div><button class="btn block" data-action="closeModal" style="margin-top:16px">' + t('close') + '</button>');
 }
 
 /* ============ DEBUG PANEL ============ */
@@ -2207,9 +2207,9 @@ document.addEventListener('keydown', e => {
   DEBUG.ok('Ready');
 })();
 </script>
-<!-- v1.7.2: این بلوک را قبل از </body> و بعد از اسکریپت اصلی index.html بچسبانید -->
+<!-- v1.7.3: این بلوک را قبل از </body> و بعد از اسکریپت اصلی index.html بچسبانید -->
 <script>
-/* لیگ ورزش‌ها — افزونه v1.7.2 */
+/* لیگ ورزش‌ها — افزونه v1.7.3 */
 (function(){
 var gender='men';
 var G={men:'آقایان',women:'بانوان'};
@@ -2262,7 +2262,7 @@ renderAdminSolo=function(sp){
   var rows=sd.teams.length?sd.teams.map(function(tm){
     var arr=soloArr(sd,tm.id), tot=sd.soloScores[tm.id];
     var inputs=arr.map(function(v,i){return '<input class="solo-r" type="number" inputmode="decimal" step="any" min="0" value="'+(v!=null&&v!==''?v:'')+'" placeholder="'+num(i+1)+'" data-solo-r="'+tm.id+'" data-idx="'+i+'" data-sport="'+sp.id+'">';}).join('');
-    return '<div class="solo-block"><div class="solo-row"><button class="color-pick-btn" data-action="openPalette" data-sport="'+sp.id+'" data-id="'+tm.id+'" style="background:'+esc(tm.color)+'"></button><input class="input" value="'+esc(tm.name)+'" maxlength="24" data-rename="'+tm.id+'" data-sport="'+sp.id+'"><span class="solo-total" id="tot-'+tm.id+'">Σ '+(tot!=null?num(tot):'—')+'</span><button class="btn danger sm" data-action="delTeam" data-sport="'+sp.id+'" data-id="'+tm.id+'">✕</button></div><div class="solo-five">'+inputs+'</div></div>';
+    return '<div class="solo-block"><div class="solo-row"><button class="color-pick-btn" data-action="openPalette" data-sport="'+sp.id+'" data-id="'+tm.id+'" style="background:'+esc(tm.color)+'"></button><input class="input" value="'+esc(tm.name)+'" data-rename="'+tm.id+'" data-sport="'+sp.id+'"><span class="solo-total" id="tot-'+tm.id+'">Σ '+(tot!=null?num(tot):'—')+'</span><button class="btn danger sm" data-action="delTeam" data-sport="'+sp.id+'" data-id="'+tm.id+'">✕</button></div><div class="solo-five">'+inputs+'</div></div>';
   }).join(''):'<p style="color:var(--muted);font-size:.85rem;padding:8px 0">'+t('noTeams')+'</p>';
   return '<div class="section fade"><div class="section-title">🔐 '+t('adminPanel')+' — '+G[gender]+'</div>'+teamListBlock(sp)+'<div class="card"><div class="section-title" style="margin:0 0 12px">📈 ۵ نمره هر شرکت‌کننده</div><div>'+rows+'</div></div></div>';
 };
@@ -2469,9 +2469,9 @@ function decorate(){
 function fixTexts(){
   var tb=document.getElementById('feedbackTopBtn'); if(tb) tb.title=NEW;
   var ab=document.querySelector('#feedbackActionBtn span:last-child'); if(ab) ab.textContent=NEW;
-  document.querySelectorAll('.version-badge').forEach(function(b){b.textContent='v1.7.2';});
-  var f=document.getElementById('footer'); if(f) f.textContent='لیگ ورزش‌ها • v1.7.2';
-  document.title=document.title.replace('v1.4.0','v1.7.2');
+  document.querySelectorAll('.version-badge').forEach(function(b){b.textContent='v1.7.3';});
+  var f=document.getElementById('footer'); if(f) f.textContent='لیگ ورزش‌ها • v1.7.3';
+  document.title=document.title.replace('v1.4.0','v1.7.3');
 }
 
 /* ---------- 6) جدول حذفی: اندازه توان ۲ (حداقل ۴) + استراحت تصادفی ---------- */
@@ -2997,6 +2997,7 @@ render=function(){_r9();tickify();};
 
 /* 9-b) تغییرات نسخه */
 var LOG=[
+ ['v1.7.3',['نام شرکت‌کنندگان و اعضا بدون محدودیت تعداد حروف؛ نام‌های بلند در جدول‌ها و بازی‌ها کامل نمایش داده می‌شود']],
  ['v1.7.2',['اصلاح: گزینه پیش‌فرض پنجره ورود همیشه «مدیر سایت» است']],
  ['v1.7.0',['نقش‌ها: مدیر اصلی (admin) و مدیر سایت با اختیار محدود؛ ورود با دو گزینه (پیش‌فرض: مدیر سایت)','رمز اولیه admin برابر Aa123456 و قابل تغییر؛ افزودن/حذف مدیر، تغییر رمزها، ریست اطلاعات، مدیریت سرورها و پشتیبان‌گیری فقط با مدیر اصلی','پخش زنده بازی‌ها: دایره سبز چشمک‌زن، به‌روزرسانی نتیجه، اعلان «گل زد» و «را برد» (۳ ثانیه، قابل کلیک)، صدای خوشحالی و کاغذ رنگی','تنظیمات هر کاربر برای خاموش کردن صدا، کاغذ رنگی و پیام گل','رنگ‌های جدید تیم‌ها از جمله سفید و سیاه','آپلود ویدیو از گالری در اخبار','چاپ هوشمند: نمایش کامل نام شرکت‌کنندگان در PDF']],
  ['v1.6.3',['ویرایش چیدمان شرکت‌کنندگان بعد از ساخت جدول (حذفی، جام و مختلط)؛ شرکت‌کننده تکراری قرمز و خارج از جدول زرد','رفع باگ‌ها: جدول طناب‌کشی در حالت انتخاب برنده، ارجاع‌های معلق پس از حذف شرکت‌کننده، بازی رده‌بندی در جدول‌های کوچک، ایمن‌سازی متن اخبار']],
@@ -3399,7 +3400,7 @@ var _oaG=openAdmins;
 openAdmins=function(){if(!isMain()){toast(MAINMSG);return;}return _oaG.apply(this,arguments);};
 function backupData(){
   if(!isMain()){toast(MAINMSG);return;}
-  var pack={app:'league',version:'v1.7.2',date:new Date().toISOString(),state:state};
+  var pack={app:'league',version:'v1.7.3',date:new Date().toISOString(),state:state};
   var blob=new Blob([JSON.stringify(pack)],{type:'application/json'}), a=document.createElement('a');
   a.href=URL.createObjectURL(blob); a.download='league-backup-'+new Date().toISOString().slice(0,10)+'.json';
   document.body.appendChild(a); a.click();
@@ -3646,6 +3647,10 @@ document.head.appendChild(st14);
 var stP=document.createElement('style');
 stP.textContent='@media print{#printArea table{overflow:visible!important}#printArea th,#printArea td{white-space:normal!important;overflow-wrap:anywhere;word-break:normal;line-height:1.7}#printArea td.lg{font-size:12.5px}#printArea td.xl{font-size:11.5px}#printArea table.st td.n{min-width:26%}}';
 document.head.appendChild(stP);
+
+var stN=document.createElement('style');
+stN.textContent='.m-team,.rr-team,.bm-team,.wr-name,.m-team span,.rr-team span,.bm-team span,.wr-name span{white-space:normal!important;overflow:visible!important;text-overflow:clip!important;overflow-wrap:anywhere}.team-cell{align-items:flex-start;min-width:0}.team-cell span:not(.dot){white-space:normal;overflow-wrap:anywhere;text-align:start}.mm-name-input{white-space:normal}';
+document.head.appendChild(stN);
 
 /* ---------- 7) PWA: manifest + service worker ---------- */
 (function(){
